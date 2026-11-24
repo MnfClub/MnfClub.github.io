@@ -195,57 +195,44 @@
     </div>
   </nav>
 
-  <!-- Hero & Notice / Instructions / Warnings Banner -->
-  <header id="top" class="relative min-h-[68vh] flex items-center justify-center overflow-hidden px-margin-mobile md:px-gutter py-16">
+  <!-- Compact Hero Section -->
+  <header id="top" class="relative min-h-[48vh] flex items-center justify-center overflow-hidden px-margin-mobile md:px-gutter py-12">
     <div class="absolute inset-0 z-0">
       <canvas class="absolute inset-0 h-full w-full opacity-70" id="hero-network"></canvas>
       <div class="absolute inset-0 hero-grid opacity-40"></div>
       <div class="absolute inset-0 hero-mesh"></div>
-      <div class="absolute top-1/2 left-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary/10 blur-[130px]"></div>
+      <div class="absolute top-1/2 left-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary/10 blur-[120px]"></div>
       <div class="absolute inset-0 bg-gradient-to-b from-background/10 via-background/50 to-background"></div>
     </div>
 
-    <div class="relative z-10 text-center max-w-4xl mx-auto space-y-6">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/10 border border-secondary/25 text-secondary font-label-sm text-label-sm">
+    <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-label-sm text-xs">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
         </span>
-        Notice &amp; Guidelines: Upload compressed previews for fast loading &amp; anti-theft protection
+        Notice: Use compressed previews for fast loading &amp; reduced-res full view for anti-theft protection
       </div>
 
-      <h1 class="font-headline-xl text-headline-xl md:text-[72px] leading-[1.03] tracking-tight">
+      <h1 class="font-headline-xl text-4xl md:text-6xl font-black tracking-tight">
         <span class="bg-gradient-to-r from-secondary via-secondary to-tertiary bg-clip-text text-transparent magenta-glow">
           MNF DESIGNS
         </span>
       </h1>
 
-      <p class="font-body-md text-body-md text-on-surface-variant md:text-lg max-w-2xl mx-auto">
-        Creator showcase for MNF CLUBS. Upload your design with title, price, description, and category—visitors can inspect full previews with zoom and view your creator profile.
+      <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
+        Dedicated design showcase for MNF CLUBS. Browse categories, inspect full previews with zoom, and view creator profiles.
       </p>
 
-      <!-- Guidelines & Warnings Box -->
-      <div class="glass-card rounded-2xl p-5 text-left max-w-3xl mx-auto border border-secondary/20">
-        <div class="flex items-center gap-2 text-secondary font-label-sm text-label-sm font-bold mb-2">
-          <span class="material-symbols-outlined text-lg">warning</span>
-          INSTRUCTIONS &amp; WARNINGS
-        </div>
-        <ul class="text-xs md:text-sm text-on-surface-variant space-y-1.5">
-          <li>• Use a lightweight cropped/low-res card preview for fast browsing and a reduced-resolution full view to prevent unauthorized theft.</li>
-          <li>• Select the exact space category when publishing so your design appears under its dedicated section.</li>
-          <li>• No in-site payment processing—buyers view details and reach out via your profile.</li>
-        </ul>
-      </div>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+      <div class="flex items-center justify-center gap-3 pt-2">
         <button onclick="openSignInModal()"
-          class="w-full sm:w-auto h-12 px-7 bg-secondary text-on-secondary font-bold rounded-lg transition-all hover:scale-105 shadow-xl shadow-secondary/10 flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined">login</span>
+          class="h-10 px-6 bg-secondary text-on-secondary font-bold text-xs rounded-lg transition-all hover:scale-105 shadow-lg shadow-secondary/10 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-sm">login</span>
           Sign In
         </button>
         <a href="#categories-section"
-          class="w-full sm:w-auto h-12 px-7 border border-outline-variant hover:bg-white/5 transition-all rounded-lg flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined">grid_view</span>
+          class="h-10 px-5 border border-outline-variant hover:bg-white/5 text-xs transition-all rounded-lg flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-sm">grid_view</span>
           Browse Categories
         </a>
       </div>
@@ -253,21 +240,21 @@
   </header>
 
   <!-- Design Categories & Sections -->
-  <section id="categories-section" class="py-16 px-margin-mobile md:px-gutter max-w-container-max mx-auto">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+  <section id="categories-section" class="py-12 px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
       <div>
-        <h2 class="font-headline-lg text-headline-lg md:text-headline-xl font-bold text-secondary">Design Categories</h2>
-        <p class="text-on-surface-variant text-sm md:text-base mt-1">
-          Every uploaded design is assigned to a category and displayed in its matching section below.
+        <h2 class="font-headline-lg text-2xl md:text-4xl font-bold text-secondary">Design Categories</h2>
+        <p class="text-on-surface-variant text-sm mt-1">
+          Uploaded designs appear under their selected category section below.
         </p>
       </div>
     </div>
 
     <!-- Category Filter Bar -->
-    <div id="categoryFilterBar" class="flex flex-wrap gap-2 mb-12"></div>
+    <div id="categoryFilterBar" class="flex flex-wrap gap-2 mb-10"></div>
 
     <!-- Category Sections Container -->
-    <div id="categorySections" class="space-y-14"></div>
+    <div id="categorySections" class="space-y-12"></div>
   </section>
 
   <!-- Design Full Preview + Creator Profile Modal -->
@@ -348,7 +335,7 @@
         <button onclick="closeSignInModal()" class="text-on-surface-variant hover:text-on-surface text-sm">✕</button>
       </div>
       <p class="text-sm text-on-surface-variant leading-relaxed">
-        Creator sign-in, profile management (avatar, name, bio, contact), and design uploads will be wired in the next step.
+        Creator sign-in, profile setup (avatar, name, bio, contact), and design upload will be wired in the next step.
       </p>
       <div class="flex justify-end gap-2">
         <button onclick="closeSignInModal()"
