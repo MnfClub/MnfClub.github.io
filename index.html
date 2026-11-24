@@ -77,108 +77,103 @@
     }
 
     .featured-card {
-      border: 1px solid rgba(250, 204, 21, 0.75) !important;
-      box-shadow: 0 0 22px rgba(250, 204, 21, 0.22), 0 0 14px rgba(251, 171, 255, 0.15) !important;
+      border: 1px solid rgba(250, 204, 21, 0.8) !important;
+      box-shadow: 0 0 24px rgba(250, 204, 21, 0.25), 0 0 14px rgba(251, 171, 255, 0.15) !important;
     }
 
     .blue-neon-card {
       background: rgba(10, 25, 47, 0.85);
       border: 1px solid rgba(56, 189, 248, 0.65);
-      box-shadow: 0 0 16px rgba(56, 189, 248, 0.28), inset 0 0 12px rgba(56, 189, 248, 0.08);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.3), inset 0 0 12px rgba(56, 189, 248, 0.08);
       transition: all 0.25s ease;
     }
 
     .blue-neon-card:hover {
       border-color: rgba(125, 211, 252, 0.95);
-      box-shadow: 0 0 24px rgba(56, 189, 248, 0.45), inset 0 0 14px rgba(56, 189, 248, 0.14);
+      box-shadow: 0 0 26px rgba(56, 189, 248, 0.48), inset 0 0 14px rgba(56, 189, 248, 0.14);
     }
 
-    /* Name Banners around Creator Name */
-    .name-banner-none {
-      background: transparent;
-      border: none;
-      padding: 0;
+    /* Image / Card Banner Frames (For Images & Cards) */
+    .img-banner-none {
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .name-banner-cyber {
-      background: linear-gradient(90deg, rgba(14, 165, 233, 0.22), rgba(59, 130, 246, 0.12));
-      border: 1px solid rgba(56, 189, 248, 0.6);
-      padding: 3px 9px;
-      border-radius: 8px;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.28);
+    .img-banner-cyber {
+      border: 2px solid rgba(56, 189, 248, 0.85);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
     }
-    .name-banner-gold {
-      background: linear-gradient(90deg, rgba(250, 204, 21, 0.24), rgba(245, 158, 11, 0.12));
-      border: 1px solid rgba(250, 204, 21, 0.7);
-      padding: 3px 9px;
-      border-radius: 8px;
-      box-shadow: 0 0 14px rgba(250, 204, 21, 0.32);
+    .img-banner-gold {
+      border: 2px solid rgba(250, 204, 21, 0.9);
+      box-shadow: 0 0 20px rgba(250, 204, 21, 0.35);
     }
-    .name-banner-neon {
-      background: linear-gradient(90deg, rgba(217, 70, 239, 0.24), rgba(168, 85, 247, 0.14));
-      border: 1px solid rgba(251, 171, 255, 0.7);
-      padding: 3px 9px;
-      border-radius: 8px;
-      box-shadow: 0 0 14px rgba(251, 171, 255, 0.35);
+    .img-banner-neon {
+      border: 2px solid rgba(251, 171, 255, 0.9);
+      box-shadow: 0 0 20px rgba(251, 171, 255, 0.38);
     }
-    .name-banner-emerald {
-      background: linear-gradient(90deg, rgba(16, 185, 129, 0.22), rgba(20, 184, 166, 0.12));
-      border: 1px solid rgba(52, 211, 153, 0.65);
-      padding: 3px 9px;
-      border-radius: 8px;
-      box-shadow: 0 0 12px rgba(52, 211, 153, 0.3);
+    .img-banner-emerald {
+      border: 2px solid rgba(52, 211, 153, 0.85);
+      box-shadow: 0 0 18px rgba(52, 211, 153, 0.32);
     }
 
-    /* Varied Neon Name Styles */
+    /* Strong Nitro-Style Neon Glow on Creator Name */
     .neon-name-cyan {
       font-family: 'JetBrains Mono', monospace;
-      color: #e0f2fe;
-      text-shadow: 0 0 8px rgba(56, 189, 248, 0.85), 0 0 18px rgba(14, 165, 233, 0.55);
+      color: #f0f9ff;
+      text-shadow:
+        0 0 6px rgba(56, 189, 248, 0.95),
+        0 0 14px rgba(14, 165, 233, 0.85),
+        0 0 26px rgba(2, 132, 199, 0.65);
     }
     .neon-name-pink {
       font-family: 'JetBrains Mono', monospace;
       color: #fdf4ff;
-      text-shadow: 0 0 8px rgba(251, 171, 255, 0.9), 0 0 18px rgba(217, 70, 239, 0.65);
+      text-shadow:
+        0 0 6px rgba(251, 171, 255, 0.95),
+        0 0 15px rgba(232, 121, 249, 0.85),
+        0 0 28px rgba(192, 38, 211, 0.7);
     }
     .neon-name-gold {
       font-family: 'JetBrains Mono', monospace;
-      color: #fef9c3;
-      text-shadow: 0 0 9px rgba(250, 204, 21, 0.9), 0 0 20px rgba(245, 158, 11, 0.65);
+      color: #fefce8;
+      text-shadow:
+        0 0 6px rgba(253, 224, 71, 0.95),
+        0 0 15px rgba(250, 204, 21, 0.85),
+        0 0 28px rgba(234, 179, 8, 0.7);
     }
     .neon-name-violet {
       font-family: 'JetBrains Mono', monospace;
-      color: #ede9fe;
-      text-shadow: 0 0 9px rgba(167, 139, 250, 0.9), 0 0 18px rgba(129, 140, 248, 0.65);
+      color: #f5f3ff;
+      text-shadow:
+        0 0 6px rgba(196, 181, 253, 0.95),
+        0 0 15px rgba(167, 139, 250, 0.85),
+        0 0 28px rgba(124, 58, 237, 0.7);
     }
 
-    .badge-founder {
-      background: linear-gradient(90deg, #facc15, #fb7185, #c084fc);
-      color: #09090b;
+    /* Glowing Plain-Text Titles (No Boxes / Borders) */
+    .title-text-founder {
+      color: #fbbf24;
       font-weight: 900;
-      box-shadow: 0 0 14px rgba(250, 204, 21, 0.7), 0 0 22px rgba(251, 171, 255, 0.55);
-      animation: founderPulse 2.2s infinite alternate;
+      font-family: 'JetBrains Mono', monospace;
+      text-shadow: 0 0 8px rgba(251, 191, 36, 0.95), 0 0 18px rgba(245, 158, 11, 0.75);
+      animation: titleGlowPulse 2.2s infinite alternate;
     }
 
-    @keyframes founderPulse {
-      from { filter: brightness(1); box-shadow: 0 0 12px rgba(250, 204, 21, 0.6); }
-      to   { filter: brightness(1.18); box-shadow: 0 0 22px rgba(250, 204, 21, 0.95), 0 0 14px rgba(56, 189, 248, 0.5); }
+    .title-text-trusted {
+      color: #38bdf8;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      text-shadow: 0 0 8px rgba(56, 189, 248, 0.9), 0 0 18px rgba(59, 130, 246, 0.65);
     }
 
-    .badge-trusted {
-      background: rgba(52, 211, 153, 0.18);
-      border: 1px solid rgba(52, 211, 153, 0.55);
-      color: #6ee7b7;
+    .title-text-designer {
+      color: #c084fc;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      text-shadow: 0 0 8px rgba(192, 132, 252, 0.9), 0 0 18px rgba(168, 85, 247, 0.65);
     }
 
-    .badge-designer {
-      background: rgba(192, 193, 255, 0.16);
-      border: 1px solid rgba(192, 193, 255, 0.45);
-      color: #c0c1ff;
-    }
-
-    .badge-none {
-      background: rgba(148, 163, 184, 0.14);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      color: #cbd5e1;
+    @keyframes titleGlowPulse {
+      from { filter: brightness(1); }
+      to   { filter: brightness(1.22); }
     }
 
     .magenta-glow {
@@ -263,7 +258,7 @@
         </h1>
 
         <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-          Explore custom interior and exterior builds priced in cash mnfclub, complete with creator titles, banners, priority listings, and zoom inspection.
+          Explore custom interior and exterior builds priced in cash mnfclub, complete with creator titles, image banners, priority listings, and zoom inspection.
         </p>
 
         <div class="flex items-center justify-center gap-3 pt-2">
@@ -296,10 +291,8 @@
           <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-sky-400/70 shrink-0 bg-black/40" />
           <div class="space-y-1.5 overflow-hidden">
             <div class="flex items-center gap-2 flex-wrap">
-              <div id="studioNameBannerWrap" class="name-banner-none">
-                <span id="studioInGameNameDisplay" class="font-bold text-sm md:text-base neon-name-cyan truncate">Name on MnfClub: Not Set</span>
-              </div>
-              <span id="studioBadgePill" class="px-2 py-0.5 rounded-full font-mono text-[10px] badge-none">None</span>
+              <span id="studioInGameNameDisplay" class="font-bold text-sm md:text-base neon-name-cyan truncate">Name on MnfClub: Not Set</span>
+              <span id="studioBadgeText"></span>
             </div>
             <div id="studioDiscordDisplay" class="text-xs font-mono text-sky-300 truncate">Discord: Not Set</div>
           </div>
@@ -398,7 +391,12 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
           <div>
             <h2 class="text-2xl md:text-3xl font-black text-secondary">Design Categories</h2>
-            <p class="text-on-surface-variant text-sm mt-1">Click any design card to enlarge it with zoom and view the creator card.</p>
+            <p class="text-on-surface-variant text-sm mt-1">Search by design name or creator name, and click any design to inspect.</p>
+          </div>
+
+          <div class="w-full md:w-80 relative">
+            <input id="showcaseSearchInput" type="text" oninput="renderShowcase()" placeholder="Search design or creator name..."
+              class="w-full rounded-xl bg-surface-container-low border border-white/15 px-4 py-2.5 text-xs font-mono text-on-surface placeholder:text-on-surface-variant/60 focus:border-secondary focus:ring-0 outline-none" />
           </div>
         </div>
 
@@ -427,7 +425,7 @@
       <div class="space-y-1">
         <div class="font-bold text-sm text-on-surface">New Design Publishing Mode</div>
         <div id="approvalModeDesc" class="text-xs text-on-surface-variant font-mono">
-          Currently: Instant publish (designs appear right away). Switch if you want manual review first.
+          Currently: Instant publish. Trusted &amp; Founder bypass review queue automatically.
         </div>
       </div>
       <button id="toggleApprovalModeBtn" type="button" onclick="toggleApprovalMode()"
@@ -445,20 +443,28 @@
       <div id="adminPendingList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
 
-    <!-- 2. Creators, Titles & Name Banners Management -->
+    <!-- 2. Creators, Emails, Titles & Image Banners Management -->
     <div class="glass-card rounded-2xl p-6 border border-sky-400/30 space-y-4">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
-        <h3 class="text-lg font-bold text-sky-300">Creators, Emails, Titles &amp; Name Banners</h3>
-        <span id="creatorsCountBadge" class="font-mono text-xs text-on-surface-variant">0 Creators</span>
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
+        <h3 class="text-lg font-bold text-sky-300">Creators, Emails, Titles &amp; Image Banners</h3>
+        <div class="flex items-center gap-3 flex-wrap">
+          <input id="adminCreatorsSearchInput" type="text" oninput="renderAdminDashboard()" placeholder="Search creator, email or title..."
+            class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-sky-400 focus:ring-0 outline-none" />
+          <span id="creatorsCountBadge" class="font-mono text-xs text-on-surface-variant">0 Creators</span>
+        </div>
       </div>
       <div id="adminCreatorsList" class="space-y-3"></div>
     </div>
 
     <!-- 3. All Designs: Priority (Featured) + Edit + Remove -->
     <div class="glass-card rounded-2xl p-6 border border-white/10 space-y-4">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
         <h3 class="text-lg font-bold text-secondary">All Designs &amp; Priority (Featured)</h3>
-        <span id="allDesignsCountBadge" class="font-mono text-xs text-on-surface-variant">0 Total</span>
+        <div class="flex items-center gap-3 flex-wrap">
+          <input id="adminDesignsSearchInput" type="text" oninput="renderAdminDashboard()" placeholder="Search design, category or creator..."
+            class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-secondary focus:ring-0 outline-none" />
+          <span id="allDesignsCountBadge" class="font-mono text-xs text-on-surface-variant">0 Total</span>
+        </div>
       </div>
       <div id="adminAllDesignsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
@@ -472,7 +478,7 @@
 
       <div class="lg:col-span-7 bg-[#020b14] p-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
         <div class="flex-1 flex items-center justify-center overflow-auto min-h-[300px]">
-          <img id="modalFullImage" src="" alt="Design" class="max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none" />
+          <img id="modalFullImage" src="" alt="Design" class="max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none img-banner-none" />
         </div>
 
         <div class="flex items-center justify-center gap-2 pt-4 border-t border-white/5">
@@ -537,11 +543,9 @@
             <div class="flex items-center gap-3">
               <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-sky-400/70 shrink-0 bg-black/40" />
               <div class="overflow-hidden space-y-1">
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  <div id="modalDesignerBannerWrap" class="name-banner-none">
-                    <span id="modalDesignerName" class="font-bold text-sm neon-name-cyan truncate"></span>
-                  </div>
-                  <span id="modalDesignerBadge" class="px-2 py-0.5 rounded-full font-mono text-[10px] badge-none">None</span>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span id="modalDesignerName" class="font-bold text-sm neon-name-cyan truncate"></span>
+                  <span id="modalDesignerBadgeText"></span>
                 </div>
                 <div id="modalDesignerDiscord" class="text-xs font-mono text-sky-300 truncate"></div>
               </div>
@@ -662,7 +666,7 @@
     ];
 
     const BADGES = ["Founder", "Trusted", "Designer", "None"];
-    const BANNERS = ["none", "cyber", "gold", "neon", "emerald"];
+    const IMG_BANNERS = ["none", "cyber", "gold", "neon", "emerald"];
     const NEON_STYLES = ["cyan", "pink", "gold", "violet"];
 
     const SCRIPT_BOLD_UPPER = "𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩";
@@ -690,25 +694,27 @@
       return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
     }
 
-    function getBadgeStyleClass(badge) {
-      if (badge === "Founder") return "badge-founder";
-      if (badge === "Trusted") return "badge-trusted";
-      if (badge === "Designer") return "badge-designer";
-      return "badge-none";
+    // Plain glowing text without box/rectangle; returns empty when badge is None
+    function renderTitleGlowText(badge) {
+      if (!badge || badge === "None") return "";
+      if (badge === "Founder") {
+        return `<span class="text-xs title-text-founder">★ Founder</span>`;
+      }
+      if (badge === "Trusted") {
+        return `<span class="text-xs title-text-trusted">✔ Trusted</span>`;
+      }
+      if (badge === "Designer") {
+        return `<span class="text-xs title-text-designer">Designer</span>`;
+      }
+      return "";
     }
 
-    function renderBadgePill(badge) {
-      const label = BADGES.includes(badge) ? badge : "None";
-      const icon = label === "Founder" ? "★ " : label === "Trusted" ? "✔ " : "";
-      return `<span class="px-2 py-0.5 rounded-full font-mono text-[10px] inline-flex items-center ${getBadgeStyleClass(label)}">${icon}${label}</span>`;
-    }
-
-    function getBannerClass(bannerKey) {
-      if (bannerKey === "cyber") return "name-banner-cyber";
-      if (bannerKey === "gold") return "name-banner-gold";
-      if (bannerKey === "neon") return "name-banner-neon";
-      if (bannerKey === "emerald") return "name-banner-emerald";
-      return "name-banner-none";
+    function getImgBannerClass(bannerKey) {
+      if (bannerKey === "cyber") return "img-banner-cyber";
+      if (bannerKey === "gold") return "img-banner-gold";
+      if (bannerKey === "neon") return "img-banner-neon";
+      if (bannerKey === "emerald") return "img-banner-emerald";
+      return "img-banner-none";
     }
 
     function getNeonNameClass(neonKey, fallbackId = "") {
@@ -749,6 +755,10 @@
         currentSessionUser &&
         (currentSessionUser.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()
       );
+    }
+
+    function hasBypassApproval(badge) {
+      return isAdminUser() || badge === "Founder" || badge === "Trusted";
     }
 
     async function init() {
@@ -931,14 +941,10 @@
         : "Name on MnfClub: Not Set";
       nameEl.className = `font-bold text-sm md:text-base ${getNeonNameClass(extras.neon, currentSessionUser?.id)} truncate`;
 
-      document.getElementById("studioNameBannerWrap").className = getBannerClass(extras.banner);
+      document.getElementById("studioBadgeText").innerHTML = renderTitleGlowText(badge);
       document.getElementById("studioDiscordDisplay").textContent = currentProfile?.contact
         ? `Discord: ${currentProfile.contact}`
         : "Discord: Not Set";
-
-      const badgeEl = document.getElementById("studioBadgePill");
-      badgeEl.className = `px-2 py-0.5 rounded-full font-mono text-[10px] ${getBadgeStyleClass(badge)}`;
-      badgeEl.textContent = (badge === "Founder" ? "★ " : badge === "Trusted" ? "✔ " : "") + badge;
 
       if (currentProfile?.avatar_url) {
         document.getElementById("studioAvatarImg").src = currentProfile.avatar_url;
@@ -1026,7 +1032,10 @@
 
       try {
         const imageUrl = await uploadMedia(imgFile, "designs");
-        const initialStatus = (requireAdminApproval && !isAdminUser()) ? "pending" : "approved";
+        const creatorBadge = currentProfile?.badge || "None";
+        const initialStatus = (requireAdminApproval && !hasBypassApproval(creatorBadge))
+          ? "pending"
+          : "approved";
 
         const payload = {
           user_id: currentSessionUser.id,
@@ -1096,8 +1105,18 @@
       const container = document.getElementById("categoryGroups");
       container.innerHTML = "";
 
+      const searchTerm = (document.getElementById("showcaseSearchInput")?.value || "").trim().toLowerCase();
+
       const publicApprovedDesigns = allDesigns
         .filter(d => (d.status || "approved") === "approved")
+        .filter(d => {
+          if (!searchTerm) return true;
+          const creator = profilesMap[d.user_id] || {};
+          const designTitle = (d.title || "").toLowerCase();
+          const creatorName = (creator.display_name || "").toLowerCase();
+          const categoryName = (d.category || "").toLowerCase();
+          return designTitle.includes(searchTerm) || creatorName.includes(searchTerm) || categoryName.includes(searchTerm);
+        })
         .sort((a, b) => {
           const featDiff = Number(Boolean(b.is_featured)) - Number(Boolean(a.is_featured));
           if (featDiff !== 0) return featDiff;
@@ -1123,7 +1142,9 @@
 
         if (items.length === 0) {
           grid.className = "glass-card rounded-xl p-5 text-sm text-on-surface-variant";
-          grid.textContent = `No designs published in "${category}" yet.`;
+          grid.textContent = searchTerm
+            ? `No matching designs in "${category}" for "${searchTerm}".`
+            : `No designs published in "${category}" yet.`;
         } else {
           items.forEach(item => {
             const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
@@ -1142,7 +1163,7 @@
 
             card.innerHTML = `
               <div>
-                <div class="relative h-44 bg-black/40 overflow-hidden">
+                <div class="relative h-44 bg-black/40 overflow-hidden ${getImgBannerClass(extras.banner)}">
                   <img src="${item.thumb_url}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover transition duration-300 hover:scale-105" />
                   ${featuredTagHtml}
                   <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
@@ -1158,12 +1179,10 @@
 
               <div class="p-3 bg-surface-container-low border-t border-white/5 flex items-center gap-2.5">
                 <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-sky-400/50 shrink-0 bg-black/40" />
-                <div class="overflow-hidden space-y-1">
-                  <div class="flex items-center gap-1.5 flex-wrap">
-                    <div class="${getBannerClass(extras.banner)}">
-                      <span class="font-bold text-xs ${getNeonNameClass(extras.neon, item.user_id)} truncate">Name on MnfClub: ${creator.display_name}</span>
-                    </div>
-                    ${renderBadgePill(creator.badge)}
+                <div class="overflow-hidden space-y-0.5">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-bold text-xs ${getNeonNameClass(extras.neon, item.user_id)} truncate">Name on MnfClub: ${creator.display_name}</span>
+                    ${renderTitleGlowText(creator.badge)}
                   </div>
                   <div class="text-[10px] font-mono text-sky-300 truncate">Discord: ${creator.contact || 'N/A'}</div>
                 </div>
@@ -1185,7 +1204,7 @@
       if (!desc || !btn) return;
 
       if (requireAdminApproval) {
-        desc.textContent = "Currently: Review Queue ON (new user designs wait for your approval).";
+        desc.textContent = "Currently: Review Queue ON (Trusted & Founder auto-publish; others wait for approval).";
         btn.textContent = "Switch to Instant Publish";
       } else {
         desc.textContent = "Currently: Instant Publish ON (designs appear immediately).";
@@ -1203,13 +1222,31 @@
       if (!isAdminUser()) return;
 
       const pendingItems = allDesigns.filter(d => d.status === "pending");
-      const creatorsList = Object.values(profilesMap);
+      const creatorsQuery = (document.getElementById("adminCreatorsSearchInput")?.value || "").trim().toLowerCase();
+      const designsQuery = (document.getElementById("adminDesignsSearchInput")?.value || "").trim().toLowerCase();
+
+      const creatorsList = Object.values(profilesMap).filter(p => {
+        if (!creatorsQuery) return true;
+        return (p.display_name || "").toLowerCase().includes(creatorsQuery)
+          || (p.email || "").toLowerCase().includes(creatorsQuery)
+          || (p.contact || "").toLowerCase().includes(creatorsQuery)
+          || (p.badge || "").toLowerCase().includes(creatorsQuery);
+      });
+
+      const filteredDesigns = allDesigns.filter(item => {
+        if (!designsQuery) return true;
+        const creator = profilesMap[item.user_id] || {};
+        return (item.title || "").toLowerCase().includes(designsQuery)
+          || (item.category || "").toLowerCase().includes(designsQuery)
+          || (creator.display_name || "").toLowerCase().includes(designsQuery)
+          || (creator.email || "").toLowerCase().includes(designsQuery);
+      });
 
       document.getElementById("pendingCountBadge").textContent = `${pendingItems.length} Pending`;
       document.getElementById("creatorsCountBadge").textContent = `${creatorsList.length} Creators`;
-      document.getElementById("allDesignsCountBadge").textContent = `${allDesigns.length} Total`;
+      document.getElementById("allDesignsCountBadge").textContent = `${filteredDesigns.length} / ${allDesigns.length} Designs`;
 
-      // 1. Pending Queue (Click image/card to inspect & edit before approving)
+      // 1. Pending Queue
       const pendingContainer = document.getElementById("adminPendingList");
       if (pendingItems.length === 0) {
         pendingContainer.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No pending designs right now.</div>`;
@@ -1239,7 +1276,7 @@
         }).join("");
       }
 
-      // 2. Creators, Titles & Banners
+      // 2. Creators, Emails, Titles & Image Banners
       const creatorsContainer = document.getElementById("adminCreatorsList");
       creatorsContainer.innerHTML = creatorsList.map(p => {
         const currentBadge = p.badge || "None";
@@ -1251,13 +1288,11 @@
           <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-4">
               <div class="flex items-center gap-3 min-w-0">
-                <img src="${p.avatar_url || 'logo.jpg'}" alt="${p.display_name}" class="w-11 h-11 rounded-xl object-cover border border-sky-400/50 shrink-0" />
+                <img src="${p.avatar_url || 'logo.jpg'}" alt="${p.display_name}" class="w-11 h-11 rounded-xl object-cover shrink-0 ${getImgBannerClass(activeBanner)}" />
                 <div class="min-w-0 space-y-1">
                   <div class="flex items-center gap-2 flex-wrap">
-                    <div class="${getBannerClass(activeBanner)}">
-                      <span class="font-bold text-sm ${getNeonNameClass(activeNeon, p.id)} truncate">${p.display_name || "No Name"}</span>
-                    </div>
-                    ${renderBadgePill(currentBadge)}
+                    <span class="font-bold text-sm ${getNeonNameClass(activeNeon, p.id)} truncate">${p.display_name || "No Name"}</span>
+                    ${renderTitleGlowText(currentBadge)}
                   </div>
                   <div class="text-xs font-mono text-tertiary truncate">Email: ${p.email || "Not recorded yet"}</div>
                   <div class="text-[11px] font-mono text-sky-300 truncate">Discord: ${p.contact || "N/A"}</div>
@@ -1276,8 +1311,8 @@
 
             <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/5 text-[11px] font-mono">
               <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="text-on-surface-variant">Banner:</span>
-                ${BANNERS.map(bn => `
+                <span class="text-on-surface-variant">Image Banner:</span>
+                ${IMG_BANNERS.map(bn => `
                   <button type="button" onclick="adminSetCreatorBanner('${p.id}', '${bn}')"
                     class="px-2 py-0.5 rounded transition ${activeBanner === bn ? "bg-sky-400 text-slate-950 font-bold" : "bg-surface-container-high text-on-surface-variant hover:text-on-surface"}">
                     ${bn}
@@ -1286,7 +1321,7 @@
               </div>
 
               <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="text-on-surface-variant">Neon:</span>
+                <span class="text-on-surface-variant">Name Neon:</span>
                 ${NEON_STYLES.map(nn => `
                   <button type="button" onclick="adminSetCreatorNeon('${p.id}', '${nn}')"
                     class="px-2 py-0.5 rounded transition ${activeNeon === nn ? "bg-secondary text-on-secondary font-bold" : "bg-surface-container-high text-on-surface-variant hover:text-on-surface"}">
@@ -1301,13 +1336,14 @@
 
       // 3. All Designs & Priority
       const allContainer = document.getElementById("adminAllDesignsList");
-      allContainer.innerHTML = allDesigns.map(item => {
+      allContainer.innerHTML = filteredDesigns.map(item => {
         const creator = profilesMap[item.user_id] || { display_name: "Creator", email: "N/A" };
+        const extras = getCreatorExtras(item.user_id);
         const isFeat = Boolean(item.is_featured);
         return `
           <div class="bg-surface-container-low border ${isFeat ? "border-amber-400/60" : "border-white/10"} rounded-xl p-4 flex flex-col justify-between gap-3">
             <div class="space-y-2">
-              <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-32 object-cover rounded-lg bg-black/40" />
+              <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-32 object-cover rounded-lg bg-black/40 ${getImgBannerClass(extras.banner)}" />
               <div class="flex items-center justify-between gap-2">
                 <span class="font-bold text-sm text-on-surface truncate">${item.title}</span>
                 <span class="font-mono text-[10px] px-2 py-0.5 rounded ${item.status === "pending" ? "bg-amber-400/20 text-amber-300" : "bg-emerald-500/20 text-emerald-300"}">${item.status || "approved"}</span>
@@ -1380,7 +1416,7 @@
     }
 
     function adminSetCreatorBanner(profileId, banner) {
-      if (!isAdminUser() || !BANNERS.includes(banner)) return;
+      if (!isAdminUser() || !IMG_BANNERS.includes(banner)) return;
       setCreatorExtras(profileId, { banner });
       if (currentSessionUser && currentSessionUser.id === profileId) updateStudioProfileUI();
       renderShowcase();
@@ -1425,7 +1461,13 @@
       resetZoom();
       resetSubModes();
 
-      document.getElementById("modalFullImage").src = item.thumb_url || item.full_url;
+      const badge = creator.badge || "None";
+      const extras = getCreatorExtras(item.user_id);
+
+      const fullImgEl = document.getElementById("modalFullImage");
+      fullImgEl.src = item.thumb_url || item.full_url;
+      fullImgEl.className = `max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none ${getImgBannerClass(extras.banner)}`;
+
       document.getElementById("modalCategoryBadge").textContent = item.category;
       document.getElementById("modalDesignTitle").textContent = toScriptBold(item.title);
       document.getElementById("modalDesignPrice").textContent = Number(item.price).toLocaleString();
@@ -1434,20 +1476,13 @@
       document.getElementById("modalPendingBadge").classList.toggle("hidden", item.status !== "pending");
       document.getElementById("modalFeaturedBadge").classList.toggle("hidden", !item.is_featured);
 
-      const badge = creator.badge || "None";
-      const extras = getCreatorExtras(item.user_id);
-
       const nameEl = document.getElementById("modalDesignerName");
       nameEl.textContent = `Name on MnfClub: ${creator.display_name || "MNF Creator"}`;
       nameEl.className = `font-bold text-sm ${getNeonNameClass(extras.neon, item.user_id)} truncate`;
 
-      document.getElementById("modalDesignerBannerWrap").className = getBannerClass(extras.banner);
+      document.getElementById("modalDesignerBadgeText").innerHTML = renderTitleGlowText(badge);
       document.getElementById("modalDesignerDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
       document.getElementById("modalDesignerAvatar").src = creator.avatar_url || "logo.jpg";
-
-      const mBadge = document.getElementById("modalDesignerBadge");
-      mBadge.className = `px-2 py-0.5 rounded-full font-mono text-[10px] ${getBadgeStyleClass(badge)}`;
-      mBadge.textContent = (badge === "Founder" ? "★ " : badge === "Trusted" ? "✔ " : "") + badge;
 
       updateOwnerActionsVisibility();
 
