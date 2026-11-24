@@ -93,7 +93,21 @@
       box-shadow: 0 0 26px rgba(56, 189, 248, 0.48), inset 0 0 14px rgba(56, 189, 248, 0.14);
     }
 
-    /* Image / Card Banner Frames (For Images & Cards) */
+    /* Gold Glowing Chat Button at Bottom */
+    .gold-glow-chat-btn {
+      background: linear-gradient(135deg, #facc15, #f59e0b, #fde047);
+      color: #09090b;
+      font-weight: 900;
+      box-shadow: 0 0 18px rgba(250, 204, 21, 0.85), 0 0 34px rgba(245, 158, 11, 0.55);
+      animation: goldChatPulse 2s infinite alternate;
+    }
+
+    @keyframes goldChatPulse {
+      from { transform: translateY(0); box-shadow: 0 0 16px rgba(250, 204, 21, 0.75), 0 0 28px rgba(245, 158, 11, 0.45); }
+      to   { transform: translateY(-2px); box-shadow: 0 0 24px rgba(253, 224, 71, 1), 0 0 40px rgba(245, 158, 11, 0.75); }
+    }
+
+    /* Image / Card Banner Frames */
     .img-banner-none {
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
@@ -114,7 +128,12 @@
       box-shadow: 0 0 18px rgba(52, 211, 153, 0.32);
     }
 
-    /* Strong Nitro-Style Neon Glow on Creator Name */
+    /* Name Neon Styles (Including none) */
+    .neon-name-none {
+      font-family: 'JetBrains Mono', monospace;
+      color: #e2e8f0;
+      text-shadow: none;
+    }
     .neon-name-cyan {
       font-family: 'JetBrains Mono', monospace;
       color: #f0f9ff;
@@ -291,7 +310,7 @@
           <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-sky-400/70 shrink-0 bg-black/40" />
           <div class="space-y-1.5 overflow-hidden">
             <div class="flex items-center gap-2 flex-wrap">
-              <span id="studioInGameNameDisplay" class="font-bold text-sm md:text-base neon-name-cyan truncate">Name on MnfClub: Not Set</span>
+              <span id="studioInGameNameDisplay" class="font-bold text-sm md:text-base neon-name-cyan truncate">Not Set</span>
               <span id="studioBadgeText"></span>
             </div>
             <div id="studioDiscordDisplay" class="text-xs font-mono text-sky-300 truncate">Discord: Not Set</div>
@@ -300,7 +319,7 @@
 
         <form id="profileForm" onsubmit="saveDesignerProfile(event)" class="space-y-4">
           <div>
-            <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Name (MnfClub)</label>
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Creator Name</label>
             <input id="mnfNameInput" type="text" required placeholder="e.g. Marrissa"
               class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
           </div>
@@ -312,7 +331,7 @@
           </div>
 
           <div>
-            <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Avatar (Cropped with Name)</label>
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Creator Avatar</label>
             <input id="avatarFileInput" type="file" accept="image/*"
               class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
           </div>
@@ -443,6 +462,18 @@
       <div id="adminPendingList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
 
+    <!-- 1B. Admin Messages Queue (Double Click User Card to Open Chat & Reply) -->
+    <div class="glass-card rounded-2xl p-6 border border-amber-400/35 space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div>
+          <h3 class="text-lg font-bold text-amber-300">Admin Messages Queue</h3>
+          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Double-click any user card below to view their messages and reply directly.</p>
+        </div>
+        <span id="adminMessagesCountBadge" class="font-mono text-xs text-on-surface-variant">0 Threads</span>
+      </div>
+      <div id="adminMessagesQueueList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+
     <!-- 2. Creators, Emails, Titles & Image Banners Management -->
     <div class="glass-card rounded-2xl p-6 border border-sky-400/30 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
@@ -469,6 +500,45 @@
       <div id="adminAllDesignsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
   </section>
+
+  <!-- Glowing Gold Bottom Button for Signed-In Users -->
+  <button id="chatToAdminFab" type="button" onclick="openUserSupportChat()"
+    class="hidden fixed bottom-5 right-5 z-40 px-5 py-3 rounded-full font-mono text-xs uppercase tracking-wider gold-glow-chat-btn flex items-center gap-2 transition cursor-pointer">
+    <span class="material-symbols-outlined text-base">support_agent</span>
+    Chat to admin
+  </button>
+
+  <!-- Mutual Chat Modal (User <-> Admin) -->
+  <div id="supportChatModal" onclick="closeSupportChatModal(event)"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
+    <div onclick="event.stopPropagation()"
+      class="bg-surface-container border border-amber-400/40 rounded-2xl w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
+
+      <div class="px-5 py-4 bg-surface-container-low border-b border-white/10 flex items-center justify-between gap-3">
+        <div>
+          <div id="chatModalTitle" class="font-bold text-sm text-amber-300">Chat to admin</div>
+          <div id="chatModalSubtitle" class="text-[11px] font-mono text-on-surface-variant">Direct mutual chat with Admin</div>
+        </div>
+        <button type="button" onclick="closeSupportChatModal()"
+          class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">
+          ✕ Close
+        </button>
+      </div>
+
+      <div id="chatMessagesBox" class="flex-1 p-4 overflow-y-auto custom-scrollbar space-y-3 min-h-[260px] bg-[#04101d]">
+        <div class="text-xs font-mono text-on-surface-variant text-center py-6">Loading messages...</div>
+      </div>
+
+      <form onsubmit="sendSupportMessage(event)" class="p-3 bg-surface-container-low border-t border-white/10 flex items-center gap-2">
+        <input id="supportChatInput" type="text" required placeholder="Write your message..."
+          class="flex-1 rounded-xl bg-surface-container border border-white/15 px-3.5 py-2 text-xs text-on-surface focus:border-amber-300 focus:ring-0 outline-none" />
+        <button id="sendSupportMsgBtn" type="submit"
+          class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-mono text-xs font-black transition shrink-0">
+          Send
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- Enlarged Design Inspector Modal + Zoom + Creator Card + Edit & Approve + Remove -->
   <div id="inspectorModal" onclick="closeInspectorModal(event)"
@@ -667,7 +737,7 @@
 
     const BADGES = ["Founder", "Trusted", "Designer", "None"];
     const IMG_BANNERS = ["none", "cyber", "gold", "neon", "emerald"];
-    const NEON_STYLES = ["cyan", "pink", "gold", "violet"];
+    const NEON_STYLES = ["none", "cyan", "pink", "gold", "violet"];
 
     const SCRIPT_BOLD_UPPER = "𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩";
     const SCRIPT_BOLD_LOWER = "𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃";
@@ -717,25 +787,25 @@
       return "img-banner-none";
     }
 
-    function getNeonNameClass(neonKey, fallbackId = "") {
+    function getNeonNameClass(neonKey) {
+      if (neonKey === "none") return "neon-name-none";
       if (NEON_STYLES.includes(neonKey)) return `neon-name-${neonKey}`;
-      const idx = Math.abs(String(fallbackId).split("").reduce((acc, c) => acc + c.charCodeAt(0), 0)) % NEON_STYLES.length;
-      return `neon-name-${NEON_STYLES[idx]}`;
+      return "neon-name-none";
     }
 
     function getCreatorExtras(profileId) {
       try {
         const map = JSON.parse(localStorage.getItem("mnf_creator_extras") || "{}");
-        return map[profileId] || { banner: "none", neon: "" };
+        return map[profileId] || { banner: "none", neon: "none" };
       } catch {
-        return { banner: "none", neon: "" };
+        return { banner: "none", neon: "none" };
       }
     }
 
     function setCreatorExtras(profileId, patch) {
       try {
         const map = JSON.parse(localStorage.getItem("mnf_creator_extras") || "{}");
-        map[profileId] = { ...(map[profileId] || { banner: "none", neon: "" }), ...patch };
+        map[profileId] = { ...(map[profileId] || { banner: "none", neon: "none" }), ...patch };
         localStorage.setItem("mnf_creator_extras", JSON.stringify(map));
       } catch {}
     }
@@ -744,10 +814,12 @@
     let currentProfile = null;
     let allDesigns = [];
     let profilesMap = {};
+    let supportMessages = [];
     let activeFilter = "ALL";
     let zoomLevel = 1;
     let activeInspectedDesign = null;
     let activeInspectedCreator = null;
+    let activeChatThreadUserId = null;
     let requireAdminApproval = localStorage.getItem("mnf_require_approval") === "true";
 
     function isAdminUser() {
@@ -759,6 +831,13 @@
 
     function hasBypassApproval(badge) {
       return isAdminUser() || badge === "Founder" || badge === "Trusted";
+    }
+
+    function updateChatFabVisibility() {
+      const fab = document.getElementById("chatToAdminFab");
+      if (!fab) return;
+      const show = Boolean(currentSessionUser && !isAdminUser());
+      fab.classList.toggle("hidden", !show);
     }
 
     async function init() {
@@ -784,14 +863,17 @@
     async function handleSessionState(session) {
       currentSessionUser = session?.user || null;
       renderNavControls();
+      updateChatFabVisibility();
 
       if (currentSessionUser) {
         await loadUserProfile();
         if (isAdminUser()) {
           await syncFounderBadgeForAdmin();
         }
+        await fetchSupportMessages();
       } else {
         currentProfile = null;
+        supportMessages = [];
         closePanels();
         showShowcaseView();
       }
@@ -884,6 +966,7 @@
       document.getElementById("adminPageView").classList.remove("hidden");
       window.scrollTo({ top: 0, behavior: "smooth" });
       renderAdminDashboard();
+      fetchSupportMessages();
     }
 
     function showShowcaseView() {
@@ -917,6 +1000,7 @@
       await sb.auth.signOut();
       closePanels();
       showShowcaseView();
+      updateChatFabVisibility();
     }
 
     async function uploadMedia(file, folder) {
@@ -936,10 +1020,8 @@
       document.getElementById("discordInput").value = currentProfile?.contact || "";
 
       const nameEl = document.getElementById("studioInGameNameDisplay");
-      nameEl.textContent = currentProfile?.display_name
-        ? `Name on MnfClub: ${currentProfile.display_name}`
-        : "Name on MnfClub: Not Set";
-      nameEl.className = `font-bold text-sm md:text-base ${getNeonNameClass(extras.neon, currentSessionUser?.id)} truncate`;
+      nameEl.textContent = currentProfile?.display_name || "Not Set";
+      nameEl.className = `font-bold text-sm md:text-base ${getNeonNameClass(extras.neon)} truncate`;
 
       document.getElementById("studioBadgeText").innerHTML = renderTitleGlowText(badge);
       document.getElementById("studioDiscordDisplay").textContent = currentProfile?.contact
@@ -1013,7 +1095,7 @@
       if (!currentSessionUser) return;
 
       if (!currentProfile?.display_name) {
-        alert("Please save your In-Game Name and Profile Card first!");
+        alert("Please save your Creator Name and Profile Card first!");
         openPanel("profileCardPanel");
         return;
       }
@@ -1181,7 +1263,7 @@
                 <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-sky-400/50 shrink-0 bg-black/40" />
                 <div class="overflow-hidden space-y-0.5">
                   <div class="flex items-center gap-2 flex-wrap">
-                    <span class="font-bold text-xs ${getNeonNameClass(extras.neon, item.user_id)} truncate">Name on MnfClub: ${creator.display_name}</span>
+                    <span class="font-bold text-xs ${getNeonNameClass(extras.neon)} truncate">${creator.display_name}</span>
                     ${renderTitleGlowText(creator.badge)}
                   </div>
                   <div class="text-[10px] font-mono text-sky-300 truncate">Discord: ${creator.contact || 'N/A'}</div>
@@ -1218,6 +1300,180 @@
       updateApprovalModeUI();
     }
 
+    // Support & Mutual Chat Logic
+    async function fetchSupportMessages() {
+      if (!currentSessionUser) return;
+      const { data, error } = await sb
+        .from("support_messages")
+        .select("*")
+        .order("created_at", { ascending: true });
+
+      if (!error && data) {
+        supportMessages = data;
+        if (isAdminUser()) {
+          renderAdminMessagesQueue();
+        }
+        if (!document.getElementById("supportChatModal").classList.contains("hidden")) {
+          renderChatThreadMessages();
+        }
+      }
+    }
+
+    function renderAdminMessagesQueue() {
+      const container = document.getElementById("adminMessagesQueueList");
+      const badge = document.getElementById("adminMessagesCountBadge");
+      if (!container || !badge) return;
+
+      const groupedByUser = {};
+      supportMessages.forEach(msg => {
+        if (!groupedByUser[msg.user_id]) {
+          groupedByUser[msg.user_id] = [];
+        }
+        groupedByUser[msg.user_id].push(msg);
+      });
+
+      const threadUserIds = Object.keys(groupedByUser).sort((a, b) => {
+        const lastA = groupedByUser[a][groupedByUser[a].length - 1]?.created_at || "";
+        const lastB = groupedByUser[b][groupedByUser[b].length - 1]?.created_at || "";
+        return new Date(lastB) - new Date(lastA);
+      });
+
+      badge.textContent = `${threadUserIds.length} Threads`;
+
+      if (threadUserIds.length === 0) {
+        container.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No messages from users yet.</div>`;
+        return;
+      }
+
+      container.innerHTML = threadUserIds.map(uid => {
+        const userMsgs = groupedByUser[uid];
+        const lastMsg = userMsgs[userMsgs.length - 1];
+        const profile = profilesMap[uid] || { display_name: "User", email: "N/A", avatar_url: "logo.jpg" };
+        const needsReply = lastMsg.sender_role === "user";
+
+        return `
+          <div ondblclick="openAdminThreadChat('${uid}')"
+            class="bg-surface-container-low border ${needsReply ? "border-amber-400/60" : "border-white/10"} hover:border-amber-300 rounded-xl p-4 space-y-2 cursor-pointer select-none transition">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <img src="${profile.avatar_url || 'logo.jpg'}" alt="${profile.display_name}" class="w-9 h-9 rounded-lg object-cover border border-amber-400/50 shrink-0" />
+                <div class="min-w-0">
+                  <div class="font-bold text-sm text-on-surface truncate">${profile.display_name || "User"}</div>
+                  <div class="text-[10px] font-mono text-tertiary truncate">${profile.email || uid}</div>
+                </div>
+              </div>
+              <span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold shrink-0 ${needsReply ? "bg-amber-400 text-slate-950" : "bg-surface-container-high text-on-surface-variant"}">
+                ${needsReply ? "Needs Reply" : "Replied"}
+              </span>
+            </div>
+            <div class="text-xs text-on-surface-variant line-clamp-2 bg-black/25 rounded-lg p-2">
+              <span class="font-mono text-[10px] text-amber-300">${lastMsg.sender_role === "admin" ? "You: " : "User: "}</span>${escapeHtml(lastMsg.message)}
+            </div>
+            <div class="text-[10px] font-mono text-amber-300/80">Double-click to open chat &amp; reply</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    async function openUserSupportChat() {
+      if (!currentSessionUser) return;
+      activeChatThreadUserId = currentSessionUser.id;
+      document.getElementById("chatModalTitle").textContent = "Chat to admin";
+      document.getElementById("chatModalSubtitle").textContent = "Send your issue or question directly to the Admin";
+      document.getElementById("supportChatInput").value = "";
+      const modal = document.getElementById("supportChatModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      await fetchSupportMessages();
+      renderChatThreadMessages();
+    }
+
+    async function openAdminThreadChat(userId) {
+      if (!isAdminUser() || !userId) return;
+      activeChatThreadUserId = userId;
+      const profile = profilesMap[userId] || { display_name: "User", email: "" };
+      document.getElementById("chatModalTitle").textContent = `Chat with ${profile.display_name || "User"}`;
+      document.getElementById("chatModalSubtitle").textContent = profile.email || userId;
+      document.getElementById("supportChatInput").value = "";
+      const modal = document.getElementById("supportChatModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      await fetchSupportMessages();
+      renderChatThreadMessages();
+    }
+
+    function renderChatThreadMessages() {
+      const box = document.getElementById("chatMessagesBox");
+      if (!box || !activeChatThreadUserId) return;
+
+      const threadMsgs = supportMessages.filter(m => m.user_id === activeChatThreadUserId);
+      if (threadMsgs.length === 0) {
+        box.innerHTML = `<div class="text-xs font-mono text-on-surface-variant text-center py-8">No messages yet. Start the conversation below!</div>`;
+        return;
+      }
+
+      box.innerHTML = threadMsgs.map(m => {
+        const isFromAdmin = m.sender_role === "admin";
+        return `
+          <div class="flex flex-col ${isFromAdmin ? "items-end" : "items-start"}">
+            <div class="max-w-[82%] rounded-2xl px-3.5 py-2 text-xs ${isFromAdmin ? "bg-amber-400/20 border border-amber-400/50 text-amber-100" : "bg-surface-container-high border border-white/10 text-on-surface"}">
+              <div class="font-mono text-[10px] mb-0.5 ${isFromAdmin ? "text-amber-300 font-bold" : "text-sky-300"}">
+                ${isFromAdmin ? "Admin" : (profilesMap[m.user_id]?.display_name || "User")}
+              </div>
+              <div class="leading-relaxed break-words">${escapeHtml(m.message)}</div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      box.scrollTop = box.scrollHeight;
+    }
+
+    async function sendSupportMessage(e) {
+      e.preventDefault();
+      if (!currentSessionUser || !activeChatThreadUserId) return;
+
+      const input = document.getElementById("supportChatInput");
+      const btn = document.getElementById("sendSupportMsgBtn");
+      const text = input.value.trim();
+      if (!text) return;
+
+      btn.disabled = true;
+      try {
+        const role = isAdminUser() ? "admin" : "user";
+        const { error } = await sb.from("support_messages").insert({
+          user_id: activeChatThreadUserId,
+          sender_role: role,
+          message: text
+        });
+        if (error) throw error;
+        input.value = "";
+        await fetchSupportMessages();
+        renderChatThreadMessages();
+      } catch (err) {
+        alert(err.message || "Failed to send message.");
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    function closeSupportChatModal(e) {
+      if (!e || e.target.id === "supportChatModal") {
+        activeChatThreadUserId = null;
+        const modal = document.getElementById("supportChatModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
     function renderAdminDashboard() {
       if (!isAdminUser()) return;
 
@@ -1245,6 +1501,8 @@
       document.getElementById("pendingCountBadge").textContent = `${pendingItems.length} Pending`;
       document.getElementById("creatorsCountBadge").textContent = `${creatorsList.length} Creators`;
       document.getElementById("allDesignsCountBadge").textContent = `${filteredDesigns.length} / ${allDesigns.length} Designs`;
+
+      renderAdminMessagesQueue();
 
       // 1. Pending Queue
       const pendingContainer = document.getElementById("adminPendingList");
@@ -1282,7 +1540,7 @@
         const currentBadge = p.badge || "None";
         const extras = getCreatorExtras(p.id);
         const activeBanner = extras.banner || "none";
-        const activeNeon = extras.neon || "";
+        const activeNeon = extras.neon || "none";
 
         return `
           <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 space-y-3">
@@ -1291,7 +1549,7 @@
                 <img src="${p.avatar_url || 'logo.jpg'}" alt="${p.display_name}" class="w-11 h-11 rounded-xl object-cover shrink-0 ${getImgBannerClass(activeBanner)}" />
                 <div class="min-w-0 space-y-1">
                   <div class="flex items-center gap-2 flex-wrap">
-                    <span class="font-bold text-sm ${getNeonNameClass(activeNeon, p.id)} truncate">${p.display_name || "No Name"}</span>
+                    <span class="font-bold text-sm ${getNeonNameClass(activeNeon)} truncate">${p.display_name || "No Name"}</span>
                     ${renderTitleGlowText(currentBadge)}
                   </div>
                   <div class="text-xs font-mono text-tertiary truncate">Email: ${p.email || "Not recorded yet"}</div>
@@ -1477,8 +1735,8 @@
       document.getElementById("modalFeaturedBadge").classList.toggle("hidden", !item.is_featured);
 
       const nameEl = document.getElementById("modalDesignerName");
-      nameEl.textContent = `Name on MnfClub: ${creator.display_name || "MNF Creator"}`;
-      nameEl.className = `font-bold text-sm ${getNeonNameClass(extras.neon, item.user_id)} truncate`;
+      nameEl.textContent = creator.display_name || "MNF Creator";
+      nameEl.className = `font-bold text-sm ${getNeonNameClass(extras.neon)} truncate`;
 
       document.getElementById("modalDesignerBadgeText").innerHTML = renderTitleGlowText(badge);
       document.getElementById("modalDesignerDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
