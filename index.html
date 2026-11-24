@@ -5,6 +5,11 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>MNF DESIGNS | Exclusive Creator Showcase</title>
 
+  <!-- Title Bar / Tab Icon (Logo) -->
+  <link rel="icon" type="image/jpeg" href="logo.jpg" />
+  <link rel="shortcut icon" type="image/jpeg" href="logo.jpg" />
+  <link rel="apple-touch-icon" href="logo.jpg" />
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE1TTV52NL"></script>
   <script>
@@ -71,6 +76,11 @@
       box-shadow: 0 14px 32px -12px rgba(251, 171, 255, 0.18);
     }
 
+    .featured-card {
+      border: 1px solid rgba(250, 204, 21, 0.75) !important;
+      box-shadow: 0 0 22px rgba(250, 204, 21, 0.22), 0 0 14px rgba(251, 171, 255, 0.15) !important;
+    }
+
     .blue-neon-card {
       background: rgba(10, 25, 47, 0.85);
       border: 1px solid rgba(56, 189, 248, 0.65);
@@ -88,6 +98,31 @@
       letter-spacing: 0.03em;
       color: #e0f2fe;
       text-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+    }
+
+    .badge-founder {
+      background: linear-gradient(90deg, #facc15, #fb7185, #c084fc);
+      color: #09090b;
+      font-weight: 900;
+      box-shadow: 0 0 14px rgba(250, 204, 21, 0.7), 0 0 22px rgba(251, 171, 255, 0.55);
+      animation: founderPulse 2.2s infinite alternate;
+    }
+
+    @keyframes founderPulse {
+      from { filter: brightness(1); box-shadow: 0 0 12px rgba(250, 204, 21, 0.6); }
+      to   { filter: brightness(1.18); box-shadow: 0 0 22px rgba(250, 204, 21, 0.95), 0 0 14px rgba(56, 189, 248, 0.5); }
+    }
+
+    .badge-trusted {
+      background: rgba(52, 211, 153, 0.18);
+      border: 1px solid rgba(52, 211, 153, 0.55);
+      color: #6ee7b7;
+    }
+
+    .badge-designer {
+      background: rgba(192, 193, 255, 0.16);
+      border: 1px solid rgba(192, 193, 255, 0.45);
+      color: #c0c1ff;
     }
 
     .magenta-glow {
@@ -127,7 +162,7 @@
   <!-- Top Navigation Bar -->
   <nav class="bg-[#051424]/95 backdrop-blur-md sticky top-0 z-40 border-b border-white/10 shadow-sm">
     <div class="flex justify-between items-center px-4 md:px-8 py-3.5 max-w-7xl mx-auto w-full gap-3">
-      <a href="#top" class="flex items-center gap-3 group shrink-0">
+      <a href="#top" onclick="showShowcaseView()" class="flex items-center gap-3 group shrink-0">
         <img src="logo.jpg" alt="MNF DESIGNS" class="w-9 h-9 rounded-lg object-cover border border-secondary/30 shrink-0" onerror="this.style.display='none'" />
         <span class="text-xl font-black tracking-tight bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent">
           MNF DESIGNS
@@ -145,169 +180,231 @@
     </div>
   </nav>
 
-  <!-- Compact Seamless Hero Section -->
-  <header id="top" class="relative overflow-hidden py-14 px-4 md:px-8 text-center bg-[#051424]">
-    <div class="absolute inset-0 z-0 pointer-events-none">
-      <div class="absolute inset-0 hero-grid"></div>
-      <div class="absolute inset-0 hero-mesh"></div>
-      <div class="absolute top-1/2 left-1/2 w-[500px] h-[280px] -translate-x-1/2 -translate-y-1/2 bg-secondary/10 blur-[130px] rounded-full"></div>
-    </div>
+  <!-- Main Showcase Container -->
+  <div id="mainShowcaseWrapper" class="flex-1 flex flex-col justify-between">
 
-    <div class="relative z-10 max-w-3xl mx-auto space-y-4">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-xs">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
-        </span>
-        MNF CLUBS Showcase • Click any design to inspect full size &amp; creator card
+    <!-- Compact Seamless Hero Section -->
+    <header id="top" class="relative overflow-hidden py-14 px-4 md:px-8 text-center bg-[#051424]">
+      <div class="absolute inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 hero-grid"></div>
+        <div class="absolute inset-0 hero-mesh"></div>
+        <div class="absolute top-1/2 left-1/2 w-[500px] h-[280px] -translate-x-1/2 -translate-y-1/2 bg-secondary/10 blur-[130px] rounded-full"></div>
       </div>
 
-      <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
-        <span class="bg-gradient-to-r from-secondary via-secondary to-tertiary bg-clip-text text-transparent magenta-glow">
-          MNF DESIGNS
-        </span>
-      </h1>
-
-      <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-        Explore custom interior and exterior builds priced in cash mnfclub, complete with creator details and zoom inspection.
-      </p>
-
-      <div class="flex items-center justify-center gap-3 pt-2">
-        <a href="#categoriesSection"
-          class="h-10 px-6 border border-white/15 hover:border-secondary hover:bg-white/5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined text-sm">grid_view</span>
-          Browse Categories
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Content Layout -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 space-y-12">
-
-    <!-- 1. Creator Profile Card Panel -->
-    <section id="profileCardPanel" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/35 max-w-2xl mx-auto w-full space-y-6">
-      <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <div class="flex items-center gap-2 text-secondary font-bold text-base">
-          <span class="material-symbols-outlined text-xl">badge</span>
-          Creator Profile Card
+      <div class="relative z-10 max-w-3xl mx-auto space-y-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-xs">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+          </span>
+          MNF CLUBS Showcase • Click any design to inspect full size &amp; creator card
         </div>
-        <button type="button" onclick="closePanels()"
-          class="px-3.5 py-1.5 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition">
-          Close
-        </button>
-      </div>
 
-      <div class="blue-neon-card rounded-xl p-4 flex items-center gap-4">
-        <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-sky-400/70 shrink-0 bg-black/40" />
-        <div class="space-y-1 overflow-hidden">
-          <div id="studioInGameNameDisplay" class="font-bold text-sm md:text-base mnf-name-badge truncate">Name on MnfClub: Not Set</div>
-          <div id="studioDiscordDisplay" class="text-xs font-mono text-sky-300 truncate">Discord: Not Set</div>
-          <div class="text-[10px] text-sky-200/80 font-mono">MNF Creator</div>
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+          <span class="bg-gradient-to-r from-secondary via-secondary to-tertiary bg-clip-text text-transparent magenta-glow">
+            MNF DESIGNS
+          </span>
+        </h1>
+
+        <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
+          Explore custom interior and exterior builds priced in cash mnfclub, complete with creator titles, priority listings, and zoom inspection.
+        </p>
+
+        <div class="flex items-center justify-center gap-3 pt-2">
+          <a href="#categoriesSection"
+            class="h-10 px-6 border border-white/15 hover:border-secondary hover:bg-white/5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-sm">grid_view</span>
+            Browse Categories
+          </a>
         </div>
       </div>
+    </header>
 
-      <form id="profileForm" onsubmit="saveDesignerProfile(event)" class="space-y-4">
-        <div>
-          <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Name (MnfClub)</label>
-          <input id="mnfNameInput" type="text" required placeholder="e.g. Marrissa"
-            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
+    <!-- Main Content Layout -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 space-y-12">
+
+      <!-- 1. Creator Profile Card Panel -->
+      <section id="profileCardPanel" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/35 max-w-2xl mx-auto w-full space-y-6">
+        <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div class="flex items-center gap-2 text-secondary font-bold text-base">
+            <span class="material-symbols-outlined text-xl">badge</span>
+            Creator Profile Card
+          </div>
+          <button type="button" onclick="closePanels()"
+            class="px-3.5 py-1.5 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition">
+            Close
+          </button>
         </div>
 
-        <div>
-          <label class="block font-mono text-xs text-on-surface-variant mb-1">Discord Username</label>
-          <input id="discordInput" type="text" required placeholder="e.g. rosiemnf"
-            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
+        <div class="blue-neon-card rounded-xl p-4 flex items-center gap-4">
+          <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-sky-400/70 shrink-0 bg-black/40" />
+          <div class="space-y-1.5 overflow-hidden">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="studioInGameNameDisplay" class="font-bold text-sm md:text-base mnf-name-badge truncate">Name on MnfClub: Not Set</span>
+              <span id="studioBadgePill" class="px-2 py-0.5 rounded-full font-mono text-[10px] badge-designer">Designer</span>
+            </div>
+            <div id="studioDiscordDisplay" class="text-xs font-mono text-sky-300 truncate">Discord: Not Set</div>
+          </div>
         </div>
 
-        <div>
-          <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Avatar (Cropped with Name)</label>
-          <input id="avatarFileInput" type="file" accept="image/*"
-            class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
-        </div>
-
-        <button type="submit" id="saveProfileBtn"
-          class="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-bold text-xs hover:brightness-110 transition shadow-md">
-          Save Profile Card
-        </button>
-        <p id="profileStatusMsg" class="text-xs text-tertiary text-center min-h-[16px]"></p>
-      </form>
-    </section>
-
-    <!-- 2. Publish Design Panel -->
-    <section id="publishDesignPanel" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-tertiary/35 max-w-3xl mx-auto w-full space-y-6">
-      <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <div class="flex items-center gap-2 text-tertiary font-bold text-base">
-          <span class="material-symbols-outlined text-xl">add_photo_alternate</span>
-          Publish Design
-        </div>
-        <button type="button" onclick="closePanels()"
-          class="px-3.5 py-1.5 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-tertiary transition">
-          Close
-        </button>
-      </div>
-
-      <form id="uploadDesignForm" onsubmit="publishDesign(event)" class="space-y-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <form id="profileForm" onsubmit="saveDesignerProfile(event)" class="space-y-4">
           <div>
-            <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Name</label>
-            <input id="designTitleInput" type="text" required placeholder="e.g. darky design"
-              class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Name (MnfClub)</label>
+            <input id="mnfNameInput" type="text" required placeholder="e.g. Marrissa"
+              class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
           </div>
 
           <div>
-            <label class="block font-mono text-xs text-on-surface-variant mb-1">Price (cash mnfclub)</label>
-            <div class="relative">
-              <input id="designPriceInput" type="number" min="0" required placeholder="50000"
-                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface pr-32 focus:border-tertiary focus:ring-0 outline-none" />
-              <span class="absolute right-3 top-2.5 text-xs font-mono text-secondary pointer-events-none font-bold">
-                cash mnfclub
-              </span>
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Discord Username</label>
+            <input id="discordInput" type="text" required placeholder="e.g. rosiemnf"
+              class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Avatar (Cropped with Name)</label>
+            <input id="avatarFileInput" type="file" accept="image/*"
+              class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
+          </div>
+
+          <button type="submit" id="saveProfileBtn"
+            class="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-bold text-xs hover:brightness-110 transition shadow-md">
+            Save Profile Card
+          </button>
+          <p id="profileStatusMsg" class="text-xs text-tertiary text-center min-h-[16px]"></p>
+        </form>
+      </section>
+
+      <!-- 2. Publish Design Panel -->
+      <section id="publishDesignPanel" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-tertiary/35 max-w-3xl mx-auto w-full space-y-6">
+        <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div class="flex items-center gap-2 text-tertiary font-bold text-base">
+            <span class="material-symbols-outlined text-xl">add_photo_alternate</span>
+            Publish Design
+          </div>
+          <button type="button" onclick="closePanels()"
+            class="px-3.5 py-1.5 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-tertiary transition">
+            Close
+          </button>
+        </div>
+
+        <form id="uploadDesignForm" onsubmit="publishDesign(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Name</label>
+              <input id="designTitleInput" type="text" required placeholder="e.g. darky design"
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
+            </div>
+
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Price (cash mnfclub)</label>
+              <div class="relative">
+                <input id="designPriceInput" type="number" min="0" required placeholder="50000"
+                  class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface pr-32 focus:border-tertiary focus:ring-0 outline-none" />
+                <span class="absolute right-3 top-2.5 text-xs font-mono text-secondary pointer-events-none font-bold">
+                  cash mnfclub
+                </span>
+              </div>
             </div>
           </div>
+
+          <div>
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Category</label>
+            <select id="designCategorySelect" required
+              class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none">
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Short Description</label>
+            <textarea id="designDescInput" rows="2" required placeholder="Short summary of the design..."
+              class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none"></textarea>
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Preview Image</label>
+            <input id="designImageInput" type="file" accept="image/*" required
+              class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
+            <span class="text-[10px] text-on-surface-variant block mt-1">Used for card preview and enlarges when clicked.</span>
+          </div>
+
+          <button type="submit" id="publishBtn"
+            class="w-full py-3 rounded-lg bg-gradient-to-r from-secondary-container to-secondary text-on-secondary-container font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-secondary/15">
+            Publish Design
+          </button>
+          <p id="uploadStatusMsg" class="text-xs text-secondary text-center min-h-[16px]"></p>
+        </form>
+      </section>
+
+      <!-- Categories & Designs Display Area -->
+      <section id="categoriesSection" class="space-y-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
+          <div>
+            <h2 class="text-2xl md:text-3xl font-black text-secondary">Design Categories</h2>
+            <p class="text-on-surface-variant text-sm mt-1">Click any design card to enlarge it with zoom and view the creator card.</p>
+          </div>
         </div>
 
-        <div>
-          <label class="block font-mono text-xs text-on-surface-variant mb-1">Category</label>
-          <select id="designCategorySelect" required
-            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none">
-          </select>
-        </div>
+        <div id="categoryFilterBar" class="flex flex-wrap gap-2"></div>
+        <div id="categoryGroups" class="space-y-12"></div>
+      </section>
+    </main>
+  </div>
 
-        <div>
-          <label class="block font-mono text-xs text-on-surface-variant mb-1">Short Description</label>
-          <textarea id="designDescInput" rows="2" required placeholder="Short summary of the design..."
-            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none"></textarea>
-        </div>
+  <!-- Dedicated Admin Page View (Opened When Clicking Admin Button) -->
+  <section id="adminPageView" class="hidden flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-10">
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+      <div>
+        <span class="font-mono text-xs uppercase tracking-wider text-amber-300">Founder Control Center • ss4459206@gmail.com</span>
+        <h2 class="text-2xl md:text-3xl font-black text-on-surface mt-1">Admin Dashboard</h2>
+      </div>
+      <button type="button" onclick="showShowcaseView()"
+        class="px-4 py-2 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        Back to Showcase
+      </button>
+    </div>
 
-        <div>
-          <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Preview Image</label>
-          <input id="designImageInput" type="file" accept="image/*" required
-            class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
-          <span class="text-[10px] text-on-surface-variant block mt-1">Used for card preview and enlarges when clicked.</span>
-        </div>
-
-        <button type="submit" id="publishBtn"
-          class="w-full py-3 rounded-lg bg-gradient-to-r from-secondary-container to-secondary text-on-secondary-container font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-secondary/15">
-          Publish Design
-        </button>
-        <p id="uploadStatusMsg" class="text-xs text-secondary text-center min-h-[16px]"></p>
-      </form>
-    </section>
-
-    <!-- Categories & Designs Display Area -->
-    <section id="categoriesSection" class="space-y-8">
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
-        <div>
-          <h2 class="text-2xl md:text-3xl font-black text-secondary">Design Categories</h2>
-          <p class="text-on-surface-variant text-sm mt-1">Click any design card to enlarge it with zoom and view the creator card.</p>
+    <!-- Admin Settings: Approval Mode Toggle -->
+    <div class="glass-card rounded-2xl p-5 border border-white/10 flex flex-wrap items-center justify-between gap-4">
+      <div class="space-y-1">
+        <div class="font-bold text-sm text-on-surface">New Design Publishing Mode</div>
+        <div id="approvalModeDesc" class="text-xs text-on-surface-variant font-mono">
+          Currently: Instant publish (designs appear right away). Switch if you want manual review first.
         </div>
       </div>
+      <button id="toggleApprovalModeBtn" type="button" onclick="toggleApprovalMode()"
+        class="px-4 py-2 rounded-lg bg-secondary/20 border border-secondary/40 text-secondary font-mono text-xs font-bold hover:bg-secondary/30 transition">
+        Switch to Review Queue
+      </button>
+    </div>
 
-      <div id="categoryFilterBar" class="flex flex-wrap gap-2"></div>
-      <div id="categoryGroups" class="space-y-12"></div>
-    </section>
-  </main>
+    <!-- 1. Pending Approval Queue -->
+    <div class="glass-card rounded-2xl p-6 border border-white/10 space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <h3 class="text-lg font-bold text-amber-300">Pending Review Queue</h3>
+        <span id="pendingCountBadge" class="font-mono text-xs text-on-surface-variant">0 Pending</span>
+      </div>
+      <div id="adminPendingList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+
+    <!-- 2. Creators & Titles Management (Founder / Designer / Trusted) -->
+    <div class="glass-card rounded-2xl p-6 border border-sky-400/30 space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <h3 class="text-lg font-bold text-sky-300">Creators, Emails &amp; Titles</h3>
+        <span id="creatorsCountBadge" class="font-mono text-xs text-on-surface-variant">0 Creators</span>
+      </div>
+      <div id="adminCreatorsList" class="space-y-3"></div>
+    </div>
+
+    <!-- 3. All Designs: Priority (Featured) + Edit + Remove -->
+    <div class="glass-card rounded-2xl p-6 border border-white/10 space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <h3 class="text-lg font-bold text-secondary">All Designs &amp; Priority (Featured)</h3>
+        <span id="allDesignsCountBadge" class="font-mono text-xs text-on-surface-variant">0 Total</span>
+      </div>
+      <div id="adminAllDesignsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+  </section>
 
   <!-- Enlarged Design Inspector Modal + Zoom + Creator Card + Edit + Remove -->
   <div id="inspectorModal" onclick="closeInspectorModal(event)"
@@ -338,7 +435,12 @@
         <!-- View Mode -->
         <div id="modalViewMode" class="space-y-4">
           <div class="flex items-center justify-between gap-2 flex-wrap">
-            <span id="modalCategoryBadge" class="px-3 py-1 rounded-full bg-secondary/15 border border-secondary/30 text-secondary font-mono text-xs"></span>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="modalCategoryBadge" class="px-3 py-1 rounded-full bg-secondary/15 border border-secondary/30 text-secondary font-mono text-xs"></span>
+              <span id="modalFeaturedBadge" class="hidden px-2.5 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 font-mono text-[11px] font-bold">
+                ★ Featured
+              </span>
+            </div>
             <div class="flex items-center gap-1.5">
               <button id="modalEditBtn" type="button" onclick="openEditDesignMode()"
                 class="hidden px-3 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-xs font-bold text-tertiary hover:bg-tertiary/30 transition">
@@ -369,15 +471,18 @@
             <span class="font-mono text-[10px] text-sky-300 uppercase tracking-wider font-bold">Creator Card</span>
             <div class="flex items-center gap-3">
               <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-sky-400/70 shrink-0 bg-black/40" />
-              <div class="overflow-hidden">
-                <div id="modalDesignerName" class="font-bold text-sm mnf-name-badge truncate"></div>
+              <div class="overflow-hidden space-y-1">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span id="modalDesignerName" class="font-bold text-sm mnf-name-badge truncate"></span>
+                  <span id="modalDesignerBadge" class="px-2 py-0.5 rounded-full font-mono text-[10px] badge-designer">Designer</span>
+                </div>
                 <div id="modalDesignerDiscord" class="text-xs font-mono text-sky-300 truncate"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Remove Confirmation Mode (Owner Only) -->
+        <!-- Remove Confirmation Mode -->
         <div id="modalDeleteConfirm" class="hidden space-y-4 bg-surface-container-low border border-red-500/35 rounded-xl p-5">
           <div class="font-mono text-xs uppercase tracking-wider text-red-300 font-bold">Confirm Removal</div>
           <p class="text-sm text-on-surface leading-relaxed">
@@ -396,7 +501,7 @@
           <p id="deleteStatusMsg" class="text-xs text-red-300 text-center min-h-[16px]"></p>
         </div>
 
-        <!-- Edit Mode (Owner Only) -->
+        <!-- Edit Mode -->
         <form id="modalEditForm" onsubmit="saveEditedDesign(event)" class="hidden space-y-3">
           <div class="flex items-center justify-between border-b border-white/10 pb-2">
             <span class="font-mono text-xs font-bold text-tertiary uppercase">Edit Design</span>
@@ -474,6 +579,7 @@
     const SUPABASE_URL = "https://xzvdapnhnupnqeulibaq.supabase.co";
     const SUPABASE_KEY = "sb_publishable_I0HO71_s3SMEXIHKd9duKg_QSiU_H6H";
     const BUCKET_NAME = "designs-media";
+    const ADMIN_EMAIL = "ss4459206@gmail.com";
 
     const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -487,6 +593,8 @@
       "Wedding Chapel",
       "Czech Gloryhole Hut"
     ];
+
+    const BADGES = ["Founder", "Trusted", "Designer"];
 
     const SCRIPT_BOLD_UPPER = "𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩";
     const SCRIPT_BOLD_LOWER = "𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃";
@@ -513,6 +621,18 @@
       return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
     }
 
+    function getBadgeStyleClass(badge) {
+      if (badge === "Founder") return "badge-founder";
+      if (badge === "Trusted") return "badge-trusted";
+      return "badge-designer";
+    }
+
+    function renderBadgePill(badge) {
+      const label = BADGES.includes(badge) ? badge : "Designer";
+      const icon = label === "Founder" ? "★ " : label === "Trusted" ? "✔ " : "";
+      return `<span class="px-2 py-0.5 rounded-full font-mono text-[10px] inline-flex items-center ${getBadgeStyleClass(label)}">${icon}${label}</span>`;
+    }
+
     let currentSessionUser = null;
     let currentProfile = null;
     let allDesigns = [];
@@ -521,10 +641,19 @@
     let zoomLevel = 1;
     let activeInspectedDesign = null;
     let activeInspectedCreator = null;
+    let requireAdminApproval = localStorage.getItem("mnf_require_approval") === "true";
+
+    function isAdminUser() {
+      return Boolean(
+        currentSessionUser &&
+        (currentSessionUser.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()
+      );
+    }
 
     async function init() {
       setupCategorySelects();
       renderCategoryFilters();
+      updateApprovalModeUI();
       await fetchShowcaseData();
 
       const { data: { session } } = await sb.auth.getSession();
@@ -547,11 +676,40 @@
 
       if (currentSessionUser) {
         await loadUserProfile();
+        if (isAdminUser()) {
+          await syncFounderBadgeForAdmin();
+        }
       } else {
         currentProfile = null;
         closePanels();
+        showShowcaseView();
       }
+
+      if (!isAdminUser()) {
+        showShowcaseView();
+      }
+
       updateOwnerActionsVisibility();
+      await fetchShowcaseData();
+    }
+
+    async function syncFounderBadgeForAdmin() {
+      if (!currentSessionUser || !isAdminUser()) return;
+      const defaultBadge = currentProfile?.badge === "Founder" ? "Founder" : "Founder";
+      const payload = {
+        id: currentSessionUser.id,
+        email: currentSessionUser.email || ADMIN_EMAIL,
+        display_name: currentProfile?.display_name || "Zeko",
+        contact: currentProfile?.contact || "",
+        avatar_url: currentProfile?.avatar_url || "",
+        badge: defaultBadge,
+        updated_at: new Date().toISOString()
+      };
+      await sb.from("profiles").upsert(payload);
+      currentProfile = payload;
+      profilesMap[currentSessionUser.id] = payload;
+      updateStudioProfileUI();
+      renderNavControls();
     }
 
     async function signInWithGoogle() {
@@ -571,12 +729,20 @@
       if (currentSessionUser) {
         const displayName = currentProfile?.display_name || "Creator";
         const avatarUrl = currentProfile?.avatar_url || "logo.jpg";
+        const adminBtnHtml = isAdminUser()
+          ? `<button type="button" onclick="openAdminPage()"
+               class="px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md">
+               Admin
+             </button>`
+          : "";
 
         area.innerHTML = `
           <button type="button" onclick="openPanel('publishDesignPanel')"
             class="px-4 py-1.5 rounded-full bg-gradient-to-r from-secondary-container to-secondary text-on-secondary-container font-mono text-xs font-bold hover:brightness-110 transition shadow-md">
             Publish
           </button>
+
+          ${adminBtnHtml}
 
           <button type="button" onclick="openPanel('profileCardPanel')"
             class="flex items-center gap-2 bg-surface-container-high border border-secondary/30 hover:border-secondary px-3 py-1.5 rounded-full transition group">
@@ -600,7 +766,22 @@
       }
     }
 
+    function openAdminPage() {
+      if (!isAdminUser()) return;
+      closePanels();
+      document.getElementById("mainShowcaseWrapper").classList.add("hidden");
+      document.getElementById("adminPageView").classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      renderAdminDashboard();
+    }
+
+    function showShowcaseView() {
+      document.getElementById("adminPageView").classList.add("hidden");
+      document.getElementById("mainShowcaseWrapper").classList.remove("hidden");
+    }
+
     function openPanel(panelId) {
+      showShowcaseView();
       const profilePanel = document.getElementById("profileCardPanel");
       const publishPanel = document.getElementById("publishDesignPanel");
 
@@ -624,6 +805,7 @@
     async function signOutUser() {
       await sb.auth.signOut();
       closePanels();
+      showShowcaseView();
     }
 
     async function uploadMedia(file, folder) {
@@ -635,21 +817,32 @@
       return data.publicUrl;
     }
 
+    function updateStudioProfileUI() {
+      const badge = currentProfile?.badge || (isAdminUser() ? "Founder" : "Designer");
+      document.getElementById("mnfNameInput").value = currentProfile?.display_name || "";
+      document.getElementById("discordInput").value = currentProfile?.contact || "";
+      document.getElementById("studioInGameNameDisplay").textContent = currentProfile?.display_name
+        ? `Name on MnfClub: ${currentProfile.display_name}`
+        : "Name on MnfClub: Not Set";
+      document.getElementById("studioDiscordDisplay").textContent = currentProfile?.contact
+        ? `Discord: ${currentProfile.contact}`
+        : "Discord: Not Set";
+
+      const badgeEl = document.getElementById("studioBadgePill");
+      badgeEl.className = `px-2 py-0.5 rounded-full font-mono text-[10px] ${getBadgeStyleClass(badge)}`;
+      badgeEl.textContent = (badge === "Founder" ? "★ " : badge === "Trusted" ? "✔ " : "") + badge;
+
+      if (currentProfile?.avatar_url) {
+        document.getElementById("studioAvatarImg").src = currentProfile.avatar_url;
+      }
+    }
+
     async function loadUserProfile() {
       const { data, error } = await sb.from("profiles").select("*").eq("id", currentSessionUser.id).single();
       if (!error && data) {
         currentProfile = data;
         profilesMap[data.id] = data;
-
-        document.getElementById("mnfNameInput").value = data.display_name || "";
-        document.getElementById("discordInput").value = data.contact || "";
-        document.getElementById("studioInGameNameDisplay").textContent = data.display_name
-          ? `Name on MnfClub: ${data.display_name}`
-          : "Name on MnfClub: Not Set";
-        document.getElementById("studioDiscordDisplay").textContent = data.contact ? `Discord: ${data.contact}` : "Discord: Not Set";
-        if (data.avatar_url) {
-          document.getElementById("studioAvatarImg").src = data.avatar_url;
-        }
+        updateStudioProfileUI();
       }
       renderNavControls();
     }
@@ -670,11 +863,17 @@
           avatarUrl = await uploadMedia(file, "avatars");
         }
 
+        const resolvedBadge = isAdminUser()
+          ? (currentProfile?.badge || "Founder")
+          : (currentProfile?.badge || "Designer");
+
         const payload = {
           id: currentSessionUser.id,
+          email: currentSessionUser.email || "",
           display_name: document.getElementById("mnfNameInput").value.trim(),
           contact: document.getElementById("discordInput").value.trim(),
           avatar_url: avatarUrl,
+          badge: resolvedBadge,
           updated_at: new Date().toISOString()
         };
 
@@ -683,14 +882,11 @@
 
         currentProfile = payload;
         profilesMap[currentSessionUser.id] = payload;
-
-        document.getElementById("studioInGameNameDisplay").textContent = `Name on MnfClub: ${payload.display_name}`;
-        document.getElementById("studioDiscordDisplay").textContent = `Discord: ${payload.contact}`;
-        if (avatarUrl) document.getElementById("studioAvatarImg").src = avatarUrl;
+        updateStudioProfileUI();
 
         msg.textContent = "Profile saved!";
         renderNavControls();
-        renderShowcase();
+        await fetchShowcaseData();
       } catch (err) {
         msg.textContent = err.message || "Failed to save profile.";
       } finally {
@@ -722,6 +918,7 @@
 
       try {
         const imageUrl = await uploadMedia(imgFile, "designs");
+        const initialStatus = (requireAdminApproval && !isAdminUser()) ? "pending" : "approved";
 
         const payload = {
           user_id: currentSessionUser.id,
@@ -730,14 +927,18 @@
           category: document.getElementById("designCategorySelect").value,
           description: document.getElementById("designDescInput").value.trim(),
           thumb_url: imageUrl,
-          full_url: imageUrl
+          full_url: imageUrl,
+          status: initialStatus,
+          is_featured: false
         };
 
         const { error } = await sb.from("designs").insert(payload);
         if (error) throw error;
 
         document.getElementById("uploadDesignForm").reset();
-        msg.textContent = "Design published!";
+        msg.textContent = initialStatus === "pending"
+          ? "Submitted! Waiting for Admin approval."
+          : "Design published!";
         await fetchShowcaseData();
       } catch (err) {
         msg.textContent = err.message || "Failed to publish design.";
@@ -759,6 +960,9 @@
 
       allDesigns = designsRes.data || [];
       renderShowcase();
+      if (isAdminUser() && !document.getElementById("adminPageView").classList.contains("hidden")) {
+        renderAdminDashboard();
+      }
     }
 
     function renderCategoryFilters() {
@@ -784,10 +988,18 @@
       const container = document.getElementById("categoryGroups");
       container.innerHTML = "";
 
+      const publicApprovedDesigns = allDesigns
+        .filter(d => (d.status || "approved") === "approved")
+        .sort((a, b) => {
+          const featDiff = Number(Boolean(b.is_featured)) - Number(Boolean(a.is_featured));
+          if (featDiff !== 0) return featDiff;
+          return new Date(b.created_at || 0) - new Date(a.created_at || 0);
+        });
+
       const categoriesToRender = activeFilter === "ALL" ? CATEGORIES : CATEGORIES.filter(c => c === activeFilter);
 
       categoriesToRender.forEach(category => {
-        const items = allDesigns.filter(d => d.category === category);
+        const items = publicApprovedDesigns.filter(d => d.category === category);
         const section = document.createElement("div");
         section.className = "space-y-4";
 
@@ -806,18 +1018,24 @@
           grid.textContent = `No designs published in "${category}" yet.`;
         } else {
           items.forEach(item => {
-            const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg" };
+            const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "Designer" };
             const styledTitle = toScriptBold(item.title);
             const styledDesc = toSansBold(item.description);
+            const isFeatured = Boolean(item.is_featured);
 
             const card = document.createElement("div");
-            card.className = "glass-card rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between";
+            card.className = `glass-card rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between ${isFeatured ? "featured-card" : ""}`;
             card.onclick = () => openInspectorModal(item, creator);
+
+            const featuredTagHtml = isFeatured
+              ? `<div class="absolute top-2 left-2 px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-mono text-[10px] font-black shadow">★ PRIORITY</div>`
+              : "";
 
             card.innerHTML = `
               <div>
                 <div class="relative h-44 bg-black/40 overflow-hidden">
                   <img src="${item.thumb_url}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover transition duration-300 hover:scale-105" />
+                  ${featuredTagHtml}
                   <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
                     ${Number(item.price).toLocaleString()} cash mnfclub
                   </div>
@@ -831,8 +1049,11 @@
 
               <div class="p-3 bg-surface-container-low border-t border-white/5 flex items-center gap-2.5">
                 <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-sky-400/50 shrink-0 bg-black/40" />
-                <div class="overflow-hidden">
-                  <div class="font-bold text-xs mnf-name-badge truncate">Name on MnfClub: ${creator.display_name}</div>
+                <div class="overflow-hidden space-y-0.5">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="font-bold text-xs mnf-name-badge truncate">Name on MnfClub: ${creator.display_name}</span>
+                    ${renderBadgePill(creator.badge)}
+                  </div>
                   <div class="text-[10px] font-mono text-sky-300 truncate">Discord: ${creator.contact || 'N/A'}</div>
                 </div>
               </div>
@@ -847,19 +1068,180 @@
       });
     }
 
+    function updateApprovalModeUI() {
+      const desc = document.getElementById("approvalModeDesc");
+      const btn = document.getElementById("toggleApprovalModeBtn");
+      if (!desc || !btn) return;
+
+      if (requireAdminApproval) {
+        desc.textContent = "Currently: Review Queue ON (new user designs wait for your approval).";
+        btn.textContent = "Switch to Instant Publish";
+      } else {
+        desc.textContent = "Currently: Instant Publish ON (designs appear immediately).";
+        btn.textContent = "Switch to Review Queue";
+      }
+    }
+
+    function toggleApprovalMode() {
+      requireAdminApproval = !requireAdminApproval;
+      localStorage.setItem("mnf_require_approval", String(requireAdminApproval));
+      updateApprovalModeUI();
+    }
+
+    function renderAdminDashboard() {
+      if (!isAdminUser()) return;
+
+      const pendingItems = allDesigns.filter(d => d.status === "pending");
+      const creatorsList = Object.values(profilesMap);
+
+      document.getElementById("pendingCountBadge").textContent = `${pendingItems.length} Pending`;
+      document.getElementById("creatorsCountBadge").textContent = `${creatorsList.length} Creators`;
+      document.getElementById("allDesignsCountBadge").textContent = `${allDesigns.length} Total`;
+
+      // 1. Pending Queue
+      const pendingContainer = document.getElementById("adminPendingList");
+      if (pendingItems.length === 0) {
+        pendingContainer.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No pending designs right now.</div>`;
+      } else {
+        pendingContainer.innerHTML = pendingItems.map(item => {
+          const creator = profilesMap[item.user_id] || { display_name: "Unknown", email: "N/A", contact: "N/A" };
+          return `
+            <div class="bg-surface-container-low border border-amber-400/30 rounded-xl p-4 space-y-3">
+              <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-36 object-cover rounded-lg bg-black/40" />
+              <div class="font-bold text-sm text-on-surface">${item.title} <span class="text-xs font-mono text-secondary">(${item.category})</span></div>
+              <div class="text-xs font-mono text-sky-300 truncate">Creator: ${creator.display_name} • ${creator.email || "No Email"}</div>
+              <div class="flex items-center gap-2 pt-1">
+                <button type="button" onclick="adminApproveDesign('${item.id}')"
+                  class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
+                  Approve
+                </button>
+                <button type="button" onclick="adminDeleteDesign('${item.id}')"
+                  class="flex-1 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition">
+                  Reject &amp; Delete
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // 2. Creators & Titles
+      const creatorsContainer = document.getElementById("adminCreatorsList");
+      creatorsContainer.innerHTML = creatorsList.map(p => {
+        const currentBadge = p.badge || "Designer";
+        return `
+          <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3 min-w-0">
+              <img src="${p.avatar_url || 'logo.jpg'}" alt="${p.display_name}" class="w-11 h-11 rounded-xl object-cover border border-sky-400/50 shrink-0" />
+              <div class="min-w-0">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="font-bold text-sm text-on-surface truncate">${p.display_name || "No Name"}</span>
+                  ${renderBadgePill(currentBadge)}
+                </div>
+                <div class="text-xs font-mono text-tertiary truncate">Email: ${p.email || "Not recorded yet"}</div>
+                <div class="text-[11px] font-mono text-sky-300 truncate">Discord: ${p.contact || "N/A"}</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-1.5 flex-wrap">
+              ${BADGES.map(b => `
+                <button type="button" onclick="adminSetCreatorBadge('${p.id}', '${b}')"
+                  class="px-3 py-1 rounded-lg font-mono text-xs font-bold transition ${currentBadge === b ? "bg-secondary text-on-secondary" : "bg-surface-container-high border border-white/15 text-on-surface hover:border-secondary"}">
+                  ${b}
+                </button>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // 3. All Designs & Priority
+      const allContainer = document.getElementById("adminAllDesignsList");
+      allContainer.innerHTML = allDesigns.map(item => {
+        const creator = profilesMap[item.user_id] || { display_name: "Creator", email: "N/A" };
+        const isFeat = Boolean(item.is_featured);
+        return `
+          <div class="bg-surface-container-low border ${isFeat ? "border-amber-400/60" : "border-white/10"} rounded-xl p-4 flex flex-col justify-between gap-3">
+            <div class="space-y-2">
+              <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-32 object-cover rounded-lg bg-black/40" />
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-bold text-sm text-on-surface truncate">${item.title}</span>
+                <span class="font-mono text-[10px] px-2 py-0.5 rounded ${item.status === "pending" ? "bg-amber-400/20 text-amber-300" : "bg-emerald-500/20 text-emerald-300"}">${item.status || "approved"}</span>
+              </div>
+              <div class="text-xs font-mono text-secondary">${Number(item.price).toLocaleString()} cash mnfclub • ${item.category}</div>
+              <div class="text-[11px] font-mono text-on-surface-variant truncate">${creator.display_name} (${creator.email || "N/A"})</div>
+            </div>
+
+            <div class="flex items-center gap-1.5 pt-2 border-t border-white/5 flex-wrap">
+              <button type="button" onclick="adminToggleFeatured('${item.id}', ${!isFeat})"
+                class="px-2.5 py-1 rounded-lg font-mono text-xs font-bold transition ${isFeat ? "bg-amber-400 text-slate-950" : "bg-surface-container-high border border-amber-400/30 text-amber-300"}">
+                ${isFeat ? "★ Priority ON" : "☆ Set Priority"}
+              </button>
+              <button type="button" onclick="openInspectorModalById('${item.id}')"
+                class="px-2.5 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-tertiary text-xs font-bold">
+                Inspect / Edit
+              </button>
+              <button type="button" onclick="adminDeleteDesign('${item.id}')"
+                class="px-2.5 py-1 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 text-xs font-bold">
+                Remove
+              </button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function openInspectorModalById(designId) {
+      const item = allDesigns.find(d => String(d.id) === String(designId));
+      if (!item) return;
+      const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "Designer" };
+      showShowcaseView();
+      openInspectorModal(item, creator);
+    }
+
+    async function adminApproveDesign(designId) {
+      if (!isAdminUser()) return;
+      const { error } = await sb.from("designs").update({ status: "approved" }).eq("id", designId);
+      if (!error) await fetchShowcaseData();
+    }
+
+    async function adminToggleFeatured(designId, nextFeatured) {
+      if (!isAdminUser()) return;
+      const { error } = await sb.from("designs").update({ is_featured: nextFeatured }).eq("id", designId);
+      if (!error) await fetchShowcaseData();
+    }
+
+    async function adminDeleteDesign(designId) {
+      if (!isAdminUser()) return;
+      const { error } = await sb.from("designs").delete().eq("id", designId);
+      if (!error) await fetchShowcaseData();
+    }
+
+    async function adminSetCreatorBadge(profileId, badge) {
+      if (!isAdminUser() || !BADGES.includes(badge)) return;
+      const { error } = await sb.from("profiles").update({ badge }).eq("id", profileId);
+      if (!error) {
+        if (currentProfile && currentProfile.id === profileId) {
+          currentProfile.badge = badge;
+          updateStudioProfileUI();
+        }
+        await fetchShowcaseData();
+      }
+    }
+
     function updateOwnerActionsVisibility() {
       const editBtn = document.getElementById("modalEditBtn");
       const removeBtn = document.getElementById("modalRemoveBtn");
       if (!editBtn || !removeBtn) return;
 
-      const isOwner = Boolean(
+      const canManage = Boolean(
         currentSessionUser &&
         activeInspectedDesign &&
-        String(currentSessionUser.id) === String(activeInspectedDesign.user_id)
+        (String(currentSessionUser.id) === String(activeInspectedDesign.user_id) || isAdminUser())
       );
 
-      editBtn.classList.toggle("hidden", !isOwner);
-      removeBtn.classList.toggle("hidden", !isOwner);
+      editBtn.classList.toggle("hidden", !canManage);
+      removeBtn.classList.toggle("hidden", !canManage);
     }
 
     function openInspectorModal(item, creator) {
@@ -875,9 +1257,17 @@
       document.getElementById("modalDesignPrice").textContent = Number(item.price).toLocaleString();
       document.getElementById("modalDesignDesc").textContent = toSansBold(item.description);
 
+      const featBadge = document.getElementById("modalFeaturedBadge");
+      featBadge.classList.toggle("hidden", !item.is_featured);
+
+      const badge = creator.badge || "Designer";
       document.getElementById("modalDesignerName").textContent = `Name on MnfClub: ${creator.display_name || "MNF Creator"}`;
       document.getElementById("modalDesignerDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
       document.getElementById("modalDesignerAvatar").src = creator.avatar_url || "logo.jpg";
+
+      const mBadge = document.getElementById("modalDesignerBadge");
+      mBadge.className = `px-2 py-0.5 rounded-full font-mono text-[10px] ${getBadgeStyleClass(badge)}`;
+      mBadge.textContent = (badge === "Founder" ? "★ " : badge === "Trusted" ? "✔ " : "") + badge;
 
       updateOwnerActionsVisibility();
 
@@ -931,12 +1321,12 @@
       msg.textContent = "Removing...";
 
       try {
-        const { error } = await sb
-          .from("designs")
-          .delete()
-          .eq("id", activeInspectedDesign.id)
-          .eq("user_id", currentSessionUser.id);
+        let query = sb.from("designs").delete().eq("id", activeInspectedDesign.id);
+        if (!isAdminUser()) {
+          query = query.eq("user_id", currentSessionUser.id);
+        }
 
+        const { error } = await query;
         if (error) throw error;
 
         await fetchShowcaseData();
@@ -973,12 +1363,12 @@
           full_url: imageUrl
         };
 
-        const { error } = await sb
-          .from("designs")
-          .update(updatedFields)
-          .eq("id", activeInspectedDesign.id)
-          .eq("user_id", currentSessionUser.id);
+        let query = sb.from("designs").update(updatedFields).eq("id", activeInspectedDesign.id);
+        if (!isAdminUser()) {
+          query = query.eq("user_id", currentSessionUser.id);
+        }
 
+        const { error } = await query;
         if (error) throw error;
 
         activeInspectedDesign = { ...activeInspectedDesign, ...updatedFields };
