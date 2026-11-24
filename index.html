@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MnfDesigns</title>
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --panel: #131722;
+      --panel-2: #191f2e;
+      --line: #262e42;
+      --text: #f3f5fa;
+      --muted: #98a2b8;
+      --accent: #3b82f6;
+      --warn-bg: #1f1909;
+      --warn-line: #6b5314;
+      --warn-text: #facc15;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* الهيدر: اللوجو شمال، الاسم يمين */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-left img {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+    }
+
+    .site-title-right {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      background: var(--panel-2);
+      color: var(--text);
+      border: 1px solid var(--line);
+      padding: 8px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* شريط الإعلان / التحذير */
+    .notice-bar {
+      background: var(--warn-bg);
+      border-bottom: 1px solid var(--warn-line);
+      color: var(--warn-text);
+      padding: 10px 24px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 22px 24px 50px;
+    }
+
+    /* شريط الأقسام */
+    .cats-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+
+    .cat-pill {
+      background: var(--panel);
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .cat-pill.active, .cat-pill:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* أقسام التصاميم */
+    .category-section {
+      margin-bottom: 34px;
+    }
+
+    .category-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .category-head h2 {
+      font-size: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .thumb-wrap {
+      position: relative;
+      height: 165px;
+      background: #0e1118;
+      overflow: hidden;
+    }
+
+    .thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .price-tag {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(11, 13, 18, 0.85);
+      border: 1px solid var(--line);
+      padding: 3px 8px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .card-body {
+      padding: 12px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .card-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* نافذة العرض الكامل + البروفيل على الجنب */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 50;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 1050px;
+      max-height: 90vh;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+    }
+
+    .viewer-pane {
+      background: #090b10;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .zoom-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+      min-height: 300px;
+    }
+
+    .zoom-stage img {
+      max-width: 100%;
+      max-height: 62vh;
+      border-radius: 10px;
+      transition: transform 0.2s ease;
+      user-select: none;
+    }
+
+    .zoom-controls {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-pane {
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .designer-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      padding: 12px;
+      border-radius: 12px;
+    }
+
+    .designer-box img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .desc-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 820px) {
+      .modal-box {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+      }
+      .viewer-pane {
+        border-left: none;
+        border-bottom: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-left">
+      <img src="logo.jpg" alt="Logo" onerror="this.style.display='none'" />
+      <span class="btn" onclick="alert('خطوة Sign In هنربطها المرحلة الجاية')">Sign In</span>
+    </div>
+    <div class="site-title-right">MnfDesigns</div>
+  </header>
+
+  <div class="notice-bar" id="noticeBar">
+    <span id="noticeText">تنبيه / إعلان: جميع صور العرض معروضة بدقة خفيفة لحماية التصاميم وسرعة التصفح.</span>
+  </div>
+
+  <div class="container">
+    <div class="cats-nav" id="catsNav"></div>
+    <div id="sectionsContainer"></div>
+  </div>
+
+  <!-- نافذة عرض التصميم الكامل + بروفيل المصمم على الجنب -->
+  <div class="modal-backdrop" id="designModal" onclick="closeModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="viewer-pane">
+        <div class="zoom-stage">
+          <img id="modalFullImg" src="" alt="Full Preview" />
+        </div>
+        <div class="zoom-controls">
+          <button class="btn" onclick="changeZoom(-0.25)">تصغير -</button>
+          <span id="zoomLabel" style="font-size: 12px; color: var(--muted);">100%</span>
+          <button class="btn" onclick="changeZoom(0.25)">تكبير +</button>
+          <button class="btn" onclick="resetZoom()">إعادة ضبط</button>
+        </div>
+      </div>
+
+      <div class="profile-pane">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span id="modalCategory" class="cat-pill active" style="cursor:default;"></span>
+          <button class="btn" onclick="closeModal()">إغلاق ✕</button>
+        </div>
+
+        <h3 id="modalTitle" style="font-size:19px;"></h3>
+        <div id="modalPrice" style="font-size:16px; font-weight:700; color:#60a5fa;"></div>
+        <p class="desc-text" id="modalDesc"></p>
+
+        <div class="designer-box">
+          <img id="modalAvatar" src="logo.jpg" alt="Designer" onerror="this.src='logo.jpg'" />
+          <div>
+            <div id="modalDesignerName" style="font-weight:700; font-size:14px;"></div>
+            <div id="modalDesignerBio" style="font-size:12px; color:var(--muted);"></div>
+          </div>
+        </div>
+
+        <div id="modalContact" class="btn btn-primary" style="text-align:center;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CATEGORIES = [
+      "Studio apartment",
+      "2 bedroom apartment",
+      "Garage",
+      "Yacht",
+      "Farm",
+      "Jet",
+      "Wedding Chapel",
+      "Czech Gloryhole Hut"
+    ];
+
+    // بيانات تجريبية مبدئية لاختبار الشكل والأقسام
+    const DESIGNS = [
+      {
+        id: 1,
+        title: "Modern Studio Concept",
+        category: "Studio apartment",
+        price: "$45",
+        desc: "تصميم استوديو مودرن بإضاءة دافئة وتوزيع عملي للمساحات.",
+        thumb: "designs/1.jpg",
+        full: "designs/1.jpg",
+        designer: "Zeko",
+        bio: "مصمم مساحات وتصاميم ثلاثية الأبعاد.",
+        contact: "Discord: zekacoolvip"
+      },
+      {
+        id: 2,
+        title: "Luxury Neon Garage",
+        category: "Garage",
+        price: "$60",
+        desc: "جراج بتفاصيل إضاءة قوية وأرضية لامعة لعرض السيارات.",
+        thumb: "designs/2.jpg",
+        full: "designs/2.jpg",
+        designer: "Mnf Designer",
+        bio: "متخصص في الديكورات الحديثة والمشاهد الخاصة.",
+        contact: "Discord: mnf_studio"
+      }
+    ];
+
+    let activeCategory = "ALL";
+    let zoomLevel = 1;
+
+    function renderCatsNav() {
+      const nav = document.getElementById("catsNav");
+      nav.innerHTML = "";
+
+      const allBtn = document.createElement("button");
+      allBtn.className = "cat-pill" + (activeCategory === "ALL" ? " active" : "");
+      allBtn.textContent = "الكل";
+      allBtn.onclick = () => { activeCategory = "ALL"; renderAll(); };
+      nav.appendChild(allBtn);
+
+      CATEGORIES.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.className = "cat-pill" + (activeCategory === cat ? " active" : "");
+        btn.textContent = cat;
+        btn.onclick = () => { activeCategory = cat; renderAll(); };
+        nav.appendChild(btn);
+      });
+    }
+
+    function renderSections() {
+      const container = document.getElementById("sectionsContainer");
+      container.innerHTML = "";
+
+      const listToShow = activeCategory === "ALL"
+        ? CATEGORIES
+        : CATEGORIES.filter(c => c === activeCategory);
+
+      listToShow.forEach(cat => {
+        const items = DESIGNS.filter(d => d.category === cat);
+        const sec = document.createElement("section");
+        sec.className = "category-section";
+
+        sec.innerHTML = `
+          <div class="category-head">
+            <h2>${cat}</h2>
+            <span style="font-size:12px; color:var(--muted);">${items.length} تصميم</span>
+          </div>
+          <div class="grid" id="grid-${cat.replace(/\s+/g, "-")}"></div>
+        `;
+
+        const grid = sec.querySelector(".grid");
+        if (items.length === 0) {
+          grid.innerHTML = `<div class="card-sub">لا توجد تصاميم مضافة في هذا القسم حالياً.</div>`;
+        } else {
+          items.forEach(item => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.onclick = () => openDesignModal(item);
+            card.innerHTML = `
+              <div class="thumb-wrap">
+                <img src="${item.thumb}" alt="${item.title}" loading="lazy" />
+                <span class="price-tag">${item.price}</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">${item.title}</div>
+                <div class="card-sub">بواسطة ${item.designer}</div>
+              </div>
+            `;
+            grid.appendChild(card);
+          });
+        }
+
+        container.appendChild(sec);
+      });
+    }
+
+    function openDesignModal(item) {
+      resetZoom();
+      document.getElementById("modalFullImg").src = item.full;
+      document.getElementById("modalCategory").textContent = item.category;
+      document.getElementById("modalTitle").textContent = item.title;
+      document.getElementById("modalPrice").textContent = item.price;
+      document.getElementById("modalDesc").textContent = item.desc;
+      document.getElementById("modalDesignerName").textContent = item.designer;
+      document.getElementById("modalDesignerBio").textContent = item.bio;
+      document.getElementById("modalContact").textContent = item.contact;
+      document.getElementById("designModal").classList.add("open");
+    }
+
+    function closeModal(e) {
+      if (!e || e.target.id === "designModal") {
+        document.getElementById("designModal").classList.remove("open");
+      }
+    }
+
+    function changeZoom(delta) {
+      zoomLevel = Math.min(2.5, Math.max(0.75, +(zoomLevel + delta).toFixed(2)));
+      document.getElementById("modalFullImg").style.transform = `scale(${zoomLevel})`;
+      document.getElementById("zoomLabel").textContent = `${Math.round(zoomLevel * 100)}%`;
+    }
+
+    function resetZoom() {
+      zoomLevel = 1;
+      document.getElementById("modalFullImg").style.transform = "scale(1)";
+      document.getElementById("zoomLabel").textContent = "100%";
+    }
+
+    function renderAll() {
+      renderCatsNav();
+      renderSections();
+    }
+
+    renderAll();
+  </script>
+</body>
+</html>
