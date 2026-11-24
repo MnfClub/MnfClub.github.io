@@ -166,118 +166,114 @@
   <!-- Main Content Layout -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 space-y-12">
 
-    <!-- Designer Studio / Dashboard View -->
-    <section id="designerStudioView" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/35 space-y-8">
-      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <div>
-          <span class="font-mono text-xs uppercase tracking-wider text-secondary">Creator Studio</span>
-          <h2 class="text-2xl font-bold text-on-surface mt-1">Profile Card &amp; Design Publisher</h2>
+    <!-- 1. Creator Profile Card Panel (Shown Only When Clicking User Name/Avatar) -->
+    <section id="profileCardPanel" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/35 max-w-2xl mx-auto w-full space-y-6">
+      <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+        <div class="flex items-center gap-2 text-secondary font-bold text-base">
+          <span class="material-symbols-outlined text-xl">badge</span>
+          Creator Profile Card
         </div>
-        <button type="button" onclick="closeStudioView()"
-          class="px-4 py-2 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition">
-          Hide Panel
+        <button type="button" onclick="closePanels()"
+          class="px-3.5 py-1.5 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition">
+          Close
         </button>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <!-- 1. Designer Profile Card & Editor -->
-        <div class="lg:col-span-5 bg-surface-container/65 border border-white/10 rounded-xl p-6 space-y-5">
-          <div class="flex items-center gap-2 text-secondary font-bold text-sm uppercase tracking-wide border-b border-white/5 pb-2">
-            <span class="material-symbols-outlined text-base">badge</span>
-            1. Creator Profile Card
-          </div>
-
-          <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 flex items-center gap-4">
-            <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-secondary/40 shrink-0 bg-black/40" />
-            <div class="space-y-1 overflow-hidden">
-              <div id="studioInGameNameDisplay" class="font-bold text-base text-on-surface truncate">Not Set</div>
-              <div id="studioDiscordDisplay" class="text-xs font-mono text-tertiary truncate">Discord: Not Set</div>
-              <div class="text-[10px] text-on-surface-variant font-mono">MNF Creator</div>
-            </div>
-          </div>
-
-          <form id="profileForm" onsubmit="saveDesignerProfile(event)" class="space-y-4">
-            <div>
-              <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Name (MNF)</label>
-              <input id="mnfNameInput" type="text" required placeholder="e.g. Marrissa"
-                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
-            </div>
-
-            <div>
-              <label class="block font-mono text-xs text-on-surface-variant mb-1">Discord Username</label>
-              <input id="discordInput" type="text" required placeholder="e.g. rosiemnf"
-                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
-            </div>
-
-            <div>
-              <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Avatar (Cropped with Name)</label>
-              <input id="avatarFileInput" type="file" accept="image/*"
-                class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
-            </div>
-
-            <button type="submit" id="saveProfileBtn"
-              class="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-bold text-xs hover:brightness-110 transition shadow-md">
-              Save Profile Card
-            </button>
-            <p id="profileStatusMsg" class="text-xs text-tertiary text-center min-h-[16px]"></p>
-          </form>
-        </div>
-
-        <!-- 2. Publish Design Form (Single Image) -->
-        <div id="publishFormBox" class="lg:col-span-7 bg-surface-container/65 border border-white/10 rounded-xl p-6 space-y-5">
-          <div class="flex items-center gap-2 text-tertiary font-bold text-sm uppercase tracking-wide border-b border-white/5 pb-2">
-            <span class="material-symbols-outlined text-base">add_photo_alternate</span>
-            2. Publish Design
-          </div>
-
-          <form id="uploadDesignForm" onsubmit="publishDesign(event)" class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Name</label>
-                <input id="designTitleInput" type="text" required placeholder="e.g. Sunset Penthouse"
-                  class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
-              </div>
-
-              <div>
-                <label class="block font-mono text-xs text-on-surface-variant mb-1">Price (cash mnf club)</label>
-                <div class="relative">
-                  <input id="designPriceInput" type="number" min="0" required placeholder="50000"
-                    class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface pr-32 focus:border-tertiary focus:ring-0 outline-none" />
-                  <span class="absolute right-3 top-2.5 text-xs font-mono text-secondary pointer-events-none font-bold">
-                    cash mnf club
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label class="block font-mono text-xs text-on-surface-variant mb-1">Category</label>
-              <select id="designCategorySelect" required
-                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none">
-              </select>
-            </div>
-
-            <div>
-              <label class="block font-mono text-xs text-on-surface-variant mb-1">Short Description</label>
-              <textarea id="designDescInput" rows="2" required placeholder="Short summary of the design..."
-                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none"></textarea>
-            </div>
-
-            <div>
-              <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Preview Image</label>
-              <input id="designImageInput" type="file" accept="image/*" required
-                class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
-              <span class="text-[10px] text-on-surface-variant block mt-1">Used for card preview and enlarges when clicked.</span>
-            </div>
-
-            <button type="submit" id="publishBtn"
-              class="w-full py-3 rounded-lg bg-gradient-to-r from-secondary-container to-secondary text-on-secondary-container font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-secondary/15">
-              Publish Design
-            </button>
-            <p id="uploadStatusMsg" class="text-xs text-secondary text-center min-h-[16px]"></p>
-          </form>
+      <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 flex items-center gap-4">
+        <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-secondary/40 shrink-0 bg-black/40" />
+        <div class="space-y-1 overflow-hidden">
+          <div id="studioInGameNameDisplay" class="font-bold text-base text-on-surface truncate">Not Set</div>
+          <div id="studioDiscordDisplay" class="text-xs font-mono text-tertiary truncate">Discord: Not Set</div>
+          <div class="text-[10px] text-on-surface-variant font-mono">MNF Creator</div>
         </div>
       </div>
+
+      <form id="profileForm" onsubmit="saveDesignerProfile(event)" class="space-y-4">
+        <div>
+          <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Name (MNF)</label>
+          <input id="mnfNameInput" type="text" required placeholder="e.g. Marrissa"
+            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs text-on-surface-variant mb-1">Discord Username</label>
+          <input id="discordInput" type="text" required placeholder="e.g. rosiemnf"
+            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Avatar (Cropped with Name)</label>
+          <input id="avatarFileInput" type="file" accept="image/*"
+            class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
+        </div>
+
+        <button type="submit" id="saveProfileBtn"
+          class="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-bold text-xs hover:brightness-110 transition shadow-md">
+          Save Profile Card
+        </button>
+        <p id="profileStatusMsg" class="text-xs text-tertiary text-center min-h-[16px]"></p>
+      </form>
+    </section>
+
+    <!-- 2. Publish Design Panel (Shown Only When Clicking Publish Button) -->
+    <section id="publishDesignPanel" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-tertiary/35 max-w-3xl mx-auto w-full space-y-6">
+      <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
+        <div class="flex items-center gap-2 text-tertiary font-bold text-base">
+          <span class="material-symbols-outlined text-xl">add_photo_alternate</span>
+          Publish Design
+        </div>
+        <button type="button" onclick="closePanels()"
+          class="px-3.5 py-1.5 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-tertiary transition">
+          Close
+        </button>
+      </div>
+
+      <form id="uploadDesignForm" onsubmit="publishDesign(event)" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Name</label>
+            <input id="designTitleInput" type="text" required placeholder="e.g. Sunset Penthouse"
+              class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Price (cash mnf club)</label>
+            <div class="relative">
+              <input id="designPriceInput" type="number" min="0" required placeholder="50000"
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface pr-32 focus:border-tertiary focus:ring-0 outline-none" />
+              <span class="absolute right-3 top-2.5 text-xs font-mono text-secondary pointer-events-none font-bold">
+                cash mnf club
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs text-on-surface-variant mb-1">Category</label>
+          <select id="designCategorySelect" required
+            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none">
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs text-on-surface-variant mb-1">Short Description</label>
+          <textarea id="designDescInput" rows="2" required placeholder="Short summary of the design..."
+            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Preview Image</label>
+          <input id="designImageInput" type="file" accept="image/*" required
+            class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
+          <span class="text-[10px] text-on-surface-variant block mt-1">Used for card preview and enlarges when clicked.</span>
+        </div>
+
+        <button type="submit" id="publishBtn"
+          class="w-full py-3 rounded-lg bg-gradient-to-r from-secondary-container to-secondary text-on-secondary-container font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-secondary/15">
+          Publish Design
+        </button>
+        <p id="uploadStatusMsg" class="text-xs text-secondary text-center min-h-[16px]"></p>
+      </form>
     </section>
 
     <!-- Categories & Designs Display Area -->
@@ -399,7 +395,7 @@
     let profilesMap = {};
     let activeFilter = "ALL";
     let zoomLevel = 1;
-    let autoOpenedStudio = false;
+    let autoOpenedProfile = false;
 
     async function init() {
       setupCategorySelect();
@@ -425,14 +421,14 @@
 
       if (currentSessionUser) {
         await loadUserProfile();
-        if (!autoOpenedStudio) {
-          autoOpenedStudio = true;
-          openStudioView();
+        if (!autoOpenedProfile) {
+          autoOpenedProfile = true;
+          openPanel("profileCardPanel");
         }
       } else {
         currentProfile = null;
-        autoOpenedStudio = false;
-        closeStudioView();
+        autoOpenedProfile = false;
+        closePanels();
       }
     }
 
@@ -455,12 +451,12 @@
         const avatarUrl = currentProfile?.avatar_url || "logo.jpg";
 
         area.innerHTML = `
-          <button type="button" onclick="openStudioView('publishFormBox')"
+          <button type="button" onclick="openPanel('publishDesignPanel')"
             class="px-4 py-1.5 rounded-full bg-gradient-to-r from-secondary-container to-secondary text-on-secondary-container font-mono text-xs font-bold hover:brightness-110 transition shadow-md">
             Publish
           </button>
 
-          <button type="button" onclick="openStudioView('designerStudioView')"
+          <button type="button" onclick="openPanel('profileCardPanel')"
             class="flex items-center gap-2 bg-surface-container-high border border-secondary/30 hover:border-secondary px-3 py-1.5 rounded-full transition group">
             <img src="${avatarUrl}" alt="Avatar" class="w-6 h-6 rounded-full object-cover border border-secondary/50" />
             <span class="text-xs font-bold text-on-surface group-hover:text-secondary">${displayName}</span>
@@ -482,20 +478,30 @@
       }
     }
 
-    function openStudioView(targetId = "designerStudioView") {
-      const studio = document.getElementById("designerStudioView");
-      studio.classList.remove("hidden");
-      const targetEl = document.getElementById(targetId) || studio;
-      targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    function openPanel(panelId) {
+      const profilePanel = document.getElementById("profileCardPanel");
+      const publishPanel = document.getElementById("publishDesignPanel");
+
+      const targetPanel = document.getElementById(panelId);
+      const isAlreadyOpen = targetPanel && !targetPanel.classList.contains("hidden");
+
+      profilePanel.classList.add("hidden");
+      publishPanel.classList.add("hidden");
+
+      if (!isAlreadyOpen && targetPanel) {
+        targetPanel.classList.remove("hidden");
+        targetPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
 
-    function closeStudioView() {
-      document.getElementById("designerStudioView").classList.add("hidden");
+    function closePanels() {
+      document.getElementById("profileCardPanel").classList.add("hidden");
+      document.getElementById("publishDesignPanel").classList.add("hidden");
     }
 
     async function signOutUser() {
       await sb.auth.signOut();
-      closeStudioView();
+      closePanels();
     }
 
     async function uploadMedia(file, folder) {
@@ -574,6 +580,7 @@
 
       if (!currentProfile?.display_name) {
         alert("Please save your In-Game Name and Profile Card first!");
+        openPanel("profileCardPanel");
         return;
       }
 
