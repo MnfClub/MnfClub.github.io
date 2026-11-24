@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MnfDesigns</title>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>MNF DESIGNS | Design Showcase &amp; Creator Profiles</title>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE1TTV52NL"></script>
   <script>
@@ -12,360 +13,377 @@
     gtag('js', new Date());
     gtag('config', 'G-VE1TTV52NL');
   </script>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet" />
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary": "#fbabff",
+            "on-surface-variant": "#c7c6ca",
+            "tertiary": "#c0c1ff",
+            "on-secondary": "#580065",
+            "outline-variant": "#46464a",
+            "on-primary-fixed-variant": "#474647",
+            "on-error": "#690005",
+            "surface-tint": "#c8c6c7",
+            "primary": "#c8c6c7",
+            "on-secondary-fixed-variant": "#7c008e",
+            "surface-container-high": "#1c2b3c",
+            "on-primary-fixed": "#1c1b1c",
+            "inverse-on-surface": "#233143",
+            "surface-container-low": "#0d1c2d",
+            "on-primary": "#313031",
+            "secondary-fixed-dim": "#fbabff",
+            "on-tertiary": "#1000a9",
+            "on-tertiary-fixed": "#07006c",
+            "primary-fixed": "#e5e2e3",
+            "tertiary-fixed": "#e1e0ff",
+            "error-container": "#93000a",
+            "on-tertiary-container": "#6568f3",
+            "on-error-container": "#ffdad6",
+            "surface-container": "#122131",
+            "outline": "#919094",
+            "surface-bright": "#2c3a4c",
+            "background": "#051424",
+            "surface": "#051424",
+            "tertiary-container": "#020039",
+            "error": "#ffb4ab",
+            "surface-dim": "#051424",
+            "primary-fixed-dim": "#c8c6c7",
+            "on-secondary-fixed": "#36003e",
+            "tertiary-fixed-dim": "#c0c1ff",
+            "secondary-container": "#ae05c6",
+            "primary-container": "#0a0a0b",
+            "on-surface": "#d4e4fa",
+            "surface-container-lowest": "#010f1f",
+            "on-tertiary-fixed-variant": "#2f2ebe",
+            "secondary-fixed": "#ffd6fd",
+            "on-primary-container": "#7a797a",
+            "surface-container-highest": "#273647",
+            "on-secondary-container": "#ffd8fd",
+            "inverse-primary": "#5f5e5f",
+            "inverse-surface": "#d4e4fa",
+            "on-background": "#d4e4fa",
+            "surface-variant": "#273647"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "unit": "8px",
+            "margin-mobile": "16px",
+            "gutter": "24px",
+            "container-max": "1280px"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Geist"],
+            "headline-lg": ["Geist"],
+            "headline-xl": ["Geist"],
+            "label-sm": ["JetBrains Mono"],
+            "body-md": ["Geist"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "label-sm": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      --bg: #0b0d12;
-      --panel: #131722;
-      --panel-2: #191f2e;
-      --line: #262e42;
-      --text: #f3f5fa;
-      --muted: #98a2b8;
-      --accent: #3b82f6;
-      --warn-bg: #1f1909;
-      --warn-line: #6b5314;
-      --warn-text: #facc15;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      min-height: 100vh;
+      background-color: #051424;
+      color: #d4e4fa;
+      font-family: 'Geist', sans-serif;
+      scroll-behavior: smooth;
     }
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 24px;
-      background: var(--panel);
-      border-bottom: 1px solid var(--line);
-      position: sticky;
-      top: 0;
-      z-index: 20;
+    .glass-card {
+      background: rgba(28, 43, 60, 0.4);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .brand-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .glass-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(251, 171, 255, 0.45);
+      box-shadow: 0 20px 40px -20px rgba(251, 171, 255, 0.2);
     }
 
-    .brand-left img {
-      width: 42px;
-      height: 42px;
+    .magenta-glow {
+      text-shadow: 0 0 20px rgba(251, 171, 255, 0.4);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #051424;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #273647;
       border-radius: 10px;
-      object-fit: cover;
-      border: 1px solid var(--line);
     }
 
-    .site-title-right {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: 0.4px;
+    .hero-mesh {
+      background: radial-gradient(circle at 50% 40%, rgba(174, 5, 198, 0.14) 0%, transparent 55%),
+                  radial-gradient(circle at 15% 80%, rgba(101, 104, 243, 0.12) 0%, transparent 45%);
     }
 
-    .btn {
-      background: var(--panel-2);
-      color: var(--text);
-      border: 1px solid var(--line);
-      padding: 8px 14px;
-      border-radius: 9px;
-      font-size: 13px;
-      cursor: pointer;
+    .hero-grid {
+      background-image:
+        linear-gradient(rgba(192, 193, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(192, 193, 255, 0.07) 1px, transparent 1px);
+      background-size: 46px 46px;
+      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, black 20%, transparent 80%);
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, black 20%, transparent 80%);
+      animation: grid-pan 50s linear infinite;
     }
 
-    .btn-primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      font-weight: 600;
+    @keyframes grid-pan {
+      from { background-position: 0 0; }
+      to { background-position: 46px 46px; }
     }
 
-    .notice-bar {
-      background: var(--warn-bg);
-      border-bottom: 1px solid var(--warn-line);
-      color: var(--warn-text);
-      padding: 10px 24px;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+    @media (prefers-reduced-motion: reduce) {
+      .hero-grid { animation: none; }
     }
 
-    .container {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 22px 24px 50px;
-    }
-
-    .cats-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 26px;
-    }
-
-    .cat-pill {
-      background: var(--panel);
-      color: var(--muted);
-      border: 1px solid var(--line);
-      padding: 7px 13px;
-      border-radius: 999px;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .cat-pill.active, .cat-pill:hover {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    .category-section {
-      margin-bottom: 34px;
-    }
-
-    .category-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .category-head h2 {
-      font-size: 18px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.15s ease, border-color 0.15s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-    }
-
-    .thumb-wrap {
-      position: relative;
-      height: 165px;
-      background: #0e1118;
-      overflow: hidden;
-    }
-
-    .thumb-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .price-tag {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(11, 13, 18, 0.88);
-      border: 1px solid var(--line);
-      padding: 3px 8px;
-      border-radius: 7px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .card-body {
-      padding: 12px;
-    }
-
-    .card-title {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .card-sub {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.82);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      z-index: 50;
-    }
-
-    .modal-backdrop.open {
-      display: flex;
-    }
-
-    .modal-box {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 1050px;
-      max-height: 90vh;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-    }
-
-    .viewer-pane {
-      background: #090b10;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-right: 1px solid var(--line);
-      overflow: hidden;
-    }
-
-    .zoom-stage {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: auto;
-      min-height: 300px;
-    }
-
-    .zoom-stage img {
-      max-width: 100%;
-      max-height: 62vh;
-      border-radius: 10px;
-      transition: transform 0.2s ease;
-      user-select: none;
-    }
-
-    .zoom-controls {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .profile-pane {
-      padding: 20px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .designer-box {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--panel-2);
-      border: 1px solid var(--line);
-      padding: 12px;
-      border-radius: 12px;
-    }
-
-    .designer-box img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .desc-text {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    @media (max-width: 820px) {
-      .modal-box {
-        grid-template-columns: 1fr;
-        overflow-y: auto;
-      }
-      .viewer-pane {
-        border-right: none;
-        border-bottom: 1px solid var(--line);
-      }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
   </style>
 </head>
-<body>
 
-  <header>
-    <div class="brand-left">
-      <img src="logo.jpg" alt="Logo" onerror="this.style.display='none'" />
-      <button class="btn" onclick="alert('Sign In will be connected in the next step.')">Sign In</button>
+<body class="custom-scrollbar overflow-x-hidden">
+
+  <!-- Top Navigation -->
+  <nav class="bg-background/85 backdrop-blur-md text-secondary sticky top-0 z-50 border-b border-white/10 shadow-sm transition-all duration-300">
+    <div class="flex justify-between items-center px-margin-mobile md:px-gutter py-4 max-w-container-max mx-auto">
+      <a href="#top" class="flex items-center gap-3 group">
+        <img src="logo.jpg" alt="MNF DESIGNS Logo"
+          class="w-9 h-9 rounded-lg object-cover border border-secondary/30 shrink-0 transition-transform duration-300 group-hover:scale-105"
+          onerror="this.style.display='none'" />
+        <span class="font-headline-lg text-[19px] font-black tracking-tight bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent">
+          MNF DESIGNS
+        </span>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <button onclick="openSignInModal()"
+          class="bg-secondary-container text-on-secondary-container px-5 py-2 rounded-full font-label-sm text-label-sm font-bold transition-all duration-300 hover:scale-105 hover:bg-secondary hover:text-on-secondary flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-base">login</span>
+          Sign In
+        </button>
+      </div>
     </div>
-    <div class="site-title-right">MnfDesigns</div>
+  </nav>
+
+  <!-- Hero & Notice / Instructions / Warnings Banner -->
+  <header id="top" class="relative min-h-[68vh] flex items-center justify-center overflow-hidden px-margin-mobile md:px-gutter py-16">
+    <div class="absolute inset-0 z-0">
+      <canvas class="absolute inset-0 h-full w-full opacity-70" id="hero-network"></canvas>
+      <div class="absolute inset-0 hero-grid opacity-40"></div>
+      <div class="absolute inset-0 hero-mesh"></div>
+      <div class="absolute top-1/2 left-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary/10 blur-[130px]"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-background/10 via-background/50 to-background"></div>
+    </div>
+
+    <div class="relative z-10 text-center max-w-4xl mx-auto space-y-6">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/10 border border-secondary/25 text-secondary font-label-sm text-label-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+        </span>
+        Notice &amp; Guidelines: Upload compressed previews for fast loading &amp; anti-theft protection
+      </div>
+
+      <h1 class="font-headline-xl text-headline-xl md:text-[72px] leading-[1.03] tracking-tight">
+        <span class="bg-gradient-to-r from-secondary via-secondary to-tertiary bg-clip-text text-transparent magenta-glow">
+          MNF DESIGNS
+        </span>
+      </h1>
+
+      <p class="font-body-md text-body-md text-on-surface-variant md:text-lg max-w-2xl mx-auto">
+        Creator showcase for MNF CLUBS. Upload your design with title, price, description, and category—visitors can inspect full previews with zoom and view your creator profile.
+      </p>
+
+      <!-- Guidelines & Warnings Box -->
+      <div class="glass-card rounded-2xl p-5 text-left max-w-3xl mx-auto border border-secondary/20">
+        <div class="flex items-center gap-2 text-secondary font-label-sm text-label-sm font-bold mb-2">
+          <span class="material-symbols-outlined text-lg">warning</span>
+          INSTRUCTIONS &amp; WARNINGS
+        </div>
+        <ul class="text-xs md:text-sm text-on-surface-variant space-y-1.5">
+          <li>• Use a lightweight cropped/low-res card preview for fast browsing and a reduced-resolution full view to prevent unauthorized theft.</li>
+          <li>• Select the exact space category when publishing so your design appears under its dedicated section.</li>
+          <li>• No in-site payment processing—buyers view details and reach out via your profile.</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+        <button onclick="openSignInModal()"
+          class="w-full sm:w-auto h-12 px-7 bg-secondary text-on-secondary font-bold rounded-lg transition-all hover:scale-105 shadow-xl shadow-secondary/10 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined">login</span>
+          Sign In
+        </button>
+        <a href="#categories-section"
+          class="w-full sm:w-auto h-12 px-7 border border-outline-variant hover:bg-white/5 transition-all rounded-lg flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined">grid_view</span>
+          Browse Categories
+        </a>
+      </div>
+    </div>
   </header>
 
-  <div class="notice-bar" id="noticeBar">
-    <span id="noticeText">Notice: Preview images are compressed for fast loading and design protection.</span>
-  </div>
+  <!-- Design Categories & Sections -->
+  <section id="categories-section" class="py-16 px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+      <div>
+        <h2 class="font-headline-lg text-headline-lg md:text-headline-xl font-bold text-secondary">Design Categories</h2>
+        <p class="text-on-surface-variant text-sm md:text-base mt-1">
+          Every uploaded design is assigned to a category and displayed in its matching section below.
+        </p>
+      </div>
+    </div>
 
-  <div class="container">
-    <div class="cats-nav" id="catsNav"></div>
-    <div id="sectionsContainer"></div>
-  </div>
+    <!-- Category Filter Bar -->
+    <div id="categoryFilterBar" class="flex flex-wrap gap-2 mb-12"></div>
 
-  <div class="modal-backdrop" id="designModal" onclick="closeModal(event)">
-    <div class="modal-box" onclick="event.stopPropagation()">
-      <div class="viewer-pane">
-        <div class="zoom-stage">
-          <img id="modalFullImg" src="" alt="Full Preview" />
+    <!-- Category Sections Container -->
+    <div id="categorySections" class="space-y-14"></div>
+  </section>
+
+  <!-- Design Full Preview + Creator Profile Modal -->
+  <div id="designModal" onclick="closeDesignModal(event)"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div onclick="event.stopPropagation()"
+      class="bg-surface-container border border-white/10 rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
+
+      <!-- Left: Full Design Viewer + Zoom -->
+      <div class="lg:col-span-7 bg-surface-container-lowest p-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
+        <div class="flex-1 flex items-center justify-center overflow-auto min-h-[280px]">
+          <img id="modalDesignImg" src="" alt="Design Preview"
+            class="max-w-full max-h-[60vh] rounded-xl object-contain transition-transform duration-200 select-none" />
         </div>
-        <div class="zoom-controls">
-          <button class="btn" onclick="changeZoom(-0.25)">Zoom -</button>
-          <span id="zoomLabel" style="font-size: 12px; color: var(--muted);">100%</span>
-          <button class="btn" onclick="changeZoom(0.25)">Zoom +</button>
-          <button class="btn" onclick="resetZoom()">Reset</button>
+
+        <div class="flex items-center justify-center gap-2 pt-4">
+          <button onclick="stepZoom(-0.25)"
+            class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
+            Zoom -
+          </button>
+          <span id="zoomPercent" class="font-label-sm text-xs text-on-surface-variant min-w-[48px] text-center">100%</span>
+          <button onclick="stepZoom(0.25)"
+            class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
+            Zoom +
+          </button>
+          <button onclick="resetZoom()"
+            class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
+            Reset
+          </button>
         </div>
       </div>
 
-      <div class="profile-pane">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span id="modalCategory" class="cat-pill active" style="cursor:default;"></span>
-          <button class="btn" onclick="closeModal()">Close ✕</button>
-        </div>
+      <!-- Right: Design Info & Creator Profile -->
+      <div class="lg:col-span-5 p-6 overflow-y-auto custom-scrollbar flex flex-col justify-between gap-6">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between gap-2">
+            <span id="modalCategoryBadge"
+              class="px-3 py-1 rounded-full bg-secondary/15 border border-secondary/30 text-secondary font-label-sm text-xs"></span>
+            <button onclick="closeDesignModal()"
+              class="px-3 py-1 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:bg-white/10">
+              Close ✕
+            </button>
+          </div>
 
-        <h3 id="modalTitle" style="font-size:19px;"></h3>
-        <div id="modalPrice" style="font-size:16px; font-weight:700; color:#60a5fa;"></div>
-        <p class="desc-text" id="modalDesc"></p>
+          <h3 id="modalDesignTitle" class="font-headline-lg text-2xl font-bold text-on-surface"></h3>
+          <div id="modalDesignPrice" class="font-label-sm text-lg font-bold text-secondary"></div>
+          <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
 
-        <div class="designer-box">
-          <img id="modalAvatar" src="logo.jpg" alt="Designer" onerror="this.style.display='none'" />
-          <div>
-            <div id="modalDesignerName" style="font-weight:700; font-size:14px;"></div>
-            <div id="modalDesignerBio" style="font-size:12px; color:var(--muted);"></div>
+          <!-- Creator Profile Card -->
+          <div class="glass-card rounded-xl p-4 border border-white/10 space-y-2">
+            <div class="font-label-sm text-[11px] uppercase tracking-wider text-tertiary">Creator Profile</div>
+            <div class="flex items-center gap-3">
+              <img id="modalCreatorAvatar" src="logo.jpg" alt="Creator"
+                class="w-12 h-12 rounded-full object-cover border border-secondary/30"
+                onerror="this.style.display='none'" />
+              <div>
+                <div id="modalCreatorName" class="font-bold text-sm text-on-surface"></div>
+                <div id="modalCreatorBio" class="text-xs text-on-surface-variant"></div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div id="modalContact" class="btn btn-primary" style="text-align:center;"></div>
+        <div id="modalCreatorContact"
+          class="w-full py-3 px-4 rounded-xl bg-secondary-container text-on-secondary-container font-label-sm text-xs font-bold text-center border border-secondary/30">
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Sign In Modal -->
+  <div id="signInModal" onclick="closeSignInModal(event)"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div onclick="event.stopPropagation()"
+      class="bg-surface-container border border-white/10 rounded-2xl w-full max-w-md p-6 space-y-5 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <h3 class="font-headline-lg text-xl font-bold text-secondary">Sign In to MNF DESIGNS</h3>
+        <button onclick="closeSignInModal()" class="text-on-surface-variant hover:text-on-surface text-sm">✕</button>
+      </div>
+      <p class="text-sm text-on-surface-variant leading-relaxed">
+        Creator sign-in, profile management (avatar, name, bio, contact), and design uploads will be wired in the next step.
+      </p>
+      <div class="flex justify-end gap-2">
+        <button onclick="closeSignInModal()"
+          class="px-4 py-2 rounded-lg bg-secondary text-on-secondary font-bold text-xs">
+          Got It
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-surface-container-lowest text-on-surface font-body-md text-body-md border-t border-white/5 py-12 mt-12">
+    <div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-gutter max-w-container-max mx-auto gap-6">
+      <div class="flex flex-col items-center md:items-start gap-3">
+        <div class="flex items-center gap-2.5">
+          <img src="logo.jpg" alt="MNF DESIGNS Logo"
+            class="w-8 h-8 rounded-lg object-cover border border-secondary/30"
+            onerror="this.style.display='none'" />
+          <span class="font-headline-lg-mobile text-headline-lg-mobile font-black tracking-tight bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent">
+            MNF DESIGNS
+          </span>
+        </div>
+        <p class="text-on-surface-variant text-sm max-w-sm text-center md:text-left opacity-85">
+          Dedicated design showcase platform for MNF CLUBS—presenting spaces and creative works with creator profiles.
+        </p>
+      </div>
+
+      <div class="text-on-surface-variant text-sm opacity-85 text-center md:text-right">
+        All Rights Reserved © Mnf Club Designs 2027
+      </div>
+    </div>
+  </footer>
+
   <script>
-    const CATEGORIES = [
+    const DESIGN_CATEGORIES = [
       "Studio apartment",
       "2 bedroom apartment",
       "Garage",
@@ -376,115 +394,253 @@
       "Czech Gloryhole Hut"
     ];
 
-    // Empty until real items are added
+    // Add real items here once ready:
+    // { id, title, category, price, desc, thumbImg, fullImg, creatorName, creatorBio, creatorAvatar, creatorContact }
     const DESIGNS = [];
 
-    let activeCategory = "ALL";
-    let zoomLevel = 1;
+    let selectedCategory = "ALL";
+    let currentZoom = 1;
 
-    function renderCatsNav() {
-      const nav = document.getElementById("catsNav");
-      nav.innerHTML = "";
+    function renderFilterBar() {
+      const bar = document.getElementById("categoryFilterBar");
+      bar.innerHTML = "";
 
       const allBtn = document.createElement("button");
-      allBtn.className = "cat-pill" + (activeCategory === "ALL" ? " active" : "");
-      allBtn.textContent = "All";
-      allBtn.onclick = () => { activeCategory = "ALL"; renderAll(); };
-      nav.appendChild(allBtn);
+      allBtn.textContent = "All Categories";
+      allBtn.className = "px-4 py-2 rounded-full font-label-sm text-xs transition " + (
+        selectedCategory === "ALL"
+          ? "bg-secondary text-on-secondary font-bold"
+          : "bg-surface-container border border-white/10 text-on-surface-variant hover:border-secondary/50"
+      );
+      allBtn.onclick = () => { selectedCategory = "ALL"; renderPage(); };
+      bar.appendChild(allBtn);
 
-      CATEGORIES.forEach(cat => {
+      DESIGN_CATEGORIES.forEach(cat => {
         const btn = document.createElement("button");
-        btn.className = "cat-pill" + (activeCategory === cat ? " active" : "");
         btn.textContent = cat;
-        btn.onclick = () => { activeCategory = cat; renderAll(); };
-        nav.appendChild(btn);
+        btn.className = "px-4 py-2 rounded-full font-label-sm text-xs transition " + (
+          selectedCategory === cat
+            ? "bg-secondary text-on-secondary font-bold"
+            : "bg-surface-container border border-white/10 text-on-surface-variant hover:border-secondary/50"
+        );
+        btn.onclick = () => { selectedCategory = cat; renderPage(); };
+        bar.appendChild(btn);
       });
     }
 
-    function renderSections() {
-      const container = document.getElementById("sectionsContainer");
+    function renderCategorySections() {
+      const container = document.getElementById("categorySections");
       container.innerHTML = "";
 
-      const listToShow = activeCategory === "ALL"
-        ? CATEGORIES
-        : CATEGORIES.filter(c => c === activeCategory);
+      const categoriesToRender = selectedCategory === "ALL"
+        ? DESIGN_CATEGORIES
+        : DESIGN_CATEGORIES.filter(c => c === selectedCategory);
 
-      listToShow.forEach(cat => {
+      categoriesToRender.forEach(cat => {
         const items = DESIGNS.filter(d => d.category === cat);
-        const sec = document.createElement("section");
-        sec.className = "category-section";
+        const section = document.createElement("div");
+        section.className = "space-y-4";
 
-        sec.innerHTML = `
-          <div class="category-head">
-            <h2>${cat}</h2>
-            <span style="font-size:12px; color:var(--muted);">${items.length} items</span>
+        const headerHtml = `
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <h3 class="font-headline-lg text-2xl font-bold text-on-surface">${cat}</h3>
+            <span class="font-label-sm text-xs text-on-surface-variant">${items.length} ${items.length === 1 ? "design" : "designs"}</span>
           </div>
-          <div class="grid"></div>
         `;
 
-        const grid = sec.querySelector(".grid");
+        const grid = document.createElement("div");
+        grid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6";
+
         if (items.length === 0) {
-          grid.innerHTML = `<div class="card-sub">No designs in this category yet.</div>`;
+          grid.className = "glass-card rounded-xl p-6 text-sm text-on-surface-variant";
+          grid.textContent = `No designs published under "${cat}" yet.`;
         } else {
           items.forEach(item => {
             const card = document.createElement("div");
-            card.className = "card";
+            card.className = "glass-card rounded-xl overflow-hidden cursor-pointer flex flex-col";
             card.onclick = () => openDesignModal(item);
             card.innerHTML = `
-              <div class="thumb-wrap">
-                <img src="${item.thumb}" alt="${item.title}" loading="lazy" />
-                <span class="price-tag">${item.price}</span>
+              <div class="relative h-44 bg-surface-container-lowest overflow-hidden">
+                <img src="${item.thumbImg}" alt="${item.title}" loading="lazy"
+                  class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+                <span class="absolute bottom-2 right-2 px-2.5 py-1 rounded-md bg-background/85 border border-white/10 font-label-sm text-xs font-bold text-secondary">
+                  ${item.price}
+                </span>
               </div>
-              <div class="card-body">
-                <div class="card-title">${item.title}</div>
-                <div class="card-sub">by ${item.designer}</div>
+              <div class="p-4 flex-1 flex flex-col justify-between gap-2">
+                <div>
+                  <div class="font-bold text-base text-on-surface">${item.title}</div>
+                  <div class="text-xs text-on-surface-variant line-clamp-2 mt-1">${item.desc}</div>
+                </div>
+                <div class="font-label-sm text-[11px] text-tertiary pt-2 border-t border-white/5">
+                  Creator: ${item.creatorName}
+                </div>
               </div>
             `;
             grid.appendChild(card);
           });
         }
 
-        container.appendChild(sec);
+        section.innerHTML = headerHtml;
+        section.appendChild(grid);
+        container.appendChild(section);
       });
     }
 
     function openDesignModal(item) {
       resetZoom();
-      document.getElementById("modalFullImg").src = item.full;
-      document.getElementById("modalCategory").textContent = item.category;
-      document.getElementById("modalTitle").textContent = item.title;
-      document.getElementById("modalPrice").textContent = item.price;
-      document.getElementById("modalDesc").textContent = item.desc;
-      document.getElementById("modalDesignerName").textContent = item.designer;
-      document.getElementById("modalDesignerBio").textContent = item.bio;
-      document.getElementById("modalContact").textContent = item.contact;
-      document.getElementById("designModal").classList.add("open");
+      document.getElementById("modalDesignImg").src = item.fullImg || item.thumbImg;
+      document.getElementById("modalCategoryBadge").textContent = item.category;
+      document.getElementById("modalDesignTitle").textContent = item.title;
+      document.getElementById("modalDesignPrice").textContent = item.price;
+      document.getElementById("modalDesignDesc").textContent = item.desc;
+      document.getElementById("modalCreatorName").textContent = item.creatorName;
+      document.getElementById("modalCreatorBio").textContent = item.creatorBio || "";
+      document.getElementById("modalCreatorAvatar").src = item.creatorAvatar || "logo.jpg";
+      document.getElementById("modalCreatorContact").textContent = item.creatorContact || "";
+
+      const modal = document.getElementById("designModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
     }
 
-    function closeModal(e) {
+    function closeDesignModal(e) {
       if (!e || e.target.id === "designModal") {
-        document.getElementById("designModal").classList.remove("open");
+        const modal = document.getElementById("designModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
       }
     }
 
-    function changeZoom(delta) {
-      zoomLevel = Math.min(2.5, Math.max(0.75, +(zoomLevel + delta).toFixed(2)));
-      document.getElementById("modalFullImg").style.transform = `scale(${zoomLevel})`;
-      document.getElementById("zoomLabel").textContent = `${Math.round(zoomLevel * 100)}%`;
+    function stepZoom(delta) {
+      currentZoom = Math.min(2.5, Math.max(0.75, +(currentZoom + delta).toFixed(2)));
+      document.getElementById("modalDesignImg").style.transform = `scale(${currentZoom})`;
+      document.getElementById("zoomPercent").textContent = `${Math.round(currentZoom * 100)}%`;
     }
 
     function resetZoom() {
-      zoomLevel = 1;
-      document.getElementById("modalFullImg").style.transform = "scale(1)";
-      document.getElementById("zoomLabel").textContent = "100%";
+      currentZoom = 1;
+      document.getElementById("modalDesignImg").style.transform = "scale(1)";
+      document.getElementById("zoomPercent").textContent = "100%";
     }
 
-    function renderAll() {
-      renderCatsNav();
-      renderSections();
+    function openSignInModal() {
+      const modal = document.getElementById("signInModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
     }
 
-    renderAll();
+    function closeSignInModal(e) {
+      if (!e || e.target.id === "signInModal") {
+        const modal = document.getElementById("signInModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function renderPage() {
+      renderFilterBar();
+      renderCategorySections();
+    }
+
+    renderPage();
+
+    // Hero background animated node network
+    (function initHeroNetwork() {
+      const canvas = document.getElementById('hero-network');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const header = canvas.closest('header');
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let width, height, particles, dpr;
+
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = header.offsetWidth;
+        height = header.offsetHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      function createParticles() {
+        const count = Math.min(70, Math.max(24, Math.floor((width * height) / 22000)));
+        particles = Array.from({ length: count }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22
+        }));
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        const linkDistance = 140;
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          if (!prefersReducedMotion) {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x <= 0 || p.x >= width) p.vx *= -1;
+            if (p.y <= 0 || p.y >= height) p.vy *= -1;
+          }
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const q = particles[j];
+            const dx = p.x - q.x;
+            const dy = p.y - q.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < linkDistance) {
+              ctx.strokeStyle = `rgba(251, 171, 255, ${0.14 * (1 - dist / linkDistance)})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        for (const p of particles) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(192, 193, 255, 0.55)';
+          ctx.fill();
+        }
+
+        if (!prefersReducedMotion) requestAnimationFrame(draw);
+      }
+
+      resize();
+      createParticles();
+      draw();
+
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          resize();
+          createParticles();
+          if (prefersReducedMotion) draw();
+        }, 150);
+      });
+    })();
+
+    // Navbar scroll compacting
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (!nav) return;
+      if (window.scrollY > 50) {
+        nav.classList.add('py-2', 'bg-background/95');
+        nav.classList.remove('py-4', 'bg-background/85');
+      } else {
+        nav.classList.add('py-4', 'bg-background/85');
+        nav.classList.remove('py-2', 'bg-background/95');
+      }
+    });
   </script>
 </body>
 </html>
