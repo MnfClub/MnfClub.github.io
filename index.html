@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html class="dark" lang="en" dir="ltr">
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -59,7 +59,7 @@
     }
 
     .glass-card {
-      background: rgba(18, 33, 49, 0.7);
+      background: rgba(18, 33, 49, 0.72);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.08);
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -67,8 +67,8 @@
 
     .glass-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(251, 171, 255, 0.4);
-      box-shadow: 0 12px 30px -10px rgba(251, 171, 255, 0.15);
+      border-color: rgba(251, 171, 255, 0.45);
+      box-shadow: 0 14px 32px -12px rgba(251, 171, 255, 0.18);
     }
 
     .magenta-glow {
@@ -76,8 +76,8 @@
     }
 
     .hero-mesh {
-      background: radial-gradient(circle at 50% 30%, rgba(174, 5, 198, 0.16) 0%, transparent 60%),
-                  radial-gradient(circle at 15% 70%, rgba(101, 104, 243, 0.12) 0%, transparent 50%);
+      background: radial-gradient(circle at 50% 35%, rgba(174, 5, 198, 0.16) 0%, transparent 62%),
+                  radial-gradient(circle at 15% 75%, rgba(101, 104, 243, 0.12) 0%, transparent 52%);
     }
 
     .hero-grid {
@@ -85,8 +85,8 @@
         linear-gradient(rgba(192, 193, 255, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(192, 193, 255, 0.05) 1px, transparent 1px);
       background-size: 40px 40px;
-      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 90%);
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 90%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 35%, transparent 95%);
+      mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 35%, transparent 95%);
     }
 
     .custom-scrollbar::-webkit-scrollbar {
@@ -106,17 +106,17 @@
 <body class="custom-scrollbar overflow-x-hidden min-h-screen flex flex-col justify-between">
 
   <!-- Top Navigation Bar -->
-  <nav class="bg-[#051424]/90 backdrop-blur-md sticky top-0 z-40 border-b border-white/10 shadow-sm">
-    <div class="flex justify-between items-center px-4 md:px-8 py-3.5 max-w-7xl mx-auto w-full">
-      <a href="#top" class="flex items-center gap-3 group">
+  <nav class="bg-[#051424]/95 backdrop-blur-md sticky top-0 z-40 border-b border-white/10 shadow-sm">
+    <div class="flex justify-between items-center px-4 md:px-8 py-3.5 max-w-7xl mx-auto w-full gap-3">
+      <a href="#top" class="flex items-center gap-3 group shrink-0">
         <img src="logo.jpg" alt="MNF DESIGNS" class="w-9 h-9 rounded-lg object-cover border border-secondary/30 shrink-0" onerror="this.style.display='none'" />
         <span class="text-xl font-black tracking-tight bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent">
           MNF DESIGNS
         </span>
       </a>
 
-      <!-- Right Header Controls: Google Sign In or Logged-In Creator Profile -->
-      <div id="navAuthArea" class="flex items-center gap-3">
+      <!-- Right Header Controls -->
+      <div id="navAuthArea" class="flex items-center gap-2.5 flex-wrap justify-end">
         <button type="button" onclick="signInWithGoogle()"
           class="bg-secondary-container text-on-secondary-container px-5 py-2 rounded-full font-mono text-xs font-bold transition-all hover:scale-105 hover:bg-secondary hover:text-on-secondary flex items-center gap-2 shadow-md shadow-secondary/10">
           <span class="material-symbols-outlined text-base">login</span>
@@ -126,12 +126,12 @@
     </div>
   </nav>
 
-  <!-- Compact Hero Section -->
+  <!-- Compact Seamless Hero Section -->
   <header id="top" class="relative overflow-hidden py-14 px-4 md:px-8 text-center bg-[#051424]">
     <div class="absolute inset-0 z-0 pointer-events-none">
       <div class="absolute inset-0 hero-grid"></div>
       <div class="absolute inset-0 hero-mesh"></div>
-      <div class="absolute top-1/2 left-1/2 w-[480px] h-[300px] -translate-x-1/2 -translate-y-1/2 bg-secondary/10 blur-[130px] rounded-full"></div>
+      <div class="absolute top-1/2 left-1/2 w-[500px] h-[280px] -translate-x-1/2 -translate-y-1/2 bg-secondary/10 blur-[130px] rounded-full"></div>
     </div>
 
     <div class="relative z-10 max-w-3xl mx-auto space-y-4">
@@ -140,7 +140,7 @@
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
         </span>
-        Notice: Optimized previews enabled • Dedicated to MNF CLUBS
+        MNF CLUBS Showcase • Click any design to inspect full size &amp; creator card
       </div>
 
       <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
@@ -150,47 +150,41 @@
       </h1>
 
       <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-        Browse authentic interior &amp; exterior designs built by community creators. Explore full previews and contact designers directly.
+        Explore custom interior and exterior builds priced in cash mnf club, complete with creator details and zoom inspection.
       </p>
 
       <div class="flex items-center justify-center gap-3 pt-2">
         <a href="#categoriesSection"
           class="h-10 px-6 border border-white/15 hover:border-secondary hover:bg-white/5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2">
           <span class="material-symbols-outlined text-sm">grid_view</span>
-          Explore Categories
+          Browse Categories
         </a>
       </div>
     </div>
   </header>
 
   <!-- Main Content Layout -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-12">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 space-y-12">
 
     <!-- Designer Studio / Dashboard View -->
-    <section id="designerStudioView" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/30 space-y-8">
+    <section id="designerStudioView" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/35 space-y-8">
       <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span class="font-mono text-xs uppercase tracking-wider text-secondary">Creator Management Studio</span>
-          <h2 class="text-2xl font-bold text-on-surface mt-1">Your Designer Dashboard</h2>
+          <span class="font-mono text-xs uppercase tracking-wider text-secondary">Creator Studio</span>
+          <h2 class="text-2xl font-bold text-on-surface mt-1">Profile Card &amp; Design Publisher</h2>
         </div>
-        <div class="flex items-center gap-2">
-          <button type="button" onclick="closeStudioView()"
-            class="px-4 py-2 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition">
-            Close Studio
-          </button>
-          <button type="button" onclick="signOutUser()"
-            class="px-4 py-2 rounded-lg bg-red-950/40 border border-red-500/30 text-red-300 text-xs font-bold hover:bg-red-900/50 transition">
-            Sign Out
-          </button>
-        </div>
+        <button type="button" onclick="closeStudioView()"
+          class="px-4 py-2 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition">
+          Hide Panel
+        </button>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <!-- Step 1: Designer Profile Setup Card -->
-        <div class="lg:col-span-5 bg-surface-container/60 border border-white/10 rounded-xl p-6 space-y-5">
+        <!-- 1. Designer Profile Card & Editor -->
+        <div class="lg:col-span-5 bg-surface-container/65 border border-white/10 rounded-xl p-6 space-y-5">
           <div class="flex items-center gap-2 text-secondary font-bold text-sm uppercase tracking-wide border-b border-white/5 pb-2">
             <span class="material-symbols-outlined text-base">badge</span>
-            1. My Designer Profile
+            1. Creator Profile Card
           </div>
 
           <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 flex items-center gap-4">
@@ -198,50 +192,49 @@
             <div class="space-y-1 overflow-hidden">
               <div id="studioInGameNameDisplay" class="font-bold text-base text-on-surface truncate">Not Set</div>
               <div id="studioDiscordDisplay" class="text-xs font-mono text-tertiary truncate">Discord: Not Set</div>
-              <div class="text-[10px] text-on-surface-variant font-mono">MNF Verified Designer</div>
+              <div class="text-[10px] text-on-surface-variant font-mono">MNF Creator</div>
             </div>
           </div>
 
           <form id="profileForm" onsubmit="saveDesignerProfile(event)" class="space-y-4">
             <div>
               <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Name (MNF)</label>
-              <input id="mnfNameInput" type="text" required placeholder="e.g. Zeko_VIP"
+              <input id="mnfNameInput" type="text" required placeholder="e.g. Marrissa"
                 class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
             </div>
 
             <div>
-              <label class="block font-mono text-xs text-on-surface-variant mb-1">Discord Tag / Username</label>
-              <input id="discordInput" type="text" required placeholder="e.g. zeko#0001 or @zeko"
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Discord Username</label>
+              <input id="discordInput" type="text" required placeholder="e.g. rosiemnf"
                 class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
             </div>
 
             <div>
-              <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Avatar Photo (Cropped with Name)</label>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Avatar (Cropped with Name)</label>
               <input id="avatarFileInput" type="file" accept="image/*"
                 class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
-              <span class="text-[10px] text-on-surface-variant block mt-1">Upload your in-game cropped name screenshot.</span>
             </div>
 
             <button type="submit" id="saveProfileBtn"
               class="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-bold text-xs hover:brightness-110 transition shadow-md">
-              Save &amp; Update Profile Card
+              Save Profile Card
             </button>
             <p id="profileStatusMsg" class="text-xs text-tertiary text-center min-h-[16px]"></p>
           </form>
         </div>
 
-        <!-- Step 2: Upload Design Under Selected Category -->
-        <div class="lg:col-span-7 bg-surface-container/60 border border-white/10 rounded-xl p-6 space-y-5">
+        <!-- 2. Publish Design Form (Single Image) -->
+        <div id="publishFormBox" class="lg:col-span-7 bg-surface-container/65 border border-white/10 rounded-xl p-6 space-y-5">
           <div class="flex items-center gap-2 text-tertiary font-bold text-sm uppercase tracking-wide border-b border-white/5 pb-2">
-            <span class="material-symbols-outlined text-base">cloud_upload</span>
-            2. Publish New Design
+            <span class="material-symbols-outlined text-base">add_photo_alternate</span>
+            2. Publish Design
           </div>
 
           <form id="uploadDesignForm" onsubmit="publishDesign(event)" class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Title</label>
-                <input id="designTitleInput" type="text" required placeholder="e.g. Modern VIP Studio"
+                <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Name</label>
+                <input id="designTitleInput" type="text" required placeholder="e.g. Sunset Penthouse"
                   class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
               </div>
 
@@ -258,7 +251,7 @@
             </div>
 
             <div>
-              <label class="block font-mono text-xs text-on-surface-variant mb-1">Category (Target Space)</label>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Category</label>
               <select id="designCategorySelect" required
                 class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none">
               </select>
@@ -266,27 +259,20 @@
 
             <div>
               <label class="block font-mono text-xs text-on-surface-variant mb-1">Short Description</label>
-              <textarea id="designDescInput" rows="2" required placeholder="Highlight key items, lighting, layout, and atmosphere..."
+              <textarea id="designDescInput" rows="2" required placeholder="Short summary of the design..."
                 class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none"></textarea>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block font-mono text-xs text-on-surface-variant mb-1">Thumbnail Preview (Fast Load)</label>
-                <input id="thumbFileInput" type="file" accept="image/*" required
-                  class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-tertiary/20 file:text-tertiary file:font-bold cursor-pointer" />
-              </div>
-
-              <div>
-                <label class="block font-mono text-xs text-on-surface-variant mb-1">Full Render (Inspector View)</label>
-                <input id="fullFileInput" type="file" accept="image/*" required
-                  class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
-              </div>
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Preview Image</label>
+              <input id="designImageInput" type="file" accept="image/*" required
+                class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
+              <span class="text-[10px] text-on-surface-variant block mt-1">Used for card preview and enlarges when clicked.</span>
             </div>
 
             <button type="submit" id="publishBtn"
-              class="w-full py-3 rounded-lg bg-secondary-container text-on-secondary-container font-bold text-xs uppercase tracking-wider hover:bg-secondary hover:text-on-secondary transition shadow-lg shadow-secondary/10">
-              Publish To Showcase
+              class="w-full py-3 rounded-lg bg-gradient-to-r from-secondary-container to-secondary text-on-secondary-container font-bold text-xs uppercase tracking-wider hover:brightness-110 transition shadow-lg shadow-secondary/15">
+              Publish Design
             </button>
             <p id="uploadStatusMsg" class="text-xs text-secondary text-center min-h-[16px]"></p>
           </form>
@@ -299,7 +285,7 @@
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
         <div>
           <h2 class="text-2xl md:text-3xl font-black text-secondary">Design Categories</h2>
-          <p class="text-on-surface-variant text-sm mt-1">Select a category or browse all designs curated by verified creators.</p>
+          <p class="text-on-surface-variant text-sm mt-1">Click any design card to enlarge it with zoom and view the creator card.</p>
         </div>
       </div>
 
@@ -308,11 +294,11 @@
     </section>
   </main>
 
-  <!-- Design Full Inspector Modal + Zoom + Designer Profile -->
+  <!-- Enlarged Design Inspector Modal + Zoom + Creator Card -->
   <div id="inspectorModal" onclick="closeInspectorModal(event)"
-    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
     <div onclick="event.stopPropagation()"
-      class="bg-surface-container border border-white/10 rounded-2xl w-full max-w-5xl max-h-[92vh] overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
+      class="bg-surface-container border border-white/15 rounded-2xl w-full max-w-5xl max-h-[92vh] overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
 
       <div class="lg:col-span-7 bg-[#020b14] p-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
         <div class="flex-1 flex items-center justify-center overflow-auto min-h-[300px]">
@@ -349,8 +335,9 @@
 
           <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
 
+          <!-- Creator Card -->
           <div class="glass-card rounded-xl p-4 border border-white/10 space-y-3">
-            <span class="font-mono text-[10px] text-tertiary uppercase tracking-wider">Created By</span>
+            <span class="font-mono text-[10px] text-tertiary uppercase tracking-wider">Creator Card</span>
             <div class="flex items-center gap-3">
               <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-secondary/40 shrink-0 bg-black/40" />
               <div class="overflow-hidden">
@@ -362,14 +349,14 @@
         </div>
 
         <div class="p-3 rounded-xl bg-surface-container-high border border-white/5 text-center text-xs text-on-surface-variant font-mono">
-          Trade / purchase arranged directly with creator in-game.
+          Contact the creator on Discord or in MNF to purchase.
         </div>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
-  <footer class="bg-[#051424] text-on-surface border-t border-white/5 py-10 mt-16">
+  <footer class="bg-[#051424] text-on-surface border-t border-white/5 py-10 mt-14">
     <div class="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
       <div class="flex items-center gap-3">
         <img src="logo.jpg" alt="Logo" class="w-8 h-8 rounded-lg object-cover border border-secondary/30" onerror="this.style.display='none'" />
@@ -377,7 +364,7 @@
           <span class="font-black text-sm tracking-wide bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent block">
             MNF DESIGNS
           </span>
-          <span class="text-xs text-on-surface-variant">Dedicated design platform for MNF CLUBS</span>
+          <span class="text-xs text-on-surface-variant">Dedicated design showcase for MNF CLUBS</span>
         </div>
       </div>
 
@@ -463,26 +450,31 @@
 
     function renderNavControls() {
       const area = document.getElementById("navAuthArea");
-      if (currentSessionUser && currentProfile) {
+      if (currentSessionUser) {
+        const displayName = currentProfile?.display_name || "Creator";
+        const avatarUrl = currentProfile?.avatar_url || "logo.jpg";
+
         area.innerHTML = `
-          <button type="button" onclick="openStudioView()"
-            class="flex items-center gap-2.5 bg-surface-container-high border border-secondary/30 hover:border-secondary px-3 py-1.5 rounded-full transition group">
-            <img src="${currentProfile.avatar_url || 'logo.jpg'}" alt="Avatar" class="w-6 h-6 rounded-full object-cover border border-secondary/50" />
-            <span class="text-xs font-bold text-on-surface group-hover:text-secondary">${currentProfile.display_name || 'My Studio'}</span>
-            <span class="material-symbols-outlined text-xs text-secondary">tune</span>
+          <button type="button" onclick="openStudioView('publishFormBox')"
+            class="px-4 py-1.5 rounded-full bg-gradient-to-r from-secondary-container to-secondary text-on-secondary-container font-mono text-xs font-bold hover:brightness-110 transition shadow-md">
+            Publish
           </button>
-        `;
-      } else if (currentSessionUser) {
-        area.innerHTML = `
-          <button type="button" onclick="openStudioView()"
-            class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full text-xs font-bold hover:bg-secondary">
-            Complete Profile
+
+          <button type="button" onclick="openStudioView('designerStudioView')"
+            class="flex items-center gap-2 bg-surface-container-high border border-secondary/30 hover:border-secondary px-3 py-1.5 rounded-full transition group">
+            <img src="${avatarUrl}" alt="Avatar" class="w-6 h-6 rounded-full object-cover border border-secondary/50" />
+            <span class="text-xs font-bold text-on-surface group-hover:text-secondary">${displayName}</span>
+          </button>
+
+          <button type="button" onclick="signOutUser()"
+            class="px-3.5 py-1.5 rounded-full bg-red-950/40 border border-red-500/30 text-red-300 font-mono text-xs font-bold hover:bg-red-900/50 transition">
+            Sign Out
           </button>
         `;
       } else {
         area.innerHTML = `
           <button type="button" onclick="signInWithGoogle()"
-            class="bg-secondary-container text-on-secondary-container px-5 py-2 rounded-full font-mono text-xs font-bold transition hover:scale-105 hover:bg-secondary hover:text-on-secondary flex items-center gap-1.5">
+            class="bg-secondary-container text-on-secondary-container px-5 py-2 rounded-full font-mono text-xs font-bold transition hover:scale-105 hover:bg-secondary hover:text-on-secondary flex items-center gap-2">
             <span class="material-symbols-outlined text-base">login</span>
             Sign In with Google
           </button>
@@ -490,10 +482,11 @@
       }
     }
 
-    function openStudioView() {
+    function openStudioView(targetId = "designerStudioView") {
       const studio = document.getElementById("designerStudioView");
       studio.classList.remove("hidden");
-      studio.scrollIntoView({ behavior: "smooth" });
+      const targetEl = document.getElementById(targetId) || studio;
+      targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function closeStudioView() {
@@ -565,11 +558,11 @@
         document.getElementById("studioDiscordDisplay").textContent = `Discord: ${payload.contact}`;
         if (avatarUrl) document.getElementById("studioAvatarImg").src = avatarUrl;
 
-        msg.textContent = "Profile updated successfully!";
+        msg.textContent = "Profile saved!";
         renderNavControls();
         renderShowcase();
       } catch (err) {
-        msg.textContent = err.message || "Failed to update profile.";
+        msg.textContent = err.message || "Failed to save profile.";
       } finally {
         btn.disabled = false;
       }
@@ -580,26 +573,24 @@
       if (!currentSessionUser) return;
 
       if (!currentProfile?.display_name) {
-        alert("Please set up your In-Game Name and Profile Card first!");
+        alert("Please save your In-Game Name and Profile Card first!");
         return;
       }
 
       const btn = document.getElementById("publishBtn");
       const msg = document.getElementById("uploadStatusMsg");
-      const thumbFile = document.getElementById("thumbFileInput").files[0];
-      const fullFile = document.getElementById("fullFileInput").files[0];
+      const imgFile = document.getElementById("designImageInput").files[0];
 
-      if (!thumbFile || !fullFile) {
-        msg.textContent = "Both preview and full images are required.";
+      if (!imgFile) {
+        msg.textContent = "Please choose a design image.";
         return;
       }
 
       btn.disabled = true;
-      msg.textContent = "Uploading assets to showcase...";
+      msg.textContent = "Uploading design...";
 
       try {
-        const thumbUrl = await uploadMedia(thumbFile, "thumbnails");
-        const fullUrl = await uploadMedia(fullFile, "full");
+        const imageUrl = await uploadMedia(imgFile, "designs");
 
         const payload = {
           user_id: currentSessionUser.id,
@@ -607,15 +598,15 @@
           price: document.getElementById("designPriceInput").value.trim(),
           category: document.getElementById("designCategorySelect").value,
           description: document.getElementById("designDescInput").value.trim(),
-          thumb_url: thumbUrl,
-          full_url: fullUrl
+          thumb_url: imageUrl,
+          full_url: imageUrl
         };
 
         const { error } = await sb.from("designs").insert(payload);
         if (error) throw error;
 
         document.getElementById("uploadDesignForm").reset();
-        msg.textContent = "Design published to showcase!";
+        msg.textContent = "Design published!";
         await fetchShowcaseData();
       } catch (err) {
         msg.textContent = err.message || "Failed to publish design.";
@@ -724,7 +715,7 @@
 
     function openInspectorModal(item, creator) {
       resetZoom();
-      document.getElementById("modalFullImage").src = item.full_url || item.thumb_url;
+      document.getElementById("modalFullImage").src = item.thumb_url || item.full_url;
       document.getElementById("modalCategoryBadge").textContent = item.category;
       document.getElementById("modalDesignTitle").textContent = item.title;
       document.getElementById("modalDesignPrice").textContent = Number(item.price).toLocaleString();
