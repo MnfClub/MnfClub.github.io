@@ -71,6 +71,25 @@
       box-shadow: 0 14px 32px -12px rgba(251, 171, 255, 0.18);
     }
 
+    .blue-neon-card {
+      background: rgba(10, 25, 47, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.65);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.28), inset 0 0 12px rgba(56, 189, 248, 0.08);
+      transition: all 0.25s ease;
+    }
+
+    .blue-neon-card:hover {
+      border-color: rgba(125, 211, 252, 0.95);
+      box-shadow: 0 0 24px rgba(56, 189, 248, 0.45), inset 0 0 14px rgba(56, 189, 248, 0.14);
+    }
+
+    .mnf-name-badge {
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.03em;
+      color: #e0f2fe;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+    }
+
     .magenta-glow {
       text-shadow: 0 0 24px rgba(251, 171, 255, 0.45);
     }
@@ -179,18 +198,18 @@
         </button>
       </div>
 
-      <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 flex items-center gap-4">
-        <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-secondary/40 shrink-0 bg-black/40" />
+      <div class="blue-neon-card rounded-xl p-4 flex items-center gap-4">
+        <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-sky-400/70 shrink-0 bg-black/40" />
         <div class="space-y-1 overflow-hidden">
-          <div id="studioInGameNameDisplay" class="font-bold text-base text-on-surface truncate">name on mnf: Not Set</div>
-          <div id="studioDiscordDisplay" class="text-xs font-mono text-tertiary truncate">Discord: Not Set</div>
-          <div class="text-[10px] text-on-surface-variant font-mono">MNF Creator</div>
+          <div id="studioInGameNameDisplay" class="font-bold text-sm md:text-base mnf-name-badge truncate">Name on MnfClub: Not Set</div>
+          <div id="studioDiscordDisplay" class="text-xs font-mono text-sky-300 truncate">Discord: Not Set</div>
+          <div class="text-[10px] text-sky-200/80 font-mono">MNF Creator</div>
         </div>
       </div>
 
       <form id="profileForm" onsubmit="saveDesignerProfile(event)" class="space-y-4">
         <div>
-          <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Name (MNF)</label>
+          <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Name (MnfClub)</label>
           <input id="mnfNameInput" type="text" required placeholder="e.g. Marrissa"
             class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
         </div>
@@ -232,7 +251,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Name</label>
-            <input id="designTitleInput" type="text" required placeholder="e.g. Sunset Penthouse"
+            <input id="designTitleInput" type="text" required placeholder="e.g. darky design"
               class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
           </div>
 
@@ -320,23 +339,23 @@
         <div id="modalViewMode" class="space-y-4">
           <div class="flex items-center justify-between gap-2 flex-wrap">
             <span id="modalCategoryBadge" class="px-3 py-1 rounded-full bg-secondary/15 border border-secondary/30 text-secondary font-mono text-xs"></span>
-            <div id="ownerActionsGroup" class="hidden items-center gap-1.5">
+            <div class="flex items-center gap-1.5">
               <button id="modalEditBtn" type="button" onclick="openEditDesignMode()"
-                class="px-3 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-xs font-bold text-tertiary hover:bg-tertiary/30 transition">
+                class="hidden px-3 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-xs font-bold text-tertiary hover:bg-tertiary/30 transition">
                 Edit
               </button>
               <button id="modalRemoveBtn" type="button" onclick="openDeleteConfirmMode()"
-                class="px-3 py-1 rounded-lg bg-red-950/50 border border-red-500/40 text-xs font-bold text-red-300 hover:bg-red-900/60 transition">
+                class="hidden px-3 py-1 rounded-lg bg-red-950/60 border border-red-500/45 text-xs font-bold text-red-300 hover:bg-red-900/70 transition">
                 Remove
               </button>
+              <button type="button" onclick="closeInspectorModal()"
+                class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">
+                ✕ Close
+              </button>
             </div>
-            <button type="button" onclick="closeInspectorModal()"
-              class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">
-              ✕ Close
-            </button>
           </div>
 
-          <h3 id="modalDesignTitle" class="text-2xl font-bold text-on-surface"></h3>
+          <h3 id="modalDesignTitle" class="text-2xl font-bold text-on-surface tracking-wide"></h3>
 
           <div class="flex items-baseline gap-2">
             <span id="modalDesignPrice" class="font-mono text-2xl font-black text-secondary"></span>
@@ -345,21 +364,21 @@
 
           <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
 
-          <!-- Creator Card -->
-          <div class="glass-card rounded-xl p-4 border border-white/10 space-y-3">
-            <span class="font-mono text-[10px] text-tertiary uppercase tracking-wider">Creator Card</span>
+          <!-- Blue Neon Creator Card -->
+          <div class="blue-neon-card rounded-xl p-4 space-y-3">
+            <span class="font-mono text-[10px] text-sky-300 uppercase tracking-wider font-bold">Creator Card</span>
             <div class="flex items-center gap-3">
-              <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-secondary/40 shrink-0 bg-black/40" />
+              <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-sky-400/70 shrink-0 bg-black/40" />
               <div class="overflow-hidden">
-                <div id="modalDesignerName" class="font-bold text-sm text-on-surface truncate"></div>
-                <div id="modalDesignerDiscord" class="text-xs font-mono text-tertiary truncate"></div>
+                <div id="modalDesignerName" class="font-bold text-sm mnf-name-badge truncate"></div>
+                <div id="modalDesignerDiscord" class="text-xs font-mono text-sky-300 truncate"></div>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Remove Confirmation Mode (Owner Only) -->
-        <div id="modalDeleteConfirm" class="hidden space-y-4 bg-surface-container-low border border-red-500/30 rounded-xl p-5">
+        <div id="modalDeleteConfirm" class="hidden space-y-4 bg-surface-container-low border border-red-500/35 rounded-xl p-5">
           <div class="font-mono text-xs uppercase tracking-wider text-red-300 font-bold">Confirm Removal</div>
           <p class="text-sm text-on-surface leading-relaxed">
             Are you sure you want to remove this design and image? This action cannot be undone.
@@ -468,6 +487,32 @@
       "Wedding Chapel",
       "Czech Gloryhole Hut"
     ];
+
+    // Unicode style helpers: 𝓭𝓪𝓻𝓴𝔂 𝓭𝓮𝓼𝓲𝓰𝓷 & 𝖽𝖺𝗋𝗄𝗒 𝖽𝖾𝗌𝗂𝗀𝗇
+    const SCRIPT_BOLD_UPPER = "𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩";
+    const SCRIPT_BOLD_LOWER = "𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃";
+    const SANS_BOLD_UPPER  = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭";
+    const SANS_BOLD_LOWER  = "𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓";
+
+    function mapStylishText(text, upperMap, lowerMap) {
+      if (!text) return "";
+      const upperArr = Array.from(upperMap);
+      const lowerArr = Array.from(lowerMap);
+      return Array.from(text).map(ch => {
+        const code = ch.charCodeAt(0);
+        if (code >= 65 && code <= 90) return upperArr[code - 65] || ch;
+        if (code >= 97 && code <= 122) return lowerArr[code - 97] || ch;
+        return ch;
+      }).join("");
+    }
+
+    function toScriptBold(text) {
+      return mapStylishText(text, SCRIPT_BOLD_UPPER, SCRIPT_BOLD_LOWER);
+    }
+
+    function toSansBold(text) {
+      return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
+    }
 
     let currentSessionUser = null;
     let currentProfile = null;
@@ -606,8 +651,8 @@
         document.getElementById("mnfNameInput").value = data.display_name || "";
         document.getElementById("discordInput").value = data.contact || "";
         document.getElementById("studioInGameNameDisplay").textContent = data.display_name
-          ? `name on mnf: ${data.display_name}`
-          : "name on mnf: Not Set";
+          ? `Name on MnfClub: ${data.display_name}`
+          : "Name on MnfClub: Not Set";
         document.getElementById("studioDiscordDisplay").textContent = data.contact ? `Discord: ${data.contact}` : "Discord: Not Set";
         if (data.avatar_url) {
           document.getElementById("studioAvatarImg").src = data.avatar_url;
@@ -646,7 +691,7 @@
         currentProfile = payload;
         profilesMap[currentSessionUser.id] = payload;
 
-        document.getElementById("studioInGameNameDisplay").textContent = `name on mnf: ${payload.display_name}`;
+        document.getElementById("studioInGameNameDisplay").textContent = `Name on MnfClub: ${payload.display_name}`;
         document.getElementById("studioDiscordDisplay").textContent = `Discord: ${payload.contact}`;
         if (avatarUrl) document.getElementById("studioAvatarImg").src = avatarUrl;
 
@@ -769,6 +814,9 @@
         } else {
           items.forEach(item => {
             const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg" };
+            const styledTitle = toScriptBold(item.title);
+            const styledDesc = toSansBold(item.description);
+
             const card = document.createElement("div");
             card.className = "glass-card rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between";
             card.onclick = () => openInspectorModal(item, creator);
@@ -783,16 +831,16 @@
                 </div>
 
                 <div class="p-4 space-y-1">
-                  <div class="font-bold text-base text-on-surface truncate">${item.title}</div>
-                  <div class="text-xs text-on-surface-variant line-clamp-2">${item.description}</div>
+                  <div class="font-bold text-lg text-on-surface truncate">${styledTitle}</div>
+                  <div class="text-xs text-on-surface-variant line-clamp-2">${styledDesc}</div>
                 </div>
               </div>
 
               <div class="p-3 bg-surface-container-low border-t border-white/5 flex items-center gap-2.5">
-                <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-secondary/30 shrink-0 bg-black/40" />
+                <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-sky-400/50 shrink-0 bg-black/40" />
                 <div class="overflow-hidden">
-                  <div class="font-bold text-xs text-on-surface truncate">name on mnf: ${creator.display_name}</div>
-                  <div class="text-[10px] font-mono text-tertiary truncate">Discord: ${creator.contact || 'N/A'}</div>
+                  <div class="font-bold text-xs mnf-name-badge truncate">Name on MnfClub: ${creator.display_name}</div>
+                  <div class="text-[10px] font-mono text-sky-300 truncate">Discord: ${creator.contact || 'N/A'}</div>
                 </div>
               </div>
             `;
@@ -807,11 +855,18 @@
     }
 
     function updateOwnerActionsVisibility() {
-      const group = document.getElementById("ownerActionsGroup");
-      if (!group) return;
-      const isOwner = Boolean(currentSessionUser && activeInspectedDesign && currentSessionUser.id === activeInspectedDesign.user_id);
-      group.classList.toggle("hidden", !isOwner);
-      group.classList.toggle("flex", isOwner);
+      const editBtn = document.getElementById("modalEditBtn");
+      const removeBtn = document.getElementById("modalRemoveBtn");
+      if (!editBtn || !removeBtn) return;
+
+      const isOwner = Boolean(
+        currentSessionUser &&
+        activeInspectedDesign &&
+        String(currentSessionUser.id) === String(activeInspectedDesign.user_id)
+      );
+
+      editBtn.classList.toggle("hidden", !isOwner);
+      removeBtn.classList.toggle("hidden", !isOwner);
     }
 
     function openInspectorModal(item, creator) {
@@ -823,11 +878,11 @@
 
       document.getElementById("modalFullImage").src = item.thumb_url || item.full_url;
       document.getElementById("modalCategoryBadge").textContent = item.category;
-      document.getElementById("modalDesignTitle").textContent = item.title;
+      document.getElementById("modalDesignTitle").textContent = toScriptBold(item.title);
       document.getElementById("modalDesignPrice").textContent = Number(item.price).toLocaleString();
-      document.getElementById("modalDesignDesc").textContent = item.description;
+      document.getElementById("modalDesignDesc").textContent = toSansBold(item.description);
 
-      document.getElementById("modalDesignerName").textContent = `name on mnf: ${creator.display_name || "MNF Creator"}`;
+      document.getElementById("modalDesignerName").textContent = `Name on MnfClub: ${creator.display_name || "MNF Creator"}`;
       document.getElementById("modalDesignerDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
       document.getElementById("modalDesignerAvatar").src = creator.avatar_url || "logo.jpg";
 
