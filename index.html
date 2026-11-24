@@ -150,7 +150,7 @@
       </h1>
 
       <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-        Explore custom interior and exterior builds priced in cash mnf club, complete with creator details and zoom inspection.
+        Explore custom interior and exterior builds priced in cash mnfclub, complete with creator details and zoom inspection.
       </p>
 
       <div class="flex items-center justify-center gap-3 pt-2">
@@ -166,7 +166,7 @@
   <!-- Main Content Layout -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 space-y-12">
 
-    <!-- 1. Creator Profile Card Panel (Shown Only When Clicking User Name/Avatar) -->
+    <!-- 1. Creator Profile Card Panel -->
     <section id="profileCardPanel" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/35 max-w-2xl mx-auto w-full space-y-6">
       <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div class="flex items-center gap-2 text-secondary font-bold text-base">
@@ -182,7 +182,7 @@
       <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 flex items-center gap-4">
         <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-secondary/40 shrink-0 bg-black/40" />
         <div class="space-y-1 overflow-hidden">
-          <div id="studioInGameNameDisplay" class="font-bold text-base text-on-surface truncate">Not Set</div>
+          <div id="studioInGameNameDisplay" class="font-bold text-base text-on-surface truncate">name on mnf: Not Set</div>
           <div id="studioDiscordDisplay" class="text-xs font-mono text-tertiary truncate">Discord: Not Set</div>
           <div class="text-[10px] text-on-surface-variant font-mono">MNF Creator</div>
         </div>
@@ -215,7 +215,7 @@
       </form>
     </section>
 
-    <!-- 2. Publish Design Panel (Shown Only When Clicking Publish Button) -->
+    <!-- 2. Publish Design Panel -->
     <section id="publishDesignPanel" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-tertiary/35 max-w-3xl mx-auto w-full space-y-6">
       <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div class="flex items-center gap-2 text-tertiary font-bold text-base">
@@ -237,12 +237,12 @@
           </div>
 
           <div>
-            <label class="block font-mono text-xs text-on-surface-variant mb-1">Price (cash mnf club)</label>
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Price (cash mnfclub)</label>
             <div class="relative">
               <input id="designPriceInput" type="number" min="0" required placeholder="50000"
                 class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface pr-32 focus:border-tertiary focus:ring-0 outline-none" />
               <span class="absolute right-3 top-2.5 text-xs font-mono text-secondary pointer-events-none font-bold">
-                cash mnf club
+                cash mnfclub
               </span>
             </div>
           </div>
@@ -290,7 +290,7 @@
     </section>
   </main>
 
-  <!-- Enlarged Design Inspector Modal + Zoom + Creator Card -->
+  <!-- Enlarged Design Inspector Modal + Zoom + Creator Card + Edit -->
   <div id="inspectorModal" onclick="closeInspectorModal(event)"
     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
     <div onclick="event.stopPropagation()"
@@ -316,17 +316,27 @@
       </div>
 
       <div class="lg:col-span-5 p-6 overflow-y-auto custom-scrollbar flex flex-col justify-between gap-6">
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
+        <!-- View Mode -->
+        <div id="modalViewMode" class="space-y-4">
+          <div class="flex items-center justify-between gap-2">
             <span id="modalCategoryBadge" class="px-3 py-1 rounded-full bg-secondary/15 border border-secondary/30 text-secondary font-mono text-xs"></span>
-            <button type="button" onclick="closeInspectorModal()" class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">✕ Close</button>
+            <div class="flex items-center gap-2">
+              <button id="modalEditBtn" type="button" onclick="openEditDesignMode()"
+                class="hidden px-3 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-xs font-bold text-tertiary hover:bg-tertiary/30 transition">
+                Edit
+              </button>
+              <button type="button" onclick="closeInspectorModal()"
+                class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">
+                ✕ Close
+              </button>
+            </div>
           </div>
 
           <h3 id="modalDesignTitle" class="text-2xl font-bold text-on-surface"></h3>
 
           <div class="flex items-baseline gap-2">
             <span id="modalDesignPrice" class="font-mono text-2xl font-black text-secondary"></span>
-            <span class="font-mono text-xs text-tertiary">cash mnf club</span>
+            <span class="font-mono text-xs text-tertiary">cash mnfclub</span>
           </div>
 
           <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
@@ -344,7 +354,54 @@
           </div>
         </div>
 
-        <div class="p-3 rounded-xl bg-surface-container-high border border-white/5 text-center text-xs text-on-surface-variant font-mono">
+        <!-- Edit Mode (Owner Only) -->
+        <form id="modalEditForm" onsubmit="saveEditedDesign(event)" class="hidden space-y-3">
+          <div class="flex items-center justify-between border-b border-white/10 pb-2">
+            <span class="font-mono text-xs font-bold text-tertiary uppercase">Edit Design</span>
+            <button type="button" onclick="cancelEditDesignMode()" class="text-xs text-on-surface-variant hover:text-on-surface">Cancel</button>
+          </div>
+
+          <div>
+            <label class="block font-mono text-[11px] text-on-surface-variant mb-1">Design Name</label>
+            <input id="editDesignTitle" type="text" required
+              class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label class="block font-mono text-[11px] text-on-surface-variant mb-1">Price (cash mnfclub)</label>
+              <input id="editDesignPrice" type="number" min="0" required
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
+            </div>
+
+            <div>
+              <label class="block font-mono text-[11px] text-on-surface-variant mb-1">Category</label>
+              <select id="editDesignCategory" required
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none">
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-mono text-[11px] text-on-surface-variant mb-1">Short Description</label>
+            <textarea id="editDesignDesc" rows="2" required
+              class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none"></textarea>
+          </div>
+
+          <div>
+            <label class="block font-mono text-[11px] text-on-surface-variant mb-1">Replace Image (Optional)</label>
+            <input id="editDesignImage" type="file" accept="image/*"
+              class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-tertiary/20 file:text-tertiary file:font-bold cursor-pointer" />
+          </div>
+
+          <button type="submit" id="saveEditBtn"
+            class="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-bold text-xs hover:brightness-110 transition">
+            Save Changes
+          </button>
+          <p id="editStatusMsg" class="text-xs text-tertiary text-center min-h-[16px]"></p>
+        </form>
+
+        <div id="modalFooterNote" class="p-3 rounded-xl bg-surface-container-high border border-white/5 text-center text-xs text-on-surface-variant font-mono">
           Contact the creator on Discord or in MNF to purchase.
         </div>
       </div>
@@ -396,9 +453,11 @@
     let activeFilter = "ALL";
     let zoomLevel = 1;
     let autoOpenedProfile = false;
+    let activeInspectedDesign = null;
+    let activeInspectedCreator = null;
 
     async function init() {
-      setupCategorySelect();
+      setupCategorySelects();
       renderCategoryFilters();
       await fetchShowcaseData();
 
@@ -410,9 +469,10 @@
       });
     }
 
-    function setupCategorySelect() {
-      const select = document.getElementById("designCategorySelect");
-      select.innerHTML = CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join("");
+    function setupCategorySelects() {
+      const optionsHtml = CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join("");
+      document.getElementById("designCategorySelect").innerHTML = optionsHtml;
+      document.getElementById("editDesignCategory").innerHTML = optionsHtml;
     }
 
     async function handleSessionState(session) {
@@ -430,6 +490,7 @@
         autoOpenedProfile = false;
         closePanels();
       }
+      updateEditButtonVisibility();
     }
 
     async function signInWithGoogle() {
@@ -521,7 +582,9 @@
 
         document.getElementById("mnfNameInput").value = data.display_name || "";
         document.getElementById("discordInput").value = data.contact || "";
-        document.getElementById("studioInGameNameDisplay").textContent = data.display_name || "Not Set";
+        document.getElementById("studioInGameNameDisplay").textContent = data.display_name
+          ? `name on mnf: ${data.display_name}`
+          : "name on mnf: Not Set";
         document.getElementById("studioDiscordDisplay").textContent = data.contact ? `Discord: ${data.contact}` : "Discord: Not Set";
         if (data.avatar_url) {
           document.getElementById("studioAvatarImg").src = data.avatar_url;
@@ -560,7 +623,7 @@
         currentProfile = payload;
         profilesMap[currentSessionUser.id] = payload;
 
-        document.getElementById("studioInGameNameDisplay").textContent = payload.display_name;
+        document.getElementById("studioInGameNameDisplay").textContent = `name on mnf: ${payload.display_name}`;
         document.getElementById("studioDiscordDisplay").textContent = `Discord: ${payload.contact}`;
         if (avatarUrl) document.getElementById("studioAvatarImg").src = avatarUrl;
 
@@ -692,7 +755,7 @@
                 <div class="relative h-44 bg-black/40 overflow-hidden">
                   <img src="${item.thumb_url}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover transition duration-300 hover:scale-105" />
                   <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
-                    ${Number(item.price).toLocaleString()} cash mnf club
+                    ${Number(item.price).toLocaleString()} cash mnfclub
                   </div>
                 </div>
 
@@ -705,7 +768,7 @@
               <div class="p-3 bg-surface-container-low border-t border-white/5 flex items-center gap-2.5">
                 <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-secondary/30 shrink-0 bg-black/40" />
                 <div class="overflow-hidden">
-                  <div class="font-bold text-xs text-on-surface truncate">${creator.display_name}</div>
+                  <div class="font-bold text-xs text-on-surface truncate">name on mnf: ${creator.display_name}</div>
                   <div class="text-[10px] font-mono text-tertiary truncate">Discord: ${creator.contact || 'N/A'}</div>
                 </div>
               </div>
@@ -720,25 +783,103 @@
       });
     }
 
+    function updateEditButtonVisibility() {
+      const editBtn = document.getElementById("modalEditBtn");
+      if (!editBtn) return;
+      const isOwner = Boolean(currentSessionUser && activeInspectedDesign && currentSessionUser.id === activeInspectedDesign.user_id);
+      editBtn.classList.toggle("hidden", !isOwner);
+    }
+
     function openInspectorModal(item, creator) {
+      activeInspectedDesign = item;
+      activeInspectedCreator = creator;
+
       resetZoom();
+      cancelEditDesignMode();
+
       document.getElementById("modalFullImage").src = item.thumb_url || item.full_url;
       document.getElementById("modalCategoryBadge").textContent = item.category;
       document.getElementById("modalDesignTitle").textContent = item.title;
       document.getElementById("modalDesignPrice").textContent = Number(item.price).toLocaleString();
       document.getElementById("modalDesignDesc").textContent = item.description;
 
-      document.getElementById("modalDesignerName").textContent = creator.display_name || "MNF Creator";
+      document.getElementById("modalDesignerName").textContent = `name on mnf: ${creator.display_name || "MNF Creator"}`;
       document.getElementById("modalDesignerDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
       document.getElementById("modalDesignerAvatar").src = creator.avatar_url || "logo.jpg";
+
+      updateEditButtonVisibility();
 
       const modal = document.getElementById("inspectorModal");
       modal.classList.remove("hidden");
       modal.classList.add("flex");
     }
 
+    function openEditDesignMode() {
+      if (!activeInspectedDesign) return;
+      document.getElementById("editStatusMsg").textContent = "";
+      document.getElementById("editDesignTitle").value = activeInspectedDesign.title || "";
+      document.getElementById("editDesignPrice").value = activeInspectedDesign.price || "";
+      document.getElementById("editDesignCategory").value = activeInspectedDesign.category || CATEGORIES[0];
+      document.getElementById("editDesignDesc").value = activeInspectedDesign.description || "";
+      document.getElementById("editDesignImage").value = "";
+
+      document.getElementById("modalViewMode").classList.add("hidden");
+      document.getElementById("modalEditForm").classList.remove("hidden");
+    }
+
+    function cancelEditDesignMode() {
+      document.getElementById("modalEditForm").classList.add("hidden");
+      document.getElementById("modalViewMode").classList.remove("hidden");
+      document.getElementById("editStatusMsg").textContent = "";
+    }
+
+    async function saveEditedDesign(e) {
+      e.preventDefault();
+      if (!currentSessionUser || !activeInspectedDesign) return;
+
+      const btn = document.getElementById("saveEditBtn");
+      const msg = document.getElementById("editStatusMsg");
+      btn.disabled = true;
+      msg.textContent = "Saving changes...";
+
+      try {
+        let imageUrl = activeInspectedDesign.thumb_url || activeInspectedDesign.full_url;
+        const newFile = document.getElementById("editDesignImage").files[0];
+        if (newFile) {
+          imageUrl = await uploadMedia(newFile, "designs");
+        }
+
+        const updatedFields = {
+          title: document.getElementById("editDesignTitle").value.trim(),
+          price: document.getElementById("editDesignPrice").value.trim(),
+          category: document.getElementById("editDesignCategory").value,
+          description: document.getElementById("editDesignDesc").value.trim(),
+          thumb_url: imageUrl,
+          full_url: imageUrl
+        };
+
+        const { error } = await sb
+          .from("designs")
+          .update(updatedFields)
+          .eq("id", activeInspectedDesign.id)
+          .eq("user_id", currentSessionUser.id);
+
+        if (error) throw error;
+
+        activeInspectedDesign = { ...activeInspectedDesign, ...updatedFields };
+        await fetchShowcaseData();
+        openInspectorModal(activeInspectedDesign, activeInspectedCreator);
+      } catch (err) {
+        msg.textContent = err.message || "Failed to update design.";
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
     function closeInspectorModal(e) {
       if (!e || e.target.id === "inspectorModal") {
+        cancelEditDesignMode();
+        activeInspectedDesign = null;
         const modal = document.getElementById("inspectorModal");
         modal.classList.add("hidden");
         modal.classList.remove("flex");
