@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>MNF DESIGNS | Design Showcase &amp; Creator Profiles</title>
+  <title>MNF DESIGNS | Exclusive Creator Showcase</title>
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE1TTV52NL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,91 +14,37 @@
     gtag('config', 'G-VE1TTV52NL');
   </script>
 
+  <!-- Tailwind CSS & Supabase SDK -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet" />
 
   <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
-          "colors": {
+          colors: {
             "secondary": "#fbabff",
             "on-surface-variant": "#c7c6ca",
             "tertiary": "#c0c1ff",
             "on-secondary": "#580065",
             "outline-variant": "#46464a",
-            "on-primary-fixed-variant": "#474647",
-            "on-error": "#690005",
-            "surface-tint": "#c8c6c7",
-            "primary": "#c8c6c7",
-            "on-secondary-fixed-variant": "#7c008e",
             "surface-container-high": "#1c2b3c",
-            "on-primary-fixed": "#1c1b1c",
-            "inverse-on-surface": "#233143",
             "surface-container-low": "#0d1c2d",
-            "on-primary": "#313031",
-            "secondary-fixed-dim": "#fbabff",
-            "on-tertiary": "#1000a9",
-            "on-tertiary-fixed": "#07006c",
-            "primary-fixed": "#e5e2e3",
-            "tertiary-fixed": "#e1e0ff",
-            "error-container": "#93000a",
-            "on-tertiary-container": "#6568f3",
-            "on-error-container": "#ffdad6",
             "surface-container": "#122131",
-            "outline": "#919094",
-            "surface-bright": "#2c3a4c",
+            "surface-container-lowest": "#051424",
             "background": "#051424",
             "surface": "#051424",
-            "tertiary-container": "#020039",
-            "error": "#ffb4ab",
-            "surface-dim": "#051424",
-            "primary-fixed-dim": "#c8c6c7",
-            "on-secondary-fixed": "#36003e",
-            "tertiary-fixed-dim": "#c0c1ff",
-            "secondary-container": "#ae05c6",
-            "primary-container": "#0a0a0b",
             "on-surface": "#d4e4fa",
-            "surface-container-lowest": "#010f1f",
-            "on-tertiary-fixed-variant": "#2f2ebe",
-            "secondary-fixed": "#ffd6fd",
-            "on-primary-container": "#7a797a",
-            "surface-container-highest": "#273647",
-            "on-secondary-container": "#ffd8fd",
-            "inverse-primary": "#5f5e5f",
-            "inverse-surface": "#d4e4fa",
-            "on-background": "#d4e4fa",
-            "surface-variant": "#273647"
+            "secondary-container": "#ae05c6",
+            "on-secondary-container": "#ffd8fd"
           },
-          "borderRadius": {
-            "DEFAULT": "0.25rem",
-            "lg": "0.5rem",
-            "xl": "0.75rem",
-            "full": "9999px"
-          },
-          "spacing": {
-            "unit": "8px",
-            "margin-mobile": "16px",
-            "gutter": "24px",
-            "container-max": "1280px"
-          },
-          "fontFamily": {
-            "headline-lg-mobile": ["Geist"],
-            "headline-lg": ["Geist"],
-            "headline-xl": ["Geist"],
-            "label-sm": ["JetBrains Mono"],
-            "body-md": ["Geist"]
-          },
-          "fontSize": {
-            "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
-            "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-            "headline-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-            "label-sm": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
-            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+          fontFamily: {
+            headline: ["Geist", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
           }
         }
       }
@@ -114,24 +60,39 @@
     }
 
     .glass-card {
-      background: rgba(28, 43, 60, 0.4);
+      background: rgba(18, 33, 49, 0.7);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .glass-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(251, 171, 255, 0.45);
-      box-shadow: 0 20px 40px -20px rgba(251, 171, 255, 0.2);
+      transform: translateY(-4px);
+      border-color: rgba(251, 171, 255, 0.4);
+      box-shadow: 0 12px 30px -10px rgba(251, 171, 255, 0.15);
     }
 
     .magenta-glow {
-      text-shadow: 0 0 20px rgba(251, 171, 255, 0.4);
+      text-shadow: 0 0 24px rgba(251, 171, 255, 0.45);
+    }
+
+    .hero-mesh {
+      background: radial-gradient(circle at 50% 30%, rgba(174, 5, 198, 0.16) 0%, transparent 60%),
+                  radial-gradient(circle at 15% 70%, rgba(101, 104, 243, 0.12) 0%, transparent 50%);
+    }
+
+    .hero-grid {
+      background-image:
+        linear-gradient(rgba(192, 193, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(192, 193, 255, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 90%);
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 90%);
     }
 
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
+      height: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
       background: #051424;
@@ -140,54 +101,25 @@
       background: #273647;
       border-radius: 10px;
     }
-
-    .hero-mesh {
-      background: radial-gradient(circle at 50% 40%, rgba(174, 5, 198, 0.14) 0%, transparent 55%),
-                  radial-gradient(circle at 15% 80%, rgba(101, 104, 243, 0.12) 0%, transparent 45%);
-    }
-
-    .hero-grid {
-      background-image:
-        linear-gradient(rgba(192, 193, 255, 0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(192, 193, 255, 0.07) 1px, transparent 1px);
-      background-size: 46px 46px;
-      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, black 20%, transparent 80%);
-      mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, black 20%, transparent 80%);
-      animation: grid-pan 50s linear infinite;
-    }
-
-    @keyframes grid-pan {
-      from { background-position: 0 0; }
-      to { background-position: 46px 46px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hero-grid { animation: none; }
-    }
-
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
   </style>
 </head>
 
-<body class="custom-scrollbar overflow-x-hidden">
+<body class="custom-scrollbar overflow-x-hidden min-h-screen flex flex-col justify-between">
 
-  <!-- Top Navigation -->
-  <nav class="bg-background/85 backdrop-blur-md text-secondary sticky top-0 z-50 border-b border-white/10 shadow-sm transition-all duration-300">
-    <div class="flex justify-between items-center px-margin-mobile md:px-gutter py-4 max-w-container-max mx-auto">
+  <!-- Top Navigation Bar -->
+  <nav class="bg-[#051424]/90 backdrop-blur-md sticky top-0 z-40 border-b border-white/10 shadow-sm">
+    <div class="flex justify-between items-center px-4 md:px-8 py-3.5 max-w-7xl mx-auto w-full">
       <a href="#top" class="flex items-center gap-3 group">
-        <img src="logo.jpg" alt="MNF DESIGNS Logo"
-          class="w-9 h-9 rounded-lg object-cover border border-secondary/30 shrink-0 transition-transform duration-300 group-hover:scale-105"
-          onerror="this.style.display='none'" />
-        <span class="font-headline-lg text-[19px] font-black tracking-tight bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent">
+        <img src="logo.jpg" alt="MNF DESIGNS" class="w-9 h-9 rounded-lg object-cover border border-secondary/30 shrink-0" onerror="this.style.display='none'" />
+        <span class="text-xl font-black tracking-tight bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent">
           MNF DESIGNS
         </span>
       </a>
 
-      <div class="flex items-center gap-3">
-        <button onclick="openSignInModal()"
-          class="bg-secondary-container text-on-secondary-container px-5 py-2 rounded-full font-label-sm text-label-sm font-bold transition-all duration-300 hover:scale-105 hover:bg-secondary hover:text-on-secondary flex items-center gap-1.5">
+      <!-- Right Header Controls: Changes dynamically upon login -->
+      <div id="navAuthArea" class="flex items-center gap-3">
+        <button onclick="openAuthModal()"
+          class="bg-secondary-container text-on-secondary-container px-5 py-2 rounded-full font-mono text-xs font-bold transition-all hover:scale-105 hover:bg-secondary hover:text-on-secondary flex items-center gap-1.5 shadow-md shadow-secondary/10">
           <span class="material-symbols-outlined text-base">login</span>
           Sign In
         </button>
@@ -195,182 +127,324 @@
     </div>
   </nav>
 
-  <!-- Compact Hero Section -->
-  <header id="top" class="relative min-h-[48vh] flex items-center justify-center overflow-hidden px-margin-mobile md:px-gutter py-12">
-    <div class="absolute inset-0 z-0">
-      <canvas class="absolute inset-0 h-full w-full opacity-70" id="hero-network"></canvas>
-      <div class="absolute inset-0 hero-grid opacity-40"></div>
+  <!-- Compact Hero Section (No sharp margins or clipping) -->
+  <header id="top" class="relative overflow-hidden py-14 px-4 md:px-8 text-center bg-[#051424]">
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <div class="absolute inset-0 hero-grid"></div>
       <div class="absolute inset-0 hero-mesh"></div>
-      <div class="absolute top-1/2 left-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary/10 blur-[120px]"></div>
-      <div class="absolute inset-0 bg-gradient-to-b from-background/10 via-background/50 to-background"></div>
+      <div class="absolute top-1/2 left-1/2 w-[480px] h-[300px] -translate-x-1/2 -translate-y-1/2 bg-secondary/10 blur-[130px] rounded-full"></div>
     </div>
 
-    <div class="relative z-10 text-center max-w-3xl mx-auto space-y-5">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-label-sm text-xs">
+    <div class="relative z-10 max-w-3xl mx-auto space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary font-mono text-xs">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
         </span>
-        Notice: Use compressed previews for fast loading &amp; reduced-res full view for anti-theft protection
+        Notice: Optimized previews enabled • Dedicated to MNF CLUBS
       </div>
 
-      <h1 class="font-headline-xl text-4xl md:text-6xl font-black tracking-tight">
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
         <span class="bg-gradient-to-r from-secondary via-secondary to-tertiary bg-clip-text text-transparent magenta-glow">
           MNF DESIGNS
         </span>
       </h1>
 
-      <p class="font-body-md text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-        Dedicated design showcase for MNF CLUBS. Browse categories, inspect full previews with zoom, and view creator profiles.
+      <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
+        Browse authentic interior &amp; exterior designs built by community creators. Explore full previews and contact designers directly.
       </p>
 
       <div class="flex items-center justify-center gap-3 pt-2">
-        <button onclick="openSignInModal()"
-          class="h-10 px-6 bg-secondary text-on-secondary font-bold text-xs rounded-lg transition-all hover:scale-105 shadow-lg shadow-secondary/10 flex items-center justify-center gap-2">
-          <span class="material-symbols-outlined text-sm">login</span>
-          Sign In
-        </button>
-        <a href="#categories-section"
-          class="h-10 px-5 border border-outline-variant hover:bg-white/5 text-xs transition-all rounded-lg flex items-center justify-center gap-2">
+        <a href="#categoriesSection"
+          class="h-10 px-6 border border-white/15 hover:border-secondary hover:bg-white/5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2">
           <span class="material-symbols-outlined text-sm">grid_view</span>
-          Browse Categories
+          Explore Categories
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Design Categories & Sections -->
-  <section id="categories-section" class="py-12 px-margin-mobile md:px-gutter max-w-container-max mx-auto">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
-      <div>
-        <h2 class="font-headline-lg text-2xl md:text-4xl font-bold text-secondary">Design Categories</h2>
-        <p class="text-on-surface-variant text-sm mt-1">
-          Uploaded designs appear under their selected category section below.
-        </p>
+  <!-- Main Content Layout -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-12">
+
+    <!-- Designer Studio / Dashboard View (Hidden by default; toggled via Top Header profile) -->
+    <section id="designerStudioView" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/30 space-y-8 animate-fade-in">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-wider text-secondary">Creator Management Studio</span>
+          <h2 class="text-2xl font-bold text-on-surface mt-1">Your Designer Dashboard</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="closeStudioView()"
+            class="px-4 py-2 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition">
+            Close Studio
+          </button>
+          <button onclick="signOutUser()"
+            class="px-4 py-2 rounded-lg bg-red-950/40 border border-red-500/30 text-red-300 text-xs font-bold hover:bg-red-900/50 transition">
+            Sign Out
+          </button>
+        </div>
       </div>
-    </div>
 
-    <!-- Category Filter Bar -->
-    <div id="categoryFilterBar" class="flex flex-wrap gap-2 mb-10"></div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Step 1: Designer Profile Setup Card -->
+        <div class="lg:col-span-5 bg-surface-container/60 border border-white/10 rounded-xl p-6 space-y-5">
+          <div class="flex items-center gap-2 text-secondary font-bold text-sm uppercase tracking-wide border-b border-white/5 pb-2">
+            <span class="material-symbols-outlined text-base">badge</span>
+            1. My Designer Profile
+          </div>
 
-    <!-- Category Sections Container -->
-    <div id="categorySections" class="space-y-12"></div>
-  </section>
+          <!-- Designer Identity Card Preview -->
+          <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 flex items-center gap-4">
+            <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-secondary/40 shrink-0 bg-black/40" />
+            <div class="space-y-1 overflow-hidden">
+              <div id="studioInGameNameDisplay" class="font-bold text-base text-on-surface truncate">Not Set</div>
+              <div id="studioDiscordDisplay" class="text-xs font-mono text-tertiary truncate">Discord: Not Set</div>
+              <div class="text-[10px] text-on-surface-variant font-mono">MNF Verified Designer</div>
+            </div>
+          </div>
 
-  <!-- Design Full Preview + Creator Profile Modal -->
-  <div id="designModal" onclick="closeDesignModal(event)"
-    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-    <div onclick="event.stopPropagation()"
-      class="bg-surface-container border border-white/10 rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
+          <form id="profileForm" onsubmit="saveDesignerProfile(event)" class="space-y-4">
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Name (MNF)</label>
+              <input id="mnfNameInput" type="text" required placeholder="e.g. Zeko_VIP"
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
+            </div>
 
-      <!-- Left: Full Design Viewer + Zoom -->
-      <div class="lg:col-span-7 bg-surface-container-lowest p-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
-        <div class="flex-1 flex items-center justify-center overflow-auto min-h-[280px]">
-          <img id="modalDesignImg" src="" alt="Design Preview"
-            class="max-w-full max-h-[60vh] rounded-xl object-contain transition-transform duration-200 select-none" />
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Discord Tag / Username</label>
+              <input id="discordInput" type="text" required placeholder="e.g. zeko#0001 or @zeko"
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
+            </div>
+
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">In-Game Avatar Photo (Cropped with Name)</label>
+              <input id="avatarFileInput" type="file" accept="image/*"
+                class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
+              <span class="text-[10px] text-on-surface-variant block mt-1">Upload your in-game cropped name screenshot.</span>
+            </div>
+
+            <button type="submit" id="saveProfileBtn"
+              class="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-bold text-xs hover:brightness-110 transition shadow-md">
+              Update Profile Card
+            </button>
+            <p id="profileStatusMsg" class="text-xs text-tertiary text-center min-h-[16px]"></p>
+          </form>
         </div>
 
-        <div class="flex items-center justify-center gap-2 pt-4">
-          <button onclick="stepZoom(-0.25)"
-            class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
+        <!-- Step 2: Upload Design Under Selected Category -->
+        <div class="lg:col-span-7 bg-surface-container/60 border border-white/10 rounded-xl p-6 space-y-5">
+          <div class="flex items-center gap-2 text-tertiary font-bold text-sm uppercase tracking-wide border-b border-white/5 pb-2">
+            <span class="material-symbols-outlined text-base">cloud_upload</span>
+            2. Publish New Design
+          </div>
+
+          <form id="uploadDesignForm" onsubmit="publishDesign(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Title</label>
+                <input id="designTitleInput" type="text" required placeholder="e.g. Modern VIP Studio"
+                  class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
+              </div>
+
+              <div>
+                <label class="block font-mono text-xs text-on-surface-variant mb-1">Price (cash mnf club)</label>
+                <div class="relative">
+                  <input id="designPriceInput" type="number" min="0" required placeholder="50000"
+                    class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface pr-32 focus:border-tertiary focus:ring-0 outline-none" />
+                  <span class="absolute right-3 top-2.5 text-xs font-mono text-secondary pointer-events-none font-bold">
+                    cash mnf club
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Category (Target Space)</label>
+              <select id="designCategorySelect" required
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none">
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Short Description</label>
+              <textarea id="designDescInput" rows="2" required placeholder="Highlight key items, lighting, layout, and atmosphere..."
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-mono text-xs text-on-surface-variant mb-1">Thumbnail Preview (Fast Load)</label>
+                <input id="thumbFileInput" type="file" accept="image/*" required
+                  class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-tertiary/20 file:text-tertiary file:font-bold cursor-pointer" />
+              </div>
+
+              <div>
+                <label class="block font-mono text-xs text-on-surface-variant mb-1">Full Render (Inspector View)</label>
+                <input id="fullFileInput" type="file" accept="image/*" required
+                  class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
+              </div>
+            </div>
+
+            <button type="submit" id="publishBtn"
+              class="w-full py-3 rounded-lg bg-secondary-container text-on-secondary-container font-bold text-xs uppercase tracking-wider hover:bg-secondary hover:text-on-secondary transition shadow-lg shadow-secondary/10">
+              Publish To Showcase
+            </button>
+            <p id="uploadStatusMsg" class="text-xs text-secondary text-center min-h-[16px]"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories & Designs Display Area -->
+    <section id="categoriesSection" class="space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-black text-secondary">Design Categories</h2>
+          <p class="text-on-surface-variant text-sm mt-1">Select a category or browse all designs curated by verified creators.</p>
+        </div>
+      </div>
+
+      <!-- Filter Buttons Bar -->
+      <div id="categoryFilterBar" class="flex flex-wrap gap-2"></div>
+
+      <!-- Category Groups Container -->
+      <div id="categoryGroups" class="space-y-12"></div>
+    </section>
+  </main>
+
+  <!-- Design Full Inspector Modal + Zoom + Designer Profile -->
+  <div id="inspectorModal" onclick="closeInspectorModal(event)"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div onclick="event.stopPropagation()"
+      class="bg-surface-container border border-white/10 rounded-2xl w-full max-w-5xl max-h-[92vh] overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
+
+      <!-- Left: Stage & Zoom Controls -->
+      <div class="lg:col-span-7 bg-[#020b14] p-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
+        <div class="flex-1 flex items-center justify-center overflow-auto min-h-[300px]">
+          <img id="modalFullImage" src="" alt="Design" class="max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none" />
+        </div>
+
+        <div class="flex items-center justify-center gap-2 pt-4 border-t border-white/5">
+          <button onclick="changeZoom(-0.25)" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
             Zoom -
           </button>
-          <span id="zoomPercent" class="font-label-sm text-xs text-on-surface-variant min-w-[48px] text-center">100%</span>
-          <button onclick="stepZoom(0.25)"
-            class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
+          <span id="zoomLevelDisplay" class="font-mono text-xs text-on-surface-variant min-w-[50px] text-center">100%</span>
+          <button onclick="changeZoom(0.25)" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
             Zoom +
           </button>
-          <button onclick="resetZoom()"
-            class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
+          <button onclick="resetZoom()" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
             Reset
           </button>
         </div>
       </div>
 
-      <!-- Right: Design Info & Creator Profile -->
+      <!-- Right: Detailed Specs & Designer Identity -->
       <div class="lg:col-span-5 p-6 overflow-y-auto custom-scrollbar flex flex-col justify-between gap-6">
         <div class="space-y-4">
-          <div class="flex items-center justify-between gap-2">
-            <span id="modalCategoryBadge"
-              class="px-3 py-1 rounded-full bg-secondary/15 border border-secondary/30 text-secondary font-label-sm text-xs"></span>
-            <button onclick="closeDesignModal()"
-              class="px-3 py-1 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:bg-white/10">
-              Close ✕
-            </button>
+          <div class="flex items-center justify-between">
+            <span id="modalCategoryBadge" class="px-3 py-1 rounded-full bg-secondary/15 border border-secondary/30 text-secondary font-mono text-xs"></span>
+            <button onclick="closeInspectorModal()" class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">✕ Close</button>
           </div>
 
-          <h3 id="modalDesignTitle" class="font-headline-lg text-2xl font-bold text-on-surface"></h3>
-          <div id="modalDesignPrice" class="font-label-sm text-lg font-bold text-secondary"></div>
+          <h3 id="modalDesignTitle" class="text-2xl font-bold text-on-surface"></h3>
+
+          <div class="flex items-baseline gap-2">
+            <span id="modalDesignPrice" class="font-mono text-2xl font-black text-secondary"></span>
+            <span class="font-mono text-xs text-tertiary">cash mnf club</span>
+          </div>
+
           <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
 
-          <!-- Creator Profile Card -->
-          <div class="glass-card rounded-xl p-4 border border-white/10 space-y-2">
-            <div class="font-label-sm text-[11px] uppercase tracking-wider text-tertiary">Creator Profile</div>
+          <!-- Designer Identity Card on Sidebar -->
+          <div class="glass-card rounded-xl p-4 border border-white/10 space-y-3">
+            <span class="font-mono text-[10px] text-tertiary uppercase tracking-wider">Created By</span>
             <div class="flex items-center gap-3">
-              <img id="modalCreatorAvatar" src="logo.jpg" alt="Creator"
-                class="w-12 h-12 rounded-full object-cover border border-secondary/30"
-                onerror="this.style.display='none'" />
-              <div>
-                <div id="modalCreatorName" class="font-bold text-sm text-on-surface"></div>
-                <div id="modalCreatorBio" class="text-xs text-on-surface-variant"></div>
+              <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-secondary/40 shrink-0 bg-black/40" />
+              <div class="overflow-hidden">
+                <div id="modalDesignerName" class="font-bold text-sm text-on-surface truncate"></div>
+                <div id="modalDesignerDiscord" class="text-xs font-mono text-tertiary truncate"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <div id="modalCreatorContact"
-          class="w-full py-3 px-4 rounded-xl bg-secondary-container text-on-secondary-container font-label-sm text-xs font-bold text-center border border-secondary/30">
+        <div class="p-3 rounded-xl bg-surface-container-high border border-white/5 text-center text-xs text-on-surface-variant font-mono">
+          Trade / purchase arranged directly with creator in-game.
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Sign In Modal -->
-  <div id="signInModal" onclick="closeSignInModal(event)"
+  <!-- Sign In / Sign Up Modal -->
+  <div id="authModal" onclick="closeAuthModal(event)"
     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
     <div onclick="event.stopPropagation()"
       class="bg-surface-container border border-white/10 rounded-2xl w-full max-w-md p-6 space-y-5 shadow-2xl">
       <div class="flex items-center justify-between">
-        <h3 class="font-headline-lg text-xl font-bold text-secondary">Sign In to MNF DESIGNS</h3>
-        <button onclick="closeSignInModal()" class="text-on-surface-variant hover:text-on-surface text-sm">✕</button>
+        <h3 class="text-xl font-bold text-secondary">Creator Access</h3>
+        <button onclick="closeAuthModal()" class="text-on-surface-variant hover:text-on-surface text-sm">✕</button>
       </div>
-      <p class="text-sm text-on-surface-variant leading-relaxed">
-        Creator sign-in, profile setup (avatar, name, bio, contact), and design upload will be wired in the next step.
-      </p>
-      <div class="flex justify-end gap-2">
-        <button onclick="closeSignInModal()"
-          class="px-4 py-2 rounded-lg bg-secondary text-on-secondary font-bold text-xs">
-          Got It
-        </button>
-      </div>
+
+      <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block font-mono text-xs text-on-surface-variant mb-1">Email Address</label>
+          <input id="authEmail" type="email" required placeholder="creator@example.com"
+            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
+        </div>
+
+        <div>
+          <label class="block font-mono text-xs text-on-surface-variant mb-1">Password</label>
+          <input id="authPassword" type="password" required minlength="6" placeholder="••••••••"
+            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <button type="submit" id="authSubmitBtn"
+            class="flex-1 py-2.5 rounded-lg bg-secondary text-on-secondary font-bold text-xs hover:brightness-110 transition shadow-md">
+            Sign In
+          </button>
+          <button type="button" onclick="handleSignUp()"
+            class="px-4 py-2.5 rounded-lg bg-surface-container-high border border-white/15 text-xs text-on-surface hover:border-secondary transition">
+            Register
+          </button>
+        </div>
+      </form>
+
+      <p id="authMessage" class="text-xs text-tertiary text-center min-h-[16px]"></p>
     </div>
   </div>
 
   <!-- Footer -->
-  <footer class="bg-surface-container-lowest text-on-surface font-body-md text-body-md border-t border-white/5 py-12 mt-12">
-    <div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-gutter max-w-container-max mx-auto gap-6">
-      <div class="flex flex-col items-center md:items-start gap-3">
-        <div class="flex items-center gap-2.5">
-          <img src="logo.jpg" alt="MNF DESIGNS Logo"
-            class="w-8 h-8 rounded-lg object-cover border border-secondary/30"
-            onerror="this.style.display='none'" />
-          <span class="font-headline-lg-mobile text-headline-lg-mobile font-black tracking-tight bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent">
+  <footer class="bg-[#051424] text-on-surface border-t border-white/5 py-10 mt-16">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+      <div class="flex items-center gap-3">
+        <img src="logo.jpg" alt="Logo" class="w-8 h-8 rounded-lg object-cover border border-secondary/30" onerror="this.style.display='none'" />
+        <div>
+          <span class="font-black text-sm tracking-wide bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent block">
             MNF DESIGNS
           </span>
+          <span class="text-xs text-on-surface-variant">Dedicated design platform for MNF CLUBS</span>
         </div>
-        <p class="text-on-surface-variant text-sm max-w-sm text-center md:text-left opacity-85">
-          Dedicated design showcase platform for MNF CLUBS—presenting spaces and creative works with creator profiles.
-        </p>
       </div>
 
-      <div class="text-on-surface-variant text-sm opacity-85 text-center md:text-right">
+      <div class="text-xs text-on-surface-variant font-mono">
         All Rights Reserved © Mnf Club Designs 2027
       </div>
     </div>
   </footer>
 
+  <!-- Core JavaScript Logic -->
   <script>
-    const DESIGN_CATEGORIES = [
+    // Supabase Configuration
+    const SUPABASE_URL = "https://xzvdapnhnupnqeulibaq.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_I0HO71_s3SMEXIHKd9duKg_QSiU_H6H";
+    const BUCKET_NAME = "designs-media";
+
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Categories List
+    const CATEGORIES = [
       "Studio apartment",
       "2 bedroom apartment",
       "Garage",
@@ -381,57 +455,311 @@
       "Czech Gloryhole Hut"
     ];
 
-    // Add real items here once ready:
-    // { id, title, category, price, desc, thumbImg, fullImg, creatorName, creatorBio, creatorAvatar, creatorContact }
-    const DESIGNS = [];
+    let currentSessionUser = null;
+    let currentProfile = null;
+    let allDesigns = [];
+    let profilesMap = {};
+    let activeFilter = "ALL";
+    let zoomLevel = 1;
 
-    let selectedCategory = "ALL";
-    let currentZoom = 1;
+    // Initialization
+    async function init() {
+      setupCategorySelect();
+      renderCategoryFilters();
+      await fetchShowcaseData();
 
-    function renderFilterBar() {
+      // Check Active Session
+      const { data: { session } } = await sb.auth.getSession();
+      handleSessionState(session);
+
+      sb.auth.onAuthStateChange((_event, session) => {
+        handleSessionState(session);
+      });
+    }
+
+    function setupCategorySelect() {
+      const select = document.getElementById("designCategorySelect");
+      select.innerHTML = CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join("");
+    }
+
+    function handleSessionState(session) {
+      currentSessionUser = session?.user || null;
+      renderNavControls();
+      if (currentSessionUser) {
+        loadUserProfile();
+      } else {
+        currentProfile = null;
+        document.getElementById("designerStudioView").classList.add("hidden");
+      }
+    }
+
+    function renderNavControls() {
+      const area = document.getElementById("navAuthArea");
+      if (currentSessionUser && currentProfile) {
+        area.innerHTML = `
+          <button onclick="toggleStudioView()"
+            class="flex items-center gap-2.5 bg-surface-container-high border border-secondary/30 hover:border-secondary px-3 py-1.5 rounded-full transition group">
+            <img src="${currentProfile.avatar_url || 'logo.jpg'}" alt="Avatar" class="w-6 h-6 rounded-full object-cover border border-secondary/50" />
+            <span class="text-xs font-bold text-on-surface group-hover:text-secondary">${currentProfile.display_name || 'My Studio'}</span>
+            <span class="material-symbols-outlined text-xs text-secondary">tune</span>
+          </button>
+        `;
+      } else if (currentSessionUser) {
+        area.innerHTML = `
+          <button onclick="toggleStudioView()"
+            class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full text-xs font-bold hover:bg-secondary">
+            Setup Profile
+          </button>
+        `;
+      } else {
+        area.innerHTML = `
+          <button onclick="openAuthModal()"
+            class="bg-secondary-container text-on-secondary-container px-5 py-2 rounded-full font-mono text-xs font-bold transition hover:scale-105 hover:bg-secondary hover:text-on-secondary flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base">login</span>
+            Sign In
+          </button>
+        `;
+      }
+    }
+
+    function toggleStudioView() {
+      const studio = document.getElementById("designerStudioView");
+      studio.classList.toggle("hidden");
+      if (!studio.classList.contains("hidden")) {
+        studio.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function closeStudioView() {
+      document.getElementById("designerStudioView").classList.add("hidden");
+    }
+
+    // Auth Actions
+    function openAuthModal() {
+      document.getElementById("authMessage").textContent = "";
+      document.getElementById("authModal").classList.remove("hidden");
+      document.getElementById("authModal").classList.add("flex");
+    }
+
+    function closeAuthModal(e) {
+      if (!e || e.target.id === "authModal") {
+        document.getElementById("authModal").classList.add("hidden");
+        document.getElementById("authModal").classList.remove("flex");
+      }
+    }
+
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById("authEmail").value.trim();
+      const password = document.getElementById("authPassword").value;
+      const msg = document.getElementById("authMessage");
+      msg.textContent = "Authenticating...";
+
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) {
+        msg.textContent = error.message;
+        return;
+      }
+      closeAuthModal();
+      toggleStudioView();
+    }
+
+    async function handleSignUp() {
+      const email = document.getElementById("authEmail").value.trim();
+      const password = document.getElementById("authPassword").value;
+      const msg = document.getElementById("authMessage");
+      if (!email || password.length < 6) {
+        msg.textContent = "Provide a valid email & 6+ character password.";
+        return;
+      }
+      msg.textContent = "Registering user...";
+      const { error } = await sb.auth.signUp({ email, password });
+      if (error) {
+        msg.textContent = error.message;
+        return;
+      }
+      msg.textContent = "Account registered! Signing in or check inbox.";
+    }
+
+    async function signOutUser() {
+      await sb.auth.signOut();
+      closeStudioView();
+    }
+
+    // Storage Upload Utility
+    async function uploadMedia(file, folder) {
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
+      const filePath = `${currentSessionUser.id}/${folder}/${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${ext}`;
+      const { error } = await sb.storage.from(BUCKET_NAME).upload(filePath, file);
+      if (error) throw error;
+      const { data } = sb.storage.from(BUCKET_NAME).getPublicUrl(filePath);
+      return data.publicUrl;
+    }
+
+    // Load & Save Profile
+    async function loadUserProfile() {
+      const { data, error } = await sb.from("profiles").select("*").eq("id", currentSessionUser.id).single();
+      if (!error && data) {
+        currentProfile = data;
+        profilesMap[data.id] = data;
+
+        document.getElementById("mnfNameInput").value = data.display_name || "";
+        document.getElementById("discordInput").value = data.contact || "";
+        document.getElementById("studioInGameNameDisplay").textContent = data.display_name || "Not Set";
+        document.getElementById("studioDiscordDisplay").textContent = data.contact ? `Discord: ${data.contact}` : "Discord: Not Set";
+        if (data.avatar_url) {
+          document.getElementById("studioAvatarImg").src = data.avatar_url;
+        }
+      }
+      renderNavControls();
+    }
+
+    async function saveDesignerProfile(e) {
+      e.preventDefault();
+      if (!currentSessionUser) return;
+
+      const btn = document.getElementById("saveProfileBtn");
+      const msg = document.getElementById("profileStatusMsg");
+      btn.disabled = true;
+      msg.textContent = "Saving...";
+
+      try {
+        let avatarUrl = currentProfile?.avatar_url || "";
+        const file = document.getElementById("avatarFileInput").files[0];
+        if (file) {
+          avatarUrl = await uploadMedia(file, "avatars");
+        }
+
+        const payload = {
+          id: currentSessionUser.id,
+          display_name: document.getElementById("mnfNameInput").value.trim(),
+          contact: document.getElementById("discordInput").value.trim(),
+          avatar_url: avatarUrl,
+          updated_at: new Date().toISOString()
+        };
+
+        const { error } = await sb.from("profiles").upsert(payload);
+        if (error) throw error;
+
+        currentProfile = payload;
+        profilesMap[currentSessionUser.id] = payload;
+
+        document.getElementById("studioInGameNameDisplay").textContent = payload.display_name;
+        document.getElementById("studioDiscordDisplay").textContent = `Discord: ${payload.contact}`;
+        if (avatarUrl) document.getElementById("studioAvatarImg").src = avatarUrl;
+
+        msg.textContent = "Profile updated successfully!";
+        renderNavControls();
+        renderShowcase();
+      } catch (err) {
+        msg.textContent = err.message || "Failed to update profile.";
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    // Publish New Design
+    async function publishDesign(e) {
+      e.preventDefault();
+      if (!currentSessionUser) return;
+
+      if (!currentProfile?.display_name) {
+        alert("Please set up your In-Game Name and Profile Card first!");
+        return;
+      }
+
+      const btn = document.getElementById("publishBtn");
+      const msg = document.getElementById("uploadStatusMsg");
+      const thumbFile = document.getElementById("thumbFileInput").files[0];
+      const fullFile = document.getElementById("fullFileInput").files[0];
+
+      if (!thumbFile || !fullFile) {
+        msg.textContent = "Both preview and full images are required.";
+        return;
+      }
+
+      btn.disabled = true;
+      msg.textContent = "Uploading assets to showcase...";
+
+      try {
+        const thumbUrl = await uploadMedia(thumbFile, "thumbnails");
+        const fullUrl = await uploadMedia(fullFile, "full");
+
+        const payload = {
+          user_id: currentSessionUser.id,
+          title: document.getElementById("designTitleInput").value.trim(),
+          price: document.getElementById("designPriceInput").value.trim(),
+          category: document.getElementById("designCategorySelect").value,
+          description: document.getElementById("designDescInput").value.trim(),
+          thumb_url: thumbUrl,
+          full_url: fullUrl
+        };
+
+        const { error } = await sb.from("designs").insert(payload);
+        if (error) throw error;
+
+        document.getElementById("uploadDesignForm").reset();
+        msg.textContent = "Design published to showcase!";
+        await fetchShowcaseData();
+      } catch (err) {
+        msg.textContent = err.message || "Failed to publish design.";
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    // Fetch All Public Data
+    async function fetchShowcaseData() {
+      const [profilesRes, designsRes] = await Promise.all([
+        sb.from("profiles").select("*"),
+        sb.from("designs").select("*").order("created_at", { ascending: false })
+      ]);
+
+      profilesMap = {};
+      if (profilesRes.data) {
+        profilesRes.data.forEach(p => { profilesMap[p.id] = p; });
+      }
+
+      allDesigns = designsRes.data || [];
+      renderShowcase();
+    }
+
+    // Render Filter Bar
+    function renderCategoryFilters() {
       const bar = document.getElementById("categoryFilterBar");
       bar.innerHTML = "";
 
       const allBtn = document.createElement("button");
       allBtn.textContent = "All Categories";
-      allBtn.className = "px-4 py-2 rounded-full font-label-sm text-xs transition " + (
-        selectedCategory === "ALL"
-          ? "bg-secondary text-on-secondary font-bold"
-          : "bg-surface-container border border-white/10 text-on-surface-variant hover:border-secondary/50"
-      );
-      allBtn.onclick = () => { selectedCategory = "ALL"; renderPage(); };
+      allBtn.className = `px-4 py-1.5 rounded-full font-mono text-xs transition ${activeFilter === "ALL" ? "bg-secondary text-on-secondary font-bold" : "bg-surface-container border border-white/10 text-on-surface-variant hover:border-secondary/40"}`;
+      allBtn.onclick = () => { activeFilter = "ALL"; renderShowcase(); renderCategoryFilters(); };
       bar.appendChild(allBtn);
 
-      DESIGN_CATEGORIES.forEach(cat => {
+      CATEGORIES.forEach(cat => {
         const btn = document.createElement("button");
         btn.textContent = cat;
-        btn.className = "px-4 py-2 rounded-full font-label-sm text-xs transition " + (
-          selectedCategory === cat
-            ? "bg-secondary text-on-secondary font-bold"
-            : "bg-surface-container border border-white/10 text-on-surface-variant hover:border-secondary/50"
-        );
-        btn.onclick = () => { selectedCategory = cat; renderPage(); };
+        btn.className = `px-4 py-1.5 rounded-full font-mono text-xs transition ${activeFilter === cat ? "bg-secondary text-on-secondary font-bold" : "bg-surface-container border border-white/10 text-on-surface-variant hover:border-secondary/40"}`;
+        btn.onclick = () => { activeFilter = cat; renderShowcase(); renderCategoryFilters(); };
         bar.appendChild(btn);
       });
     }
 
-    function renderCategorySections() {
-      const container = document.getElementById("categorySections");
+    // Render Designs & Embedded Designer Profile Cards
+    function renderShowcase() {
+      const container = document.getElementById("categoryGroups");
       container.innerHTML = "";
 
-      const categoriesToRender = selectedCategory === "ALL"
-        ? DESIGN_CATEGORIES
-        : DESIGN_CATEGORIES.filter(c => c === selectedCategory);
+      const categoriesToRender = activeFilter === "ALL" ? CATEGORIES : CATEGORIES.filter(c => c === activeFilter);
 
-      categoriesToRender.forEach(cat => {
-        const items = DESIGNS.filter(d => d.category === cat);
+      categoriesToRender.forEach(category => {
+        const items = allDesigns.filter(d => d.category === category);
         const section = document.createElement("div");
         section.className = "space-y-4";
 
         const headerHtml = `
           <div class="flex items-center justify-between border-b border-white/10 pb-3">
-            <h3 class="font-headline-lg text-2xl font-bold text-on-surface">${cat}</h3>
-            <span class="font-label-sm text-xs text-on-surface-variant">${items.length} ${items.length === 1 ? "design" : "designs"}</span>
+            <h3 class="text-xl font-bold text-on-surface">${category}</h3>
+            <span class="font-mono text-xs text-on-surface-variant">${items.length} ${items.length === 1 ? 'Design' : 'Designs'}</span>
           </div>
         `;
 
@@ -439,28 +767,36 @@
         grid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6";
 
         if (items.length === 0) {
-          grid.className = "glass-card rounded-xl p-6 text-sm text-on-surface-variant";
-          grid.textContent = `No designs published under "${cat}" yet.`;
+          grid.className = "glass-card rounded-xl p-5 text-sm text-on-surface-variant";
+          grid.textContent = `No designs published in "${category}" yet.`;
         } else {
           items.forEach(item => {
+            const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg" };
             const card = document.createElement("div");
-            card.className = "glass-card rounded-xl overflow-hidden cursor-pointer flex flex-col";
-            card.onclick = () => openDesignModal(item);
+            card.className = "glass-card rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between";
+            card.onclick = () => openInspectorModal(item, creator);
+
             card.innerHTML = `
-              <div class="relative h-44 bg-surface-container-lowest overflow-hidden">
-                <img src="${item.thumbImg}" alt="${item.title}" loading="lazy"
-                  class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-                <span class="absolute bottom-2 right-2 px-2.5 py-1 rounded-md bg-background/85 border border-white/10 font-label-sm text-xs font-bold text-secondary">
-                  ${item.price}
-                </span>
-              </div>
-              <div class="p-4 flex-1 flex flex-col justify-between gap-2">
-                <div>
-                  <div class="font-bold text-base text-on-surface">${item.title}</div>
-                  <div class="text-xs text-on-surface-variant line-clamp-2 mt-1">${item.desc}</div>
+              <div>
+                <div class="relative h-44 bg-black/40 overflow-hidden">
+                  <img src="${item.thumb_url}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover transition duration-300 hover:scale-105" />
+                  <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
+                    ${Number(item.price).toLocaleString()} cash mnf club
+                  </div>
                 </div>
-                <div class="font-label-sm text-[11px] text-tertiary pt-2 border-t border-white/5">
-                  Creator: ${item.creatorName}
+
+                <div class="p-4 space-y-1">
+                  <div class="font-bold text-base text-on-surface truncate">${item.title}</div>
+                  <div class="text-xs text-on-surface-variant line-clamp-2">${item.description}</div>
+                </div>
+              </div>
+
+              <!-- Designer Profile Sub-Card -->
+              <div class="p-3 bg-surface-container-low border-t border-white/5 flex items-center gap-2.5">
+                <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-secondary/30 shrink-0 bg-black/40" />
+                <div class="overflow-hidden">
+                  <div class="font-bold text-xs text-on-surface truncate">${creator.display_name}</div>
+                  <div class="text-[10px] font-mono text-tertiary truncate">Discord: ${creator.contact || 'N/A'}</div>
                 </div>
               </div>
             `;
@@ -474,160 +810,46 @@
       });
     }
 
-    function openDesignModal(item) {
+    // Modal Inspector & Zoom Actions
+    function openInspectorModal(item, creator) {
       resetZoom();
-      document.getElementById("modalDesignImg").src = item.fullImg || item.thumbImg;
+      document.getElementById("modalFullImage").src = item.full_url || item.thumb_url;
       document.getElementById("modalCategoryBadge").textContent = item.category;
       document.getElementById("modalDesignTitle").textContent = item.title;
-      document.getElementById("modalDesignPrice").textContent = item.price;
-      document.getElementById("modalDesignDesc").textContent = item.desc;
-      document.getElementById("modalCreatorName").textContent = item.creatorName;
-      document.getElementById("modalCreatorBio").textContent = item.creatorBio || "";
-      document.getElementById("modalCreatorAvatar").src = item.creatorAvatar || "logo.jpg";
-      document.getElementById("modalCreatorContact").textContent = item.creatorContact || "";
+      document.getElementById("modalDesignPrice").textContent = Number(item.price).toLocaleString();
+      document.getElementById("modalDesignDesc").textContent = item.description;
 
-      const modal = document.getElementById("designModal");
+      document.getElementById("modalDesignerName").textContent = creator.display_name || "MNF Creator";
+      document.getElementById("modalDesignerDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
+      document.getElementById("modalDesignerAvatar").src = creator.avatar_url || "logo.jpg";
+
+      const modal = document.getElementById("inspectorModal");
       modal.classList.remove("hidden");
       modal.classList.add("flex");
     }
 
-    function closeDesignModal(e) {
-      if (!e || e.target.id === "designModal") {
-        const modal = document.getElementById("designModal");
+    function closeInspectorModal(e) {
+      if (!e || e.target.id === "inspectorModal") {
+        const modal = document.getElementById("inspectorModal");
         modal.classList.add("hidden");
         modal.classList.remove("flex");
       }
     }
 
-    function stepZoom(delta) {
-      currentZoom = Math.min(2.5, Math.max(0.75, +(currentZoom + delta).toFixed(2)));
-      document.getElementById("modalDesignImg").style.transform = `scale(${currentZoom})`;
-      document.getElementById("zoomPercent").textContent = `${Math.round(currentZoom * 100)}%`;
+    function changeZoom(delta) {
+      zoomLevel = Math.min(2.5, Math.max(0.75, +(zoomLevel + delta).toFixed(2)));
+      document.getElementById("modalFullImage").style.transform = `scale(${zoomLevel})`;
+      document.getElementById("zoomLevelDisplay").textContent = `${Math.round(zoomLevel * 100)}%`;
     }
 
     function resetZoom() {
-      currentZoom = 1;
-      document.getElementById("modalDesignImg").style.transform = "scale(1)";
-      document.getElementById("zoomPercent").textContent = "100%";
+      zoomLevel = 1;
+      document.getElementById("modalFullImage").style.transform = "scale(1)";
+      document.getElementById("zoomLevelDisplay").textContent = "100%";
     }
 
-    function openSignInModal() {
-      const modal = document.getElementById("signInModal");
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-    }
-
-    function closeSignInModal(e) {
-      if (!e || e.target.id === "signInModal") {
-        const modal = document.getElementById("signInModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      }
-    }
-
-    function renderPage() {
-      renderFilterBar();
-      renderCategorySections();
-    }
-
-    renderPage();
-
-    // Hero background animated node network
-    (function initHeroNetwork() {
-      const canvas = document.getElementById('hero-network');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const header = canvas.closest('header');
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      let width, height, particles, dpr;
-
-      function resize() {
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        width = header.offsetWidth;
-        height = header.offsetHeight;
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        canvas.style.width = width + 'px';
-        canvas.style.height = height + 'px';
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-
-      function createParticles() {
-        const count = Math.min(70, Math.max(24, Math.floor((width * height) / 22000)));
-        particles = Array.from({ length: count }, () => ({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.22,
-          vy: (Math.random() - 0.5) * 0.22
-        }));
-      }
-
-      function draw() {
-        ctx.clearRect(0, 0, width, height);
-        const linkDistance = 140;
-
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-          if (!prefersReducedMotion) {
-            p.x += p.vx;
-            p.y += p.vy;
-            if (p.x <= 0 || p.x >= width) p.vx *= -1;
-            if (p.y <= 0 || p.y >= height) p.vy *= -1;
-          }
-
-          for (let j = i + 1; j < particles.length; j++) {
-            const q = particles[j];
-            const dx = p.x - q.x;
-            const dy = p.y - q.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < linkDistance) {
-              ctx.strokeStyle = `rgba(251, 171, 255, ${0.14 * (1 - dist / linkDistance)})`;
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(q.x, q.y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        for (const p of particles) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(192, 193, 255, 0.55)';
-          ctx.fill();
-        }
-
-        if (!prefersReducedMotion) requestAnimationFrame(draw);
-      }
-
-      resize();
-      createParticles();
-      draw();
-
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          resize();
-          createParticles();
-          if (prefersReducedMotion) draw();
-        }, 150);
-      });
-    })();
-
-    // Navbar scroll compacting
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav');
-      if (!nav) return;
-      if (window.scrollY > 50) {
-        nav.classList.add('py-2', 'bg-background/95');
-        nav.classList.remove('py-4', 'bg-background/85');
-      } else {
-        nav.classList.add('py-4', 'bg-background/85');
-        nav.classList.remove('py-2', 'bg-background/95');
-      }
-    });
+    // Initialize On Load
+    init();
   </script>
 </body>
 </html>
