@@ -107,64 +107,78 @@
       to   { transform: translateY(-2px); box-shadow: 0 0 24px rgba(253, 224, 71, 1), 0 0 40px rgba(245, 158, 11, 0.75); }
     }
 
-    /* Image / Card Banner Frames */
-    .img-banner-none {
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    /* 3 Luxury Image Banners */
+    .img-banner-frame-founder {
+      border: 3px solid #facc15;
+      box-shadow:
+        0 0 22px rgba(250, 204, 21, 0.65),
+        0 0 40px rgba(245, 158, 11, 0.35),
+        inset 0 0 16px rgba(253, 224, 71, 0.25);
     }
-    .img-banner-cyber {
-      border: 2px solid rgba(56, 189, 248, 0.85);
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+    .img-banner-frame-trusted {
+      border: 3px solid #38bdf8;
+      box-shadow:
+        0 0 20px rgba(56, 189, 248, 0.65),
+        0 0 36px rgba(37, 99, 235, 0.35),
+        inset 0 0 14px rgba(125, 211, 252, 0.22);
     }
-    .img-banner-gold {
-      border: 2px solid rgba(250, 204, 21, 0.9);
-      box-shadow: 0 0 20px rgba(250, 204, 21, 0.35);
-    }
-    .img-banner-neon {
-      border: 2px solid rgba(251, 171, 255, 0.9);
-      box-shadow: 0 0 20px rgba(251, 171, 255, 0.38);
-    }
-    .img-banner-emerald {
-      border: 2px solid rgba(52, 211, 153, 0.85);
-      box-shadow: 0 0 18px rgba(52, 211, 153, 0.32);
+    .img-banner-frame-designer {
+      border: 3px solid #c084fc;
+      box-shadow:
+        0 0 20px rgba(192, 132, 252, 0.65),
+        0 0 36px rgba(147, 51, 234, 0.35),
+        inset 0 0 14px rgba(216, 180, 254, 0.22);
     }
 
-    /* Name Neon Styles (Including none) */
+    /* Name Neon Styles: none + 3 Strong Styles */
     .neon-name-none {
       font-family: 'JetBrains Mono', monospace;
       color: #e2e8f0;
       text-shadow: none;
     }
-    .neon-name-cyan {
-      font-family: 'JetBrains Mono', monospace;
-      color: #f0f9ff;
-      text-shadow:
-        0 0 6px rgba(56, 189, 248, 0.95),
-        0 0 14px rgba(14, 165, 233, 0.85),
-        0 0 26px rgba(2, 132, 199, 0.65);
-    }
-    .neon-name-pink {
-      font-family: 'JetBrains Mono', monospace;
-      color: #fdf4ff;
-      text-shadow:
-        0 0 6px rgba(251, 171, 255, 0.95),
-        0 0 15px rgba(232, 121, 249, 0.85),
-        0 0 28px rgba(192, 38, 211, 0.7);
-    }
     .neon-name-gold {
       font-family: 'JetBrains Mono', monospace;
-      color: #fefce8;
+      color: #fef9c3;
+      font-weight: 900;
       text-shadow:
-        0 0 6px rgba(253, 224, 71, 0.95),
-        0 0 15px rgba(250, 204, 21, 0.85),
-        0 0 28px rgba(234, 179, 8, 0.7);
+        0 0 6px rgba(254, 240, 138, 1),
+        0 0 14px rgba(250, 204, 21, 0.95),
+        0 0 28px rgba(245, 158, 11, 0.8),
+        0 0 42px rgba(217, 119, 6, 0.55);
     }
     .neon-name-violet {
       font-family: 'JetBrains Mono', monospace;
-      color: #f5f3ff;
+      color: #faf5ff;
+      font-weight: 900;
       text-shadow:
-        0 0 6px rgba(196, 181, 253, 0.95),
-        0 0 15px rgba(167, 139, 250, 0.85),
-        0 0 28px rgba(124, 58, 237, 0.7);
+        0 0 6px rgba(233, 213, 255, 1),
+        0 0 15px rgba(192, 132, 252, 0.95),
+        0 0 30px rgba(168, 85, 247, 0.8),
+        0 0 44px rgba(126, 34, 206, 0.55);
+    }
+    .neon-name-rainbow {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 900;
+      color: #ffffff;
+      animation: rainbowNeonGlow 2.8s linear infinite;
+    }
+
+    @keyframes rainbowNeonGlow {
+      0% {
+        text-shadow: 0 0 8px #ff2a85, 0 0 18px #ff2a85, 0 0 32px #ff2a85;
+      }
+      25% {
+        text-shadow: 0 0 8px #00f0ff, 0 0 18px #00f0ff, 0 0 32px #00f0ff;
+      }
+      50% {
+        text-shadow: 0 0 8px #ffe600, 0 0 18px #ffe600, 0 0 32px #ffe600;
+      }
+      75% {
+        text-shadow: 0 0 8px #b537f2, 0 0 18px #b537f2, 0 0 32px #b537f2;
+      }
+      100% {
+        text-shadow: 0 0 8px #ff2a85, 0 0 18px #ff2a85, 0 0 32px #ff2a85;
+      }
     }
 
     /* Glowing Plain-Text Titles (No Boxes / Borders) */
@@ -232,9 +246,9 @@
   <!-- Top Navigation Bar -->
   <nav class="bg-[#051424]/95 backdrop-blur-md sticky top-0 z-40 border-b border-white/10 shadow-sm">
     <div class="flex justify-between items-center px-4 md:px-8 py-3.5 max-w-7xl mx-auto w-full gap-3">
-      <a href="#top" onclick="showShowcaseView()" class="flex items-center gap-3 group shrink-0">
+      <a href="https://mnfclub.github.io" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 group shrink-0">
         <img src="logo.jpg" alt="MNF DESIGNS" class="w-9 h-9 rounded-lg object-cover border border-secondary/30 shrink-0" onerror="this.style.display='none'" />
-        <span class="text-xl font-black tracking-tight bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent">
+        <span class="text-xl font-black tracking-tight bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent group-hover:brightness-110 transition">
           MNF DESIGNS
         </span>
       </a>
@@ -310,7 +324,7 @@
           <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-sky-400/70 shrink-0 bg-black/40" />
           <div class="space-y-1.5 overflow-hidden">
             <div class="flex items-center gap-2 flex-wrap">
-              <span id="studioInGameNameDisplay" class="font-bold text-sm md:text-base neon-name-cyan truncate">Not Set</span>
+              <span id="studioInGameNameDisplay" class="font-bold text-sm md:text-base neon-name-none truncate">Not Set</span>
               <span id="studioBadgeText"></span>
             </div>
             <div id="studioDiscordDisplay" class="text-xs font-mono text-sky-300 truncate">Discord: Not Set</div>
@@ -506,6 +520,7 @@
     class="hidden fixed bottom-5 right-5 z-40 px-5 py-3 rounded-full font-mono text-xs uppercase tracking-wider gold-glow-chat-btn flex items-center gap-2 transition cursor-pointer">
     <span class="material-symbols-outlined text-base">support_agent</span>
     Chat to admin
+    <span id="userUnreadChatDot" class="hidden w-3 h-3 rounded-full bg-red-600 ring-2 ring-white animate-ping"></span>
   </button>
 
   <!-- Mutual Chat Modal (User <-> Admin) -->
@@ -548,7 +563,7 @@
 
       <div class="lg:col-span-7 bg-[#020b14] p-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
         <div class="flex-1 flex items-center justify-center overflow-auto min-h-[300px]">
-          <img id="modalFullImage" src="" alt="Design" class="max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none img-banner-none" />
+          <img id="modalFullImage" src="" alt="Design" class="max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none" />
         </div>
 
         <div class="flex items-center justify-center gap-2 pt-4 border-t border-white/5">
@@ -614,7 +629,7 @@
               <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-sky-400/70 shrink-0 bg-black/40" />
               <div class="overflow-hidden space-y-1">
                 <div class="flex items-center gap-2 flex-wrap">
-                  <span id="modalDesignerName" class="font-bold text-sm neon-name-cyan truncate"></span>
+                  <span id="modalDesignerName" class="font-bold text-sm neon-name-none truncate"></span>
                   <span id="modalDesignerBadgeText"></span>
                 </div>
                 <div id="modalDesignerDiscord" class="text-xs font-mono text-sky-300 truncate"></div>
@@ -736,8 +751,8 @@
     ];
 
     const BADGES = ["Founder", "Trusted", "Designer", "None"];
-    const IMG_BANNERS = ["none", "cyber", "gold", "neon", "emerald"];
-    const NEON_STYLES = ["none", "cyan", "pink", "gold", "violet"];
+    const IMG_BANNERS = ["founder", "trusted", "designer"];
+    const NEON_STYLES = ["none", "gold", "rainbow", "violet"];
 
     const SCRIPT_BOLD_UPPER = "𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩";
     const SCRIPT_BOLD_LOWER = "𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃";
@@ -764,49 +779,93 @@
       return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
     }
 
-    // Plain glowing text without box/rectangle; returns empty when badge is None
     function renderTitleGlowText(badge) {
       if (!badge || badge === "None") return "";
       if (badge === "Founder") {
-        return `<span class="text-xs title-text-founder">★ Founder</span>`;
+        return `<span class="text-xs title-text-founder">👑 Founder</span>`;
       }
       if (badge === "Trusted") {
         return `<span class="text-xs title-text-trusted">✔ Trusted</span>`;
       }
       if (badge === "Designer") {
-        return `<span class="text-xs title-text-designer">Designer</span>`;
+        return `<span class="text-xs title-text-designer">✦ Designer</span>`;
       }
       return "";
     }
 
-    function getImgBannerClass(bannerKey) {
-      if (bannerKey === "cyber") return "img-banner-cyber";
-      if (bannerKey === "gold") return "img-banner-gold";
-      if (bannerKey === "neon") return "img-banner-neon";
-      if (bannerKey === "emerald") return "img-banner-emerald";
-      return "img-banner-none";
+    function getImgBannerFrameClass(bannerKey) {
+      if (bannerKey === "founder") return "img-banner-frame-founder";
+      if (bannerKey === "trusted") return "img-banner-frame-trusted";
+      if (bannerKey === "designer") return "img-banner-frame-designer";
+      return "border border-white/10";
+    }
+
+    function renderLuxuryBannerTag(bannerKey) {
+      if (bannerKey === "founder") {
+        return `
+          <div class="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-slate-950 font-mono text-[10px] font-black shadow-lg shadow-amber-500/40 flex items-center gap-1">
+            <span>👑</span>
+            <span>FOUNDER</span>
+          </div>
+        `;
+      }
+      if (bannerKey === "trusted") {
+        return `
+          <div class="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 font-mono text-[10px] font-black shadow-lg shadow-sky-500/40 flex items-center gap-1">
+            <span>✔</span>
+            <span>TRUSTED</span>
+          </div>
+        `;
+      }
+      if (bannerKey === "designer") {
+        return `
+          <div class="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-gradient-to-r from-purple-400 to-fuchsia-500 text-slate-950 font-mono text-[10px] font-black shadow-lg shadow-purple-500/40 flex items-center gap-1">
+            <span>✦</span>
+            <span>DESIGNER</span>
+          </div>
+        `;
+      }
+      return "";
     }
 
     function getNeonNameClass(neonKey) {
-      if (neonKey === "none") return "neon-name-none";
-      if (NEON_STYLES.includes(neonKey)) return `neon-name-${neonKey}`;
+      if (neonKey === "gold") return "neon-name-gold";
+      if (neonKey === "rainbow") return "neon-name-rainbow";
+      if (neonKey === "violet") return "neon-name-violet";
       return "neon-name-none";
     }
 
     function getCreatorExtras(profileId) {
       try {
         const map = JSON.parse(localStorage.getItem("mnf_creator_extras") || "{}");
-        return map[profileId] || { banner: "none", neon: "none" };
+        return map[profileId] || { banner: "", neon: "none" };
       } catch {
-        return { banner: "none", neon: "none" };
+        return { banner: "", neon: "none" };
       }
     }
 
     function setCreatorExtras(profileId, patch) {
       try {
         const map = JSON.parse(localStorage.getItem("mnf_creator_extras") || "{}");
-        map[profileId] = { ...(map[profileId] || { banner: "none", neon: "none" }), ...patch };
+        map[profileId] = { ...(map[profileId] || { banner: "", neon: "none" }), ...patch };
         localStorage.setItem("mnf_creator_extras", JSON.stringify(map));
+      } catch {}
+    }
+
+    function getUserSeenMap() {
+      try {
+        return JSON.parse(localStorage.getItem("mnf_user_chat_seen") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function markUserChatSeen(userId, latestAdminMsgId) {
+      if (!userId || !latestAdminMsgId) return;
+      try {
+        const map = getUserSeenMap();
+        map[userId] = latestAdminMsgId;
+        localStorage.setItem("mnf_user_chat_seen", JSON.stringify(map));
       } catch {}
     }
 
@@ -833,11 +892,37 @@
       return isAdminUser() || badge === "Founder" || badge === "Trusted";
     }
 
+    function hasAdminUnreadMessages() {
+      const grouped = {};
+      supportMessages.forEach(m => {
+        if (!grouped[m.user_id]) grouped[m.user_id] = [];
+        grouped[m.user_id].push(m);
+      });
+      return Object.values(grouped).some(list => {
+        const last = list[list.length - 1];
+        return last && last.sender_role === "user";
+      });
+    }
+
+    function hasUserUnreadAdminReply() {
+      if (!currentSessionUser || isAdminUser()) return false;
+      const myMsgs = supportMessages.filter(m => m.user_id === currentSessionUser.id);
+      if (myMsgs.length === 0) return false;
+      const last = myMsgs[myMsgs.length - 1];
+      if (last.sender_role !== "admin") return false;
+      const seenMap = getUserSeenMap();
+      return seenMap[currentSessionUser.id] !== last.id;
+    }
+
     function updateChatFabVisibility() {
       const fab = document.getElementById("chatToAdminFab");
+      const dot = document.getElementById("userUnreadChatDot");
       if (!fab) return;
       const show = Boolean(currentSessionUser && !isAdminUser());
       fab.classList.toggle("hidden", !show);
+      if (dot) {
+        dot.classList.toggle("hidden", !hasUserUnreadAdminReply());
+      }
     }
 
     async function init() {
@@ -922,10 +1007,12 @@
       if (currentSessionUser) {
         const displayName = currentProfile?.display_name || "Creator";
         const avatarUrl = currentProfile?.avatar_url || "logo.jpg";
+        const hasUnreadAdmin = isAdminUser() && hasAdminUnreadMessages();
         const adminBtnHtml = isAdminUser()
           ? `<button type="button" onclick="openAdminPage()"
-               class="px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md">
+               class="relative px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md">
                Admin
+               ${hasUnreadAdmin ? `<span class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-red-600 ring-2 ring-[#051424] animate-pulse"></span>` : ""}
              </button>`
           : "";
 
@@ -1245,8 +1332,9 @@
 
             card.innerHTML = `
               <div>
-                <div class="relative h-44 bg-black/40 overflow-hidden ${getImgBannerClass(extras.banner)}">
+                <div class="relative h-44 bg-black/40 overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
                   <img src="${item.thumb_url}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover transition duration-300 hover:scale-105" />
+                  ${renderLuxuryBannerTag(extras.banner)}
                   ${featuredTagHtml}
                   <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
                     ${Number(item.price).toLocaleString()} cash mnfclub
@@ -1311,7 +1399,10 @@
       if (!error && data) {
         supportMessages = data;
         if (isAdminUser()) {
+          renderNavControls();
           renderAdminMessagesQueue();
+        } else {
+          updateChatFabVisibility();
         }
         if (!document.getElementById("supportChatModal").classList.contains("hidden")) {
           renderChatThreadMessages();
@@ -1353,7 +1444,8 @@
 
         return `
           <div ondblclick="openAdminThreadChat('${uid}')"
-            class="bg-surface-container-low border ${needsReply ? "border-amber-400/60" : "border-white/10"} hover:border-amber-300 rounded-xl p-4 space-y-2 cursor-pointer select-none transition">
+            class="relative bg-surface-container-low border ${needsReply ? "border-amber-400/60" : "border-white/10"} hover:border-amber-300 rounded-xl p-4 space-y-2 cursor-pointer select-none transition">
+            ${needsReply ? `<span title="New message" class="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-red-600 ring-2 ring-[#0d1c2d] animate-ping"></span><span class="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-red-600 ring-2 ring-[#0d1c2d]"></span>` : ""}
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-2.5 min-w-0">
                 <img src="${profile.avatar_url || 'logo.jpg'}" alt="${profile.display_name}" class="w-9 h-9 rounded-lg object-cover border border-amber-400/50 shrink-0" />
@@ -1363,7 +1455,7 @@
                 </div>
               </div>
               <span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold shrink-0 ${needsReply ? "bg-amber-400 text-slate-950" : "bg-surface-container-high text-on-surface-variant"}">
-                ${needsReply ? "Needs Reply" : "Replied"}
+                ${needsReply ? "New Message" : "Replied"}
               </span>
             </div>
             <div class="text-xs text-on-surface-variant line-clamp-2 bg-black/25 rounded-lg p-2">
@@ -1393,6 +1485,12 @@
       modal.classList.remove("hidden");
       modal.classList.add("flex");
       await fetchSupportMessages();
+      const myMsgs = supportMessages.filter(m => m.user_id === currentSessionUser.id);
+      const lastAdminMsg = [...myMsgs].reverse().find(m => m.sender_role === "admin");
+      if (lastAdminMsg) {
+        markUserChatSeen(currentSessionUser.id, lastAdminMsg.id);
+      }
+      updateChatFabVisibility();
       renderChatThreadMessages();
     }
 
@@ -1539,14 +1637,14 @@
       creatorsContainer.innerHTML = creatorsList.map(p => {
         const currentBadge = p.badge || "None";
         const extras = getCreatorExtras(p.id);
-        const activeBanner = extras.banner || "none";
+        const activeBanner = extras.banner || "";
         const activeNeon = extras.neon || "none";
 
         return `
           <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-4">
               <div class="flex items-center gap-3 min-w-0">
-                <img src="${p.avatar_url || 'logo.jpg'}" alt="${p.display_name}" class="w-11 h-11 rounded-xl object-cover shrink-0 ${getImgBannerClass(activeBanner)}" />
+                <img src="${p.avatar_url || 'logo.jpg'}" alt="${p.display_name}" class="w-11 h-11 rounded-xl object-cover shrink-0 ${getImgBannerFrameClass(activeBanner)}" />
                 <div class="min-w-0 space-y-1">
                   <div class="flex items-center gap-2 flex-wrap">
                     <span class="font-bold text-sm ${getNeonNameClass(activeNeon)} truncate">${p.display_name || "No Name"}</span>
@@ -1570,9 +1668,13 @@
             <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/5 text-[11px] font-mono">
               <div class="flex items-center gap-1.5 flex-wrap">
                 <span class="text-on-surface-variant">Image Banner:</span>
+                <button type="button" onclick="adminSetCreatorBanner('${p.id}', '')"
+                  class="px-2 py-0.5 rounded transition ${activeBanner === "" ? "bg-white text-slate-950 font-bold" : "bg-surface-container-high text-on-surface-variant hover:text-on-surface"}">
+                  none
+                </button>
                 ${IMG_BANNERS.map(bn => `
                   <button type="button" onclick="adminSetCreatorBanner('${p.id}', '${bn}')"
-                    class="px-2 py-0.5 rounded transition ${activeBanner === bn ? "bg-sky-400 text-slate-950 font-bold" : "bg-surface-container-high text-on-surface-variant hover:text-on-surface"}">
+                    class="px-2 py-0.5 rounded transition ${activeBanner === bn ? "bg-amber-400 text-slate-950 font-bold" : "bg-surface-container-high text-on-surface-variant hover:text-on-surface"}">
                     ${bn}
                   </button>
                 `).join("")}
@@ -1601,7 +1703,10 @@
         return `
           <div class="bg-surface-container-low border ${isFeat ? "border-amber-400/60" : "border-white/10"} rounded-xl p-4 flex flex-col justify-between gap-3">
             <div class="space-y-2">
-              <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-32 object-cover rounded-lg bg-black/40 ${getImgBannerClass(extras.banner)}" />
+              <div class="relative rounded-lg overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
+                <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-32 object-cover bg-black/40" />
+                ${renderLuxuryBannerTag(extras.banner)}
+              </div>
               <div class="flex items-center justify-between gap-2">
                 <span class="font-bold text-sm text-on-surface truncate">${item.title}</span>
                 <span class="font-mono text-[10px] px-2 py-0.5 rounded ${item.status === "pending" ? "bg-amber-400/20 text-amber-300" : "bg-emerald-500/20 text-emerald-300"}">${item.status || "approved"}</span>
@@ -1674,7 +1779,7 @@
     }
 
     function adminSetCreatorBanner(profileId, banner) {
-      if (!isAdminUser() || !IMG_BANNERS.includes(banner)) return;
+      if (!isAdminUser()) return;
       setCreatorExtras(profileId, { banner });
       if (currentSessionUser && currentSessionUser.id === profileId) updateStudioProfileUI();
       renderShowcase();
@@ -1724,7 +1829,7 @@
 
       const fullImgEl = document.getElementById("modalFullImage");
       fullImgEl.src = item.thumb_url || item.full_url;
-      fullImgEl.className = `max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none ${getImgBannerClass(extras.banner)}`;
+      fullImgEl.className = `max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none ${getImgBannerFrameClass(extras.banner)}`;
 
       document.getElementById("modalCategoryBadge").textContent = item.category;
       document.getElementById("modalDesignTitle").textContent = toScriptBold(item.title);
