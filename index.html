@@ -18,8 +18,7 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet" />
 
   <script id="tailwind-config">
     tailwind.config = {
@@ -116,18 +115,18 @@
         </span>
       </a>
 
-      <!-- Right Header Controls: Changes dynamically upon login -->
+      <!-- Right Header Controls: Google Sign In or Logged-In Creator Profile -->
       <div id="navAuthArea" class="flex items-center gap-3">
-        <button onclick="openAuthModal()"
-          class="bg-secondary-container text-on-secondary-container px-5 py-2 rounded-full font-mono text-xs font-bold transition-all hover:scale-105 hover:bg-secondary hover:text-on-secondary flex items-center gap-1.5 shadow-md shadow-secondary/10">
+        <button type="button" onclick="signInWithGoogle()"
+          class="bg-secondary-container text-on-secondary-container px-5 py-2 rounded-full font-mono text-xs font-bold transition-all hover:scale-105 hover:bg-secondary hover:text-on-secondary flex items-center gap-2 shadow-md shadow-secondary/10">
           <span class="material-symbols-outlined text-base">login</span>
-          Sign In
+          Sign In with Google
         </button>
       </div>
     </div>
   </nav>
 
-  <!-- Compact Hero Section (No sharp margins or clipping) -->
+  <!-- Compact Hero Section -->
   <header id="top" class="relative overflow-hidden py-14 px-4 md:px-8 text-center bg-[#051424]">
     <div class="absolute inset-0 z-0 pointer-events-none">
       <div class="absolute inset-0 hero-grid"></div>
@@ -167,19 +166,19 @@
   <!-- Main Content Layout -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-12">
 
-    <!-- Designer Studio / Dashboard View (Hidden by default; toggled via Top Header profile) -->
-    <section id="designerStudioView" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/30 space-y-8 animate-fade-in">
+    <!-- Designer Studio / Dashboard View -->
+    <section id="designerStudioView" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/30 space-y-8">
       <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
           <span class="font-mono text-xs uppercase tracking-wider text-secondary">Creator Management Studio</span>
           <h2 class="text-2xl font-bold text-on-surface mt-1">Your Designer Dashboard</h2>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="closeStudioView()"
+          <button type="button" onclick="closeStudioView()"
             class="px-4 py-2 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition">
             Close Studio
           </button>
-          <button onclick="signOutUser()"
+          <button type="button" onclick="signOutUser()"
             class="px-4 py-2 rounded-lg bg-red-950/40 border border-red-500/30 text-red-300 text-xs font-bold hover:bg-red-900/50 transition">
             Sign Out
           </button>
@@ -194,7 +193,6 @@
             1. My Designer Profile
           </div>
 
-          <!-- Designer Identity Card Preview -->
           <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 flex items-center gap-4">
             <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-secondary/40 shrink-0 bg-black/40" />
             <div class="space-y-1 overflow-hidden">
@@ -226,7 +224,7 @@
 
             <button type="submit" id="saveProfileBtn"
               class="w-full py-2.5 rounded-lg bg-secondary text-on-secondary font-bold text-xs hover:brightness-110 transition shadow-md">
-              Update Profile Card
+              Save &amp; Update Profile Card
             </button>
             <p id="profileStatusMsg" class="text-xs text-tertiary text-center min-h-[16px]"></p>
           </form>
@@ -305,10 +303,7 @@
         </div>
       </div>
 
-      <!-- Filter Buttons Bar -->
       <div id="categoryFilterBar" class="flex flex-wrap gap-2"></div>
-
-      <!-- Category Groups Container -->
       <div id="categoryGroups" class="space-y-12"></div>
     </section>
   </main>
@@ -319,32 +314,30 @@
     <div onclick="event.stopPropagation()"
       class="bg-surface-container border border-white/10 rounded-2xl w-full max-w-5xl max-h-[92vh] overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
 
-      <!-- Left: Stage & Zoom Controls -->
       <div class="lg:col-span-7 bg-[#020b14] p-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
         <div class="flex-1 flex items-center justify-center overflow-auto min-h-[300px]">
           <img id="modalFullImage" src="" alt="Design" class="max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none" />
         </div>
 
         <div class="flex items-center justify-center gap-2 pt-4 border-t border-white/5">
-          <button onclick="changeZoom(-0.25)" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
+          <button type="button" onclick="changeZoom(-0.25)" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
             Zoom -
           </button>
           <span id="zoomLevelDisplay" class="font-mono text-xs text-on-surface-variant min-w-[50px] text-center">100%</span>
-          <button onclick="changeZoom(0.25)" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
+          <button type="button" onclick="changeZoom(0.25)" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
             Zoom +
           </button>
-          <button onclick="resetZoom()" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
+          <button type="button" onclick="resetZoom()" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
             Reset
           </button>
         </div>
       </div>
 
-      <!-- Right: Detailed Specs & Designer Identity -->
       <div class="lg:col-span-5 p-6 overflow-y-auto custom-scrollbar flex flex-col justify-between gap-6">
         <div class="space-y-4">
           <div class="flex items-center justify-between">
             <span id="modalCategoryBadge" class="px-3 py-1 rounded-full bg-secondary/15 border border-secondary/30 text-secondary font-mono text-xs"></span>
-            <button onclick="closeInspectorModal()" class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">✕ Close</button>
+            <button type="button" onclick="closeInspectorModal()" class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">✕ Close</button>
           </div>
 
           <h3 id="modalDesignTitle" class="text-2xl font-bold text-on-surface"></h3>
@@ -356,7 +349,6 @@
 
           <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
 
-          <!-- Designer Identity Card on Sidebar -->
           <div class="glass-card rounded-xl p-4 border border-white/10 space-y-3">
             <span class="font-mono text-[10px] text-tertiary uppercase tracking-wider">Created By</span>
             <div class="flex items-center gap-3">
@@ -373,45 +365,6 @@
           Trade / purchase arranged directly with creator in-game.
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Sign In / Sign Up Modal -->
-  <div id="authModal" onclick="closeAuthModal(event)"
-    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-    <div onclick="event.stopPropagation()"
-      class="bg-surface-container border border-white/10 rounded-2xl w-full max-w-md p-6 space-y-5 shadow-2xl">
-      <div class="flex items-center justify-between">
-        <h3 class="text-xl font-bold text-secondary">Creator Access</h3>
-        <button onclick="closeAuthModal()" class="text-on-surface-variant hover:text-on-surface text-sm">✕</button>
-      </div>
-
-      <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
-        <div>
-          <label class="block font-mono text-xs text-on-surface-variant mb-1">Email Address</label>
-          <input id="authEmail" type="email" required placeholder="creator@example.com"
-            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
-        </div>
-
-        <div>
-          <label class="block font-mono text-xs text-on-surface-variant mb-1">Password</label>
-          <input id="authPassword" type="password" required minlength="6" placeholder="••••••••"
-            class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-secondary focus:ring-0 outline-none" />
-        </div>
-
-        <div class="flex items-center gap-2 pt-2">
-          <button type="submit" id="authSubmitBtn"
-            class="flex-1 py-2.5 rounded-lg bg-secondary text-on-secondary font-bold text-xs hover:brightness-110 transition shadow-md">
-            Sign In
-          </button>
-          <button type="button" onclick="handleSignUp()"
-            class="px-4 py-2.5 rounded-lg bg-surface-container-high border border-white/15 text-xs text-on-surface hover:border-secondary transition">
-            Register
-          </button>
-        </div>
-      </form>
-
-      <p id="authMessage" class="text-xs text-tertiary text-center min-h-[16px]"></p>
     </div>
   </div>
 
@@ -436,14 +389,12 @@
 
   <!-- Core JavaScript Logic -->
   <script>
-    // Supabase Configuration
     const SUPABASE_URL = "https://xzvdapnhnupnqeulibaq.supabase.co";
     const SUPABASE_KEY = "sb_publishable_I0HO71_s3SMEXIHKd9duKg_QSiU_H6H";
     const BUCKET_NAME = "designs-media";
 
     const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // Categories List
     const CATEGORIES = [
       "Studio apartment",
       "2 bedroom apartment",
@@ -461,19 +412,18 @@
     let profilesMap = {};
     let activeFilter = "ALL";
     let zoomLevel = 1;
+    let autoOpenedStudio = false;
 
-    // Initialization
     async function init() {
       setupCategorySelect();
       renderCategoryFilters();
       await fetchShowcaseData();
 
-      // Check Active Session
       const { data: { session } } = await sb.auth.getSession();
-      handleSessionState(session);
+      await handleSessionState(session);
 
-      sb.auth.onAuthStateChange((_event, session) => {
-        handleSessionState(session);
+      sb.auth.onAuthStateChange(async (_event, session) => {
+        await handleSessionState(session);
       });
     }
 
@@ -482,14 +432,32 @@
       select.innerHTML = CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join("");
     }
 
-    function handleSessionState(session) {
+    async function handleSessionState(session) {
       currentSessionUser = session?.user || null;
       renderNavControls();
+
       if (currentSessionUser) {
-        loadUserProfile();
+        await loadUserProfile();
+        if (!autoOpenedStudio) {
+          autoOpenedStudio = true;
+          openStudioView();
+        }
       } else {
         currentProfile = null;
-        document.getElementById("designerStudioView").classList.add("hidden");
+        autoOpenedStudio = false;
+        closeStudioView();
+      }
+    }
+
+    async function signInWithGoogle() {
+      const { error } = await sb.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: window.location.origin + window.location.pathname
+        }
+      });
+      if (error) {
+        alert(error.message);
       }
     }
 
@@ -497,7 +465,7 @@
       const area = document.getElementById("navAuthArea");
       if (currentSessionUser && currentProfile) {
         area.innerHTML = `
-          <button onclick="toggleStudioView()"
+          <button type="button" onclick="openStudioView()"
             class="flex items-center gap-2.5 bg-surface-container-high border border-secondary/30 hover:border-secondary px-3 py-1.5 rounded-full transition group">
             <img src="${currentProfile.avatar_url || 'logo.jpg'}" alt="Avatar" class="w-6 h-6 rounded-full object-cover border border-secondary/50" />
             <span class="text-xs font-bold text-on-surface group-hover:text-secondary">${currentProfile.display_name || 'My Studio'}</span>
@@ -506,79 +474,30 @@
         `;
       } else if (currentSessionUser) {
         area.innerHTML = `
-          <button onclick="toggleStudioView()"
+          <button type="button" onclick="openStudioView()"
             class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full text-xs font-bold hover:bg-secondary">
-            Setup Profile
+            Complete Profile
           </button>
         `;
       } else {
         area.innerHTML = `
-          <button onclick="openAuthModal()"
+          <button type="button" onclick="signInWithGoogle()"
             class="bg-secondary-container text-on-secondary-container px-5 py-2 rounded-full font-mono text-xs font-bold transition hover:scale-105 hover:bg-secondary hover:text-on-secondary flex items-center gap-1.5">
             <span class="material-symbols-outlined text-base">login</span>
-            Sign In
+            Sign In with Google
           </button>
         `;
       }
     }
 
-    function toggleStudioView() {
+    function openStudioView() {
       const studio = document.getElementById("designerStudioView");
-      studio.classList.toggle("hidden");
-      if (!studio.classList.contains("hidden")) {
-        studio.scrollIntoView({ behavior: 'smooth' });
-      }
+      studio.classList.remove("hidden");
+      studio.scrollIntoView({ behavior: "smooth" });
     }
 
     function closeStudioView() {
       document.getElementById("designerStudioView").classList.add("hidden");
-    }
-
-    // Auth Actions
-    function openAuthModal() {
-      document.getElementById("authMessage").textContent = "";
-      document.getElementById("authModal").classList.remove("hidden");
-      document.getElementById("authModal").classList.add("flex");
-    }
-
-    function closeAuthModal(e) {
-      if (!e || e.target.id === "authModal") {
-        document.getElementById("authModal").classList.add("hidden");
-        document.getElementById("authModal").classList.remove("flex");
-      }
-    }
-
-    async function handleAuthSubmit(e) {
-      e.preventDefault();
-      const email = document.getElementById("authEmail").value.trim();
-      const password = document.getElementById("authPassword").value;
-      const msg = document.getElementById("authMessage");
-      msg.textContent = "Authenticating...";
-
-      const { data, error } = await sb.auth.signInWithPassword({ email, password });
-      if (error) {
-        msg.textContent = error.message;
-        return;
-      }
-      closeAuthModal();
-      toggleStudioView();
-    }
-
-    async function handleSignUp() {
-      const email = document.getElementById("authEmail").value.trim();
-      const password = document.getElementById("authPassword").value;
-      const msg = document.getElementById("authMessage");
-      if (!email || password.length < 6) {
-        msg.textContent = "Provide a valid email & 6+ character password.";
-        return;
-      }
-      msg.textContent = "Registering user...";
-      const { error } = await sb.auth.signUp({ email, password });
-      if (error) {
-        msg.textContent = error.message;
-        return;
-      }
-      msg.textContent = "Account registered! Signing in or check inbox.";
     }
 
     async function signOutUser() {
@@ -586,7 +505,6 @@
       closeStudioView();
     }
 
-    // Storage Upload Utility
     async function uploadMedia(file, folder) {
       const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
       const filePath = `${currentSessionUser.id}/${folder}/${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${ext}`;
@@ -596,7 +514,6 @@
       return data.publicUrl;
     }
 
-    // Load & Save Profile
     async function loadUserProfile() {
       const { data, error } = await sb.from("profiles").select("*").eq("id", currentSessionUser.id).single();
       if (!error && data) {
@@ -658,7 +575,6 @@
       }
     }
 
-    // Publish New Design
     async function publishDesign(e) {
       e.preventDefault();
       if (!currentSessionUser) return;
@@ -708,7 +624,6 @@
       }
     }
 
-    // Fetch All Public Data
     async function fetchShowcaseData() {
       const [profilesRes, designsRes] = await Promise.all([
         sb.from("profiles").select("*"),
@@ -724,7 +639,6 @@
       renderShowcase();
     }
 
-    // Render Filter Bar
     function renderCategoryFilters() {
       const bar = document.getElementById("categoryFilterBar");
       bar.innerHTML = "";
@@ -744,7 +658,6 @@
       });
     }
 
-    // Render Designs & Embedded Designer Profile Cards
     function renderShowcase() {
       const container = document.getElementById("categoryGroups");
       container.innerHTML = "";
@@ -791,7 +704,6 @@
                 </div>
               </div>
 
-              <!-- Designer Profile Sub-Card -->
               <div class="p-3 bg-surface-container-low border-t border-white/5 flex items-center gap-2.5">
                 <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-secondary/30 shrink-0 bg-black/40" />
                 <div class="overflow-hidden">
@@ -810,7 +722,6 @@
       });
     }
 
-    // Modal Inspector & Zoom Actions
     function openInspectorModal(item, creator) {
       resetZoom();
       document.getElementById("modalFullImage").src = item.full_url || item.thumb_url;
@@ -848,7 +759,6 @@
       document.getElementById("zoomLevelDisplay").textContent = "100%";
     }
 
-    // Initialize On Load
     init();
   </script>
 </body>
