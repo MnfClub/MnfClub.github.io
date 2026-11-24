@@ -488,7 +488,6 @@
       "Czech Gloryhole Hut"
     ];
 
-    // Unicode style helpers: 𝓭𝓪𝓻𝓴𝔂 𝓭𝓮𝓼𝓲𝓰𝓷 & 𝖽𝖺𝗋𝗄𝗒 𝖽𝖾𝗌𝗂𝗀𝗇
     const SCRIPT_BOLD_UPPER = "𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩";
     const SCRIPT_BOLD_LOWER = "𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃";
     const SANS_BOLD_UPPER  = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭";
@@ -520,7 +519,6 @@
     let profilesMap = {};
     let activeFilter = "ALL";
     let zoomLevel = 1;
-    let autoOpenedProfile = false;
     let activeInspectedDesign = null;
     let activeInspectedCreator = null;
 
@@ -549,13 +547,8 @@
 
       if (currentSessionUser) {
         await loadUserProfile();
-        if (!autoOpenedProfile) {
-          autoOpenedProfile = true;
-          openPanel("profileCardPanel");
-        }
       } else {
         currentProfile = null;
-        autoOpenedProfile = false;
         closePanels();
       }
       updateOwnerActionsVisibility();
