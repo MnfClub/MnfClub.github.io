@@ -291,7 +291,7 @@
         </h1>
 
         <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-          Explore custom interior and exterior builds priced in cash mnfclub, complete with creator titles, image banners, priority listings, and zoom inspection.
+          Explore custom interior and exterior builds priced in cash mnfclub, complete with multi-photo galleries, creator titles, image banners, and zoom inspection.
         </p>
 
         <div class="flex items-center justify-center gap-3 pt-2">
@@ -405,10 +405,10 @@
           </div>
 
           <div>
-            <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Preview Image</label>
-            <input id="designImageInput" type="file" accept="image/*" required
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Preview Images (Select 1 or Multiple)</label>
+            <input id="designImageInput" type="file" accept="image/*" multiple required
               class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
-            <span class="text-[10px] text-on-surface-variant block mt-1">Used for card preview and enlarges when clicked.</span>
+            <span class="text-[10px] text-on-surface-variant block mt-1">Visitors can swipe/flip through all uploaded photos on the card and in full-size view.</span>
           </div>
 
           <button type="submit" id="publishBtn"
@@ -424,7 +424,7 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
           <div>
             <h2 class="text-2xl md:text-3xl font-black text-secondary">Design Categories</h2>
-            <p class="text-on-surface-variant text-sm mt-1">Search by design name or creator name, and click any design to inspect.</p>
+            <p class="text-on-surface-variant text-sm mt-1">Search by design name or creator name, flip photos on cards, or click to inspect full size.</p>
           </div>
 
           <div class="w-full md:w-80 relative">
@@ -555,18 +555,30 @@
     </div>
   </div>
 
-  <!-- Enlarged Design Inspector Modal + Zoom + Creator Card + Edit & Approve + Remove -->
+  <!-- Enlarged Design Inspector Modal + Multi-Photo Flip + Zoom + Creator Card + Edit & Approve + Remove -->
   <div id="inspectorModal" onclick="closeInspectorModal(event)"
     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
     <div onclick="event.stopPropagation()"
       class="bg-surface-container border border-white/15 rounded-2xl w-full max-w-5xl max-h-[92vh] overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
 
-      <div class="lg:col-span-7 bg-[#020b14] p-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10">
-        <div class="flex-1 flex items-center justify-center overflow-auto min-h-[300px]">
-          <img id="modalFullImage" src="" alt="Design" class="max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none" />
+      <div class="lg:col-span-7 bg-[#020b14] p-4 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-white/10 gap-3">
+        <div class="relative flex-1 flex items-center justify-center overflow-auto min-h-[300px]">
+          <img id="modalFullImage" src="" alt="Design" class="max-w-full max-h-[58vh] object-contain rounded-lg transition-transform duration-200 select-none" />
+
+          <button id="modalPrevSlideBtn" type="button" onclick="stepModalSlide(-1)"
+            class="hidden absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/75 hover:bg-black/95 border border-white/20 text-white flex items-center justify-center transition">
+            <span class="material-symbols-outlined text-lg">chevron_left</span>
+          </button>
+
+          <button id="modalNextSlideBtn" type="button" onclick="stepModalSlide(1)"
+            class="hidden absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/75 hover:bg-black/95 border border-white/20 text-white flex items-center justify-center transition">
+            <span class="material-symbols-outlined text-lg">chevron_right</span>
+          </button>
         </div>
 
-        <div class="flex items-center justify-center gap-2 pt-4 border-t border-white/5">
+        <div id="modalGalleryDots" class="hidden items-center justify-center gap-2 flex-wrap"></div>
+
+        <div class="flex items-center justify-center gap-2 pt-3 border-t border-white/5 flex-wrap">
           <button type="button" onclick="changeZoom(-0.25)" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
             Zoom -
           </button>
@@ -577,6 +589,7 @@
           <button type="button" onclick="resetZoom()" class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-xs hover:border-secondary transition">
             Reset
           </button>
+          <span id="modalPhotoCounter" class="font-mono text-xs text-secondary ml-2">1 / 1</span>
         </div>
       </div>
 
@@ -692,8 +705,8 @@
           </div>
 
           <div>
-            <label class="block font-mono text-[11px] text-on-surface-variant mb-1">Replace Image (Optional)</label>
-            <input id="editDesignImage" type="file" accept="image/*"
+            <label class="block font-mono text-[11px] text-on-surface-variant mb-1">Replace Image(s) (Optional)</label>
+            <input id="editDesignImage" type="file" accept="image/*" multiple
               class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-tertiary/20 file:text-tertiary file:font-bold cursor-pointer" />
           </div>
 
@@ -779,6 +792,17 @@
       return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
     }
 
+    function getDesignImages(item) {
+      if (!item) return [];
+      const list = [];
+      if (Array.isArray(item.gallery_urls)) {
+        item.gallery_urls.forEach(u => { if (u && !list.includes(u)) list.push(u); });
+      }
+      if (item.full_url && !list.includes(item.full_url)) list.push(item.full_url);
+      if (item.thumb_url && !list.includes(item.thumb_url)) list.push(item.thumb_url);
+      return list;
+    }
+
     function renderTitleGlowText(badge) {
       if (!badge || badge === "None") return "";
       if (badge === "Founder") {
@@ -803,7 +827,7 @@
     function renderLuxuryBannerTag(bannerKey) {
       if (bannerKey === "founder") {
         return `
-          <div class="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-slate-950 font-mono text-[10px] font-black shadow-lg shadow-amber-500/40 flex items-center gap-1">
+          <div class="absolute top-2 right-2 z-10 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500 text-slate-950 font-mono text-[10px] font-black shadow-lg shadow-amber-500/40 flex items-center gap-1">
             <span>👑</span>
             <span>FOUNDER</span>
           </div>
@@ -811,7 +835,7 @@
       }
       if (bannerKey === "trusted") {
         return `
-          <div class="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 font-mono text-[10px] font-black shadow-lg shadow-sky-500/40 flex items-center gap-1">
+          <div class="absolute top-2 right-2 z-10 px-2.5 py-1 rounded-full bg-gradient-to-r from-sky-400 to-blue-500 text-slate-950 font-mono text-[10px] font-black shadow-lg shadow-sky-500/40 flex items-center gap-1">
             <span>✔</span>
             <span>TRUSTED</span>
           </div>
@@ -819,7 +843,7 @@
       }
       if (bannerKey === "designer") {
         return `
-          <div class="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-gradient-to-r from-purple-400 to-fuchsia-500 text-slate-950 font-mono text-[10px] font-black shadow-lg shadow-purple-500/40 flex items-center gap-1">
+          <div class="absolute top-2 right-2 z-10 px-2.5 py-1 rounded-full bg-gradient-to-r from-purple-400 to-fuchsia-500 text-slate-950 font-mono text-[10px] font-black shadow-lg shadow-purple-500/40 flex items-center gap-1">
             <span>✦</span>
             <span>DESIGNER</span>
           </div>
@@ -874,10 +898,13 @@
     let allDesigns = [];
     let profilesMap = {};
     let supportMessages = [];
+    let cardSlideIndexes = {};
     let activeFilter = "ALL";
     let zoomLevel = 1;
     let activeInspectedDesign = null;
     let activeInspectedCreator = null;
+    let modalImages = [];
+    let modalSlideIndex = 0;
     let activeChatThreadUserId = null;
     let requireAdminApproval = localStorage.getItem("mnf_require_approval") === "true";
 
@@ -1099,6 +1126,15 @@
       return data.publicUrl;
     }
 
+    async function uploadMultipleMedia(files, folder) {
+      const urls = [];
+      for (const file of Array.from(files || [])) {
+        const url = await uploadMedia(file, folder);
+        urls.push(url);
+      }
+      return urls;
+    }
+
     function updateStudioProfileUI() {
       const badge = currentProfile?.badge || (isAdminUser() ? "Founder" : "None");
       const extras = getCreatorExtras(currentSessionUser?.id || "");
@@ -1189,37 +1225,44 @@
 
       const btn = document.getElementById("publishBtn");
       const msg = document.getElementById("uploadStatusMsg");
-      const imgFile = document.getElementById("designImageInput").files[0];
+      const imgFiles = document.getElementById("designImageInput").files;
 
-      if (!imgFile) {
-        msg.textContent = "Please choose a design image.";
+      if (!imgFiles || imgFiles.length === 0) {
+        msg.textContent = "Please choose at least one design image.";
         return;
       }
 
       btn.disabled = true;
-      msg.textContent = "Uploading design...";
+      msg.textContent = `Uploading ${imgFiles.length} image(s)...`;
 
       try {
-        const imageUrl = await uploadMedia(imgFile, "designs");
+        const imageUrls = await uploadMultipleMedia(imgFiles, "designs");
         const creatorBadge = currentProfile?.badge || "None";
         const initialStatus = (requireAdminApproval && !hasBypassApproval(creatorBadge))
           ? "pending"
           : "approved";
 
-        const payload = {
+        const basePayload = {
           user_id: currentSessionUser.id,
           title: document.getElementById("designTitleInput").value.trim(),
           price: document.getElementById("designPriceInput").value.trim(),
           category: document.getElementById("designCategorySelect").value,
           description: document.getElementById("designDescInput").value.trim(),
-          thumb_url: imageUrl,
-          full_url: imageUrl,
+          thumb_url: imageUrls[0],
+          full_url: imageUrls[0],
           status: initialStatus,
           is_featured: false
         };
 
-        const { error } = await sb.from("designs").insert(payload);
-        if (error) throw error;
+        let insertRes = await sb.from("designs").insert({
+          ...basePayload,
+          gallery_urls: imageUrls
+        });
+
+        if (insertRes.error) {
+          insertRes = await sb.from("designs").insert(basePayload);
+          if (insertRes.error) throw insertRes.error;
+        }
 
         document.getElementById("uploadDesignForm").reset();
         msg.textContent = initialStatus === "pending"
@@ -1268,6 +1311,24 @@
         btn.onclick = () => { activeFilter = cat; renderShowcase(); renderCategoryFilters(); };
         bar.appendChild(btn);
       });
+    }
+
+    function flipCardPhoto(event, designId, delta) {
+      event.stopPropagation();
+      const item = allDesigns.find(d => String(d.id) === String(designId));
+      if (!item) return;
+      const imgs = getDesignImages(item);
+      if (imgs.length <= 1) return;
+      const current = cardSlideIndexes[designId] || 0;
+      const next = (current + delta + imgs.length) % imgs.length;
+      cardSlideIndexes[designId] = next;
+      renderShowcase();
+    }
+
+    function setCardPhotoIndex(event, designId, idx) {
+      event.stopPropagation();
+      cardSlideIndexes[designId] = idx;
+      renderShowcase();
     }
 
     function renderShowcase() {
@@ -1321,22 +1382,45 @@
             const styledTitle = toScriptBold(item.title);
             const styledDesc = toSansBold(item.description);
             const isFeatured = Boolean(item.is_featured);
+            const imgs = getDesignImages(item);
+            const activeIdx = Math.min(cardSlideIndexes[item.id] || 0, Math.max(imgs.length - 1, 0));
+            const currentImg = imgs[activeIdx] || item.thumb_url || item.full_url;
 
             const card = document.createElement("div");
             card.className = `glass-card rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between ${isFeatured ? "featured-card" : ""}`;
-            card.onclick = () => openInspectorModal(item, creator);
+            card.onclick = () => openInspectorModal(item, creator, activeIdx);
 
             const featuredTagHtml = isFeatured
-              ? `<div class="absolute top-2 left-2 px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-mono text-[10px] font-black shadow">★ PRIORITY</div>`
+              ? `<div class="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-mono text-[10px] font-black shadow">★ PRIORITY</div>`
+              : "";
+
+            const galleryControlsHtml = imgs.length > 1
+              ? `
+                <button type="button" onclick="flipCardPhoto(event, '${item.id}', -1)" title="Previous photo"
+                  class="absolute left-1.5 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-black/70 hover:bg-black/95 border border-white/20 text-white flex items-center justify-center transition">
+                  <span class="material-symbols-outlined text-base">chevron_left</span>
+                </button>
+                <button type="button" onclick="flipCardPhoto(event, '${item.id}', 1)" title="Next photo"
+                  class="absolute right-1.5 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-black/70 hover:bg-black/95 border border-white/20 text-white flex items-center justify-center transition">
+                  <span class="material-symbols-outlined text-base">chevron_right</span>
+                </button>
+                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1 bg-black/65 px-2 py-1 rounded-full">
+                  ${imgs.map((_, dotIdx) => `
+                    <button type="button" onclick="setCardPhotoIndex(event, '${item.id}', ${dotIdx})"
+                      class="w-2 h-2 rounded-full transition ${dotIdx === activeIdx ? "bg-secondary scale-110" : "bg-white/40 hover:bg-white/75"}"></button>
+                  `).join("")}
+                </div>
+              `
               : "";
 
             card.innerHTML = `
               <div>
                 <div class="relative h-44 bg-black/40 overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
-                  <img src="${item.thumb_url}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover transition duration-300 hover:scale-105" />
+                  <img src="${currentImg}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover transition duration-300 hover:scale-105" />
                   ${renderLuxuryBannerTag(extras.banner)}
                   ${featuredTagHtml}
-                  <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
+                  ${galleryControlsHtml}
+                  <div class="absolute bottom-2 right-2 z-10 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
                     ${Number(item.price).toLocaleString()} cash mnfclub
                   </div>
                 </div>
@@ -1739,7 +1823,7 @@
       if (!item) return;
       const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
       showShowcaseView();
-      openInspectorModal(item, creator);
+      openInspectorModal(item, creator, cardSlideIndexes[item.id] || 0);
     }
 
     async function adminApproveDesign(designId) {
@@ -1817,9 +1901,49 @@
       approveBtn.classList.toggle("hidden", !canApprove);
     }
 
-    function openInspectorModal(item, creator) {
+    function renderModalGallery() {
+      const fullImgEl = document.getElementById("modalFullImage");
+      const prevBtn = document.getElementById("modalPrevSlideBtn");
+      const nextBtn = document.getElementById("modalNextSlideBtn");
+      const dotsEl = document.getElementById("modalGalleryDots");
+      const counterEl = document.getElementById("modalPhotoCounter");
+
+      if (!modalImages.length) return;
+      modalSlideIndex = Math.min(Math.max(modalSlideIndex, 0), modalImages.length - 1);
+      fullImgEl.src = modalImages[modalSlideIndex];
+
+      const hasMulti = modalImages.length > 1;
+      prevBtn.classList.toggle("hidden", !hasMulti);
+      nextBtn.classList.toggle("hidden", !hasMulti);
+      dotsEl.classList.toggle("hidden", !hasMulti);
+      dotsEl.classList.toggle("flex", hasMulti);
+      counterEl.textContent = `${modalSlideIndex + 1} / ${modalImages.length}`;
+
+      dotsEl.innerHTML = modalImages.map((_, idx) => `
+        <button type="button" onclick="selectModalSlide(${idx})"
+          class="w-2.5 h-2.5 rounded-full transition ${idx === modalSlideIndex ? "bg-secondary scale-110" : "bg-white/35 hover:bg-white/75"}"></button>
+      `).join("");
+    }
+
+    function stepModalSlide(delta) {
+      if (modalImages.length <= 1) return;
+      modalSlideIndex = (modalSlideIndex + delta + modalImages.length) % modalImages.length;
+      resetZoom();
+      renderModalGallery();
+    }
+
+    function selectModalSlide(idx) {
+      if (idx < 0 || idx >= modalImages.length) return;
+      modalSlideIndex = idx;
+      resetZoom();
+      renderModalGallery();
+    }
+
+    function openInspectorModal(item, creator, startIndex = 0) {
       activeInspectedDesign = item;
       activeInspectedCreator = creator;
+      modalImages = getDesignImages(item);
+      modalSlideIndex = Math.min(Math.max(startIndex, 0), Math.max(modalImages.length - 1, 0));
 
       resetZoom();
       resetSubModes();
@@ -1828,8 +1952,8 @@
       const extras = getCreatorExtras(item.user_id);
 
       const fullImgEl = document.getElementById("modalFullImage");
-      fullImgEl.src = item.thumb_url || item.full_url;
-      fullImgEl.className = `max-w-full max-h-[62vh] object-contain rounded-lg transition-transform duration-200 select-none ${getImgBannerFrameClass(extras.banner)}`;
+      fullImgEl.className = `max-w-full max-h-[58vh] object-contain rounded-lg transition-transform duration-200 select-none ${getImgBannerFrameClass(extras.banner)}`;
+      renderModalGallery();
 
       document.getElementById("modalCategoryBadge").textContent = item.category;
       document.getElementById("modalDesignTitle").textContent = toScriptBold(item.title);
@@ -1931,10 +2055,11 @@
       msg.textContent = "Saving changes...";
 
       try {
-        let imageUrl = activeInspectedDesign.thumb_url || activeInspectedDesign.full_url;
-        const newFile = document.getElementById("editDesignImage").files[0];
-        if (newFile) {
-          imageUrl = await uploadMedia(newFile, "designs");
+        const existingImgs = getDesignImages(activeInspectedDesign);
+        let finalImgs = existingImgs.length ? existingImgs : [activeInspectedDesign.thumb_url || activeInspectedDesign.full_url];
+        const newFiles = document.getElementById("editDesignImage").files;
+        if (newFiles && newFiles.length > 0) {
+          finalImgs = await uploadMultipleMedia(newFiles, "designs");
         }
 
         const updatedFields = {
@@ -1942,8 +2067,9 @@
           price: document.getElementById("editDesignPrice").value.trim(),
           category: document.getElementById("editDesignCategory").value,
           description: document.getElementById("editDesignDesc").value.trim(),
-          thumb_url: imageUrl,
-          full_url: imageUrl
+          thumb_url: finalImgs[0],
+          full_url: finalImgs[0],
+          gallery_urls: finalImgs
         };
 
         if (isAdminUser() && activeInspectedDesign.status === "pending") {
@@ -1955,12 +2081,21 @@
           query = query.eq("user_id", currentSessionUser.id);
         }
 
-        const { error } = await query;
-        if (error) throw error;
+        let updateRes = await query;
+        if (updateRes.error) {
+          const fallbackFields = { ...updatedFields };
+          delete fallbackFields.gallery_urls;
+          let fallbackQuery = sb.from("designs").update(fallbackFields).eq("id", activeInspectedDesign.id);
+          if (!isAdminUser()) {
+            fallbackQuery = fallbackQuery.eq("user_id", currentSessionUser.id);
+          }
+          const retryRes = await fallbackQuery;
+          if (retryRes.error) throw retryRes.error;
+        }
 
         activeInspectedDesign = { ...activeInspectedDesign, ...updatedFields };
         await fetchShowcaseData();
-        openInspectorModal(activeInspectedDesign, activeInspectedCreator);
+        openInspectorModal(activeInspectedDesign, activeInspectedCreator, 0);
       } catch (err) {
         msg.textContent = err.message || "Failed to update design.";
       } finally {
@@ -1972,6 +2107,8 @@
       if (!e || e.target.id === "inspectorModal") {
         resetSubModes();
         activeInspectedDesign = null;
+        modalImages = [];
+        modalSlideIndex = 0;
         const modal = document.getElementById("inspectorModal");
         modal.classList.add("hidden");
         modal.classList.remove("flex");
