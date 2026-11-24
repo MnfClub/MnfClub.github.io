@@ -290,7 +290,7 @@
     </section>
   </main>
 
-  <!-- Enlarged Design Inspector Modal + Zoom + Creator Card + Edit -->
+  <!-- Enlarged Design Inspector Modal + Zoom + Creator Card + Edit + Remove -->
   <div id="inspectorModal" onclick="closeInspectorModal(event)"
     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
     <div onclick="event.stopPropagation()"
@@ -318,18 +318,22 @@
       <div class="lg:col-span-5 p-6 overflow-y-auto custom-scrollbar flex flex-col justify-between gap-6">
         <!-- View Mode -->
         <div id="modalViewMode" class="space-y-4">
-          <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
             <span id="modalCategoryBadge" class="px-3 py-1 rounded-full bg-secondary/15 border border-secondary/30 text-secondary font-mono text-xs"></span>
-            <div class="flex items-center gap-2">
+            <div id="ownerActionsGroup" class="hidden items-center gap-1.5">
               <button id="modalEditBtn" type="button" onclick="openEditDesignMode()"
-                class="hidden px-3 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-xs font-bold text-tertiary hover:bg-tertiary/30 transition">
+                class="px-3 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-xs font-bold text-tertiary hover:bg-tertiary/30 transition">
                 Edit
               </button>
-              <button type="button" onclick="closeInspectorModal()"
-                class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">
-                ✕ Close
+              <button id="modalRemoveBtn" type="button" onclick="openDeleteConfirmMode()"
+                class="px-3 py-1 rounded-lg bg-red-950/50 border border-red-500/40 text-xs font-bold text-red-300 hover:bg-red-900/60 transition">
+                Remove
               </button>
             </div>
+            <button type="button" onclick="closeInspectorModal()"
+              class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">
+              ✕ Close
+            </button>
           </div>
 
           <h3 id="modalDesignTitle" class="text-2xl font-bold text-on-surface"></h3>
@@ -352,6 +356,25 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Remove Confirmation Mode (Owner Only) -->
+        <div id="modalDeleteConfirm" class="hidden space-y-4 bg-surface-container-low border border-red-500/30 rounded-xl p-5">
+          <div class="font-mono text-xs uppercase tracking-wider text-red-300 font-bold">Confirm Removal</div>
+          <p class="text-sm text-on-surface leading-relaxed">
+            Are you sure you want to remove this design and image? This action cannot be undone.
+          </p>
+          <div class="flex items-center gap-2.5 pt-1">
+            <button id="confirmRemoveBtn" type="button" onclick="confirmRemoveDesign()"
+              class="flex-1 py-2.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition">
+              Yes, Remove
+            </button>
+            <button type="button" onclick="cancelDeleteConfirmMode()"
+              class="flex-1 py-2.5 rounded-lg bg-surface-container-high border border-white/15 text-on-surface font-bold text-xs hover:border-secondary transition">
+              Cancel
+            </button>
+          </div>
+          <p id="deleteStatusMsg" class="text-xs text-red-300 text-center min-h-[16px]"></p>
         </div>
 
         <!-- Edit Mode (Owner Only) -->
@@ -490,7 +513,7 @@
         autoOpenedProfile = false;
         closePanels();
       }
-      updateEditButtonVisibility();
+      updateOwnerActionsVisibility();
     }
 
     async function signInWithGoogle() {
@@ -783,11 +806,12 @@
       });
     }
 
-    function updateEditButtonVisibility() {
-      const editBtn = document.getElementById("modalEditBtn");
-      if (!editBtn) return;
+    function updateOwnerActionsVisibility() {
+      const group = document.getElementById("ownerActionsGroup");
+      if (!group) return;
       const isOwner = Boolean(currentSessionUser && activeInspectedDesign && currentSessionUser.id === activeInspectedDesign.user_id);
-      editBtn.classList.toggle("hidden", !isOwner);
+      group.classList.toggle("hidden", !isOwner);
+      group.classList.toggle("flex", isOwner);
     }
 
     function openInspectorModal(item, creator) {
@@ -795,7 +819,7 @@
       activeInspectedCreator = creator;
 
       resetZoom();
-      cancelEditDesignMode();
+      resetSubModes();
 
       document.getElementById("modalFullImage").src = item.thumb_url || item.full_url;
       document.getElementById("modalCategoryBadge").textContent = item.category;
@@ -807,16 +831,24 @@
       document.getElementById("modalDesignerDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
       document.getElementById("modalDesignerAvatar").src = creator.avatar_url || "logo.jpg";
 
-      updateEditButtonVisibility();
+      updateOwnerActionsVisibility();
 
       const modal = document.getElementById("inspectorModal");
       modal.classList.remove("hidden");
       modal.classList.add("flex");
     }
 
+    function resetSubModes() {
+      document.getElementById("modalEditForm").classList.add("hidden");
+      document.getElementById("modalDeleteConfirm").classList.add("hidden");
+      document.getElementById("modalViewMode").classList.remove("hidden");
+      document.getElementById("editStatusMsg").textContent = "";
+      document.getElementById("deleteStatusMsg").textContent = "";
+    }
+
     function openEditDesignMode() {
       if (!activeInspectedDesign) return;
-      document.getElementById("editStatusMsg").textContent = "";
+      resetSubModes();
       document.getElementById("editDesignTitle").value = activeInspectedDesign.title || "";
       document.getElementById("editDesignPrice").value = activeInspectedDesign.price || "";
       document.getElementById("editDesignCategory").value = activeInspectedDesign.category || CATEGORIES[0];
@@ -828,9 +860,44 @@
     }
 
     function cancelEditDesignMode() {
-      document.getElementById("modalEditForm").classList.add("hidden");
-      document.getElementById("modalViewMode").classList.remove("hidden");
-      document.getElementById("editStatusMsg").textContent = "";
+      resetSubModes();
+    }
+
+    function openDeleteConfirmMode() {
+      if (!activeInspectedDesign) return;
+      resetSubModes();
+      document.getElementById("modalViewMode").classList.add("hidden");
+      document.getElementById("modalDeleteConfirm").classList.remove("hidden");
+    }
+
+    function cancelDeleteConfirmMode() {
+      resetSubModes();
+    }
+
+    async function confirmRemoveDesign() {
+      if (!currentSessionUser || !activeInspectedDesign) return;
+
+      const btn = document.getElementById("confirmRemoveBtn");
+      const msg = document.getElementById("deleteStatusMsg");
+      btn.disabled = true;
+      msg.textContent = "Removing...";
+
+      try {
+        const { error } = await sb
+          .from("designs")
+          .delete()
+          .eq("id", activeInspectedDesign.id)
+          .eq("user_id", currentSessionUser.id);
+
+        if (error) throw error;
+
+        await fetchShowcaseData();
+        closeInspectorModal();
+      } catch (err) {
+        msg.textContent = err.message || "Failed to remove design.";
+      } finally {
+        btn.disabled = false;
+      }
     }
 
     async function saveEditedDesign(e) {
@@ -878,7 +945,7 @@
 
     function closeInspectorModal(e) {
       if (!e || e.target.id === "inspectorModal") {
-        cancelEditDesignMode();
+        resetSubModes();
         activeInspectedDesign = null;
         const modal = document.getElementById("inspectorModal");
         modal.classList.add("hidden");
