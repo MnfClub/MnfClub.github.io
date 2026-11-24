@@ -408,7 +408,7 @@
             <label class="block font-mono text-xs text-on-surface-variant mb-1">Design Preview Images (Select 1 or Multiple)</label>
             <input id="designImageInput" type="file" accept="image/*" multiple required
               class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-secondary/20 file:text-secondary file:font-bold cursor-pointer" />
-            <span class="text-[10px] text-on-surface-variant block mt-1">Visitors can swipe/flip through all uploaded photos on the card and in full-size view.</span>
+            <span class="text-[10px] text-on-surface-variant block mt-1">Hold Ctrl/Shift or select multiple photos to flip through them on the card and in full-size view.</span>
           </div>
 
           <button type="submit" id="publishBtn"
@@ -792,14 +792,48 @@
       return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
     }
 
+    function getLocalGalleryMap() {
+      try {
+        return JSON.parse(localStorage.getItem("mnf_design_galleries") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function saveLocalGallery(designId, urls) {
+      if (!designId || !Array.isArray(urls) || urls.length === 0) return;
+      try {
+        const map = getLocalGalleryMap();
+        map[String(designId)] = urls;
+        localStorage.setItem("mnf_design_galleries", JSON.stringify(map));
+      } catch {}
+    }
+
     function getDesignImages(item) {
       if (!item) return [];
       const list = [];
+      const addUrl = (u) => {
+        if (typeof u === "string" && u.trim() && !list.includes(u.trim())) {
+          list.push(u.trim());
+        }
+      };
+
       if (Array.isArray(item.gallery_urls)) {
-        item.gallery_urls.forEach(u => { if (u && !list.includes(u)) list.push(u); });
+        item.gallery_urls.forEach(addUrl);
+      } else if (typeof item.gallery_urls === "string" && item.gallery_urls.trim()) {
+        try {
+          const parsed = JSON.parse(item.gallery_urls);
+          if (Array.isArray(parsed)) parsed.forEach(addUrl);
+        } catch {}
       }
-      if (item.full_url && !list.includes(item.full_url)) list.push(item.full_url);
-      if (item.thumb_url && !list.includes(item.thumb_url)) list.push(item.thumb_url);
+
+      const localMap = getLocalGalleryMap();
+      if (item.id && Array.isArray(localMap[String(item.id)])) {
+        localMap[String(item.id)].forEach(addUrl);
+      }
+
+      addUrl(item.full_url);
+      addUrl(item.thumb_url);
       return list;
     }
 
@@ -1257,17 +1291,22 @@
         let insertRes = await sb.from("designs").insert({
           ...basePayload,
           gallery_urls: imageUrls
-        });
+        }).select();
 
         if (insertRes.error) {
-          insertRes = await sb.from("designs").insert(basePayload);
+          insertRes = await sb.from("designs").insert(basePayload).select();
           if (insertRes.error) throw insertRes.error;
+        }
+
+        const insertedRow = Array.isArray(insertRes.data) ? insertRes.data[0] : insertRes.data;
+        if (insertedRow && insertedRow.id) {
+          saveLocalGallery(insertedRow.id, imageUrls);
         }
 
         document.getElementById("uploadDesignForm").reset();
         msg.textContent = initialStatus === "pending"
-          ? "Submitted! Waiting for Admin approval."
-          : "Design published!";
+          ? `Submitted (${imageUrls.length} photo(s))! Waiting for Admin approval.`
+          : `Design published with ${imageUrls.length} photo(s)!`;
         await fetchShowcaseData();
       } catch (err) {
         msg.textContent = err.message || "Failed to publish design.";
@@ -2093,6 +2132,7 @@
           if (retryRes.error) throw retryRes.error;
         }
 
+        saveLocalGallery(activeInspectedDesign.id, finalImgs);
         activeInspectedDesign = { ...activeInspectedDesign, ...updatedFields };
         await fetchShowcaseData();
         openInspectorModal(activeInspectedDesign, activeInspectedCreator, 0);
