@@ -1,9 +1,17 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MnfDesigns</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VE1TTV52NL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VE1TTV52NL');
+  </script>
   <style>
     :root {
       --bg: #0b0d12;
@@ -23,11 +31,10 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height: 100vh;
     }
 
-    /* الهيدر: اللوجو شمال، الاسم يمين */
     header {
       display: flex;
       align-items: center;
@@ -57,13 +64,7 @@
     .site-title-right {
       font-size: 20px;
       font-weight: 800;
-      letter-spacing: 0.3px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      letter-spacing: 0.4px;
     }
 
     .btn {
@@ -83,7 +84,6 @@
       font-weight: 600;
     }
 
-    /* شريط الإعلان / التحذير */
     .notice-bar {
       background: var(--warn-bg);
       border-bottom: 1px solid var(--warn-line);
@@ -102,7 +102,6 @@
       padding: 22px 24px 50px;
     }
 
-    /* شريط الأقسام */
     .cats-nav {
       display: flex;
       flex-wrap: wrap;
@@ -126,7 +125,6 @@
       border-color: var(--accent);
     }
 
-    /* أقسام التصاميم */
     .category-section {
       margin-bottom: 34px;
     }
@@ -181,8 +179,8 @@
     .price-tag {
       position: absolute;
       bottom: 8px;
-      left: 8px;
-      background: rgba(11, 13, 18, 0.85);
+      right: 8px;
+      background: rgba(11, 13, 18, 0.88);
       border: 1px solid var(--line);
       padding: 3px 8px;
       border-radius: 7px;
@@ -205,7 +203,6 @@
       color: var(--muted);
     }
 
-    /* نافذة العرض الكامل + البروفيل على الجنب */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -239,7 +236,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border-left: 1px solid var(--line);
+      border-right: 1px solid var(--line);
       overflow: hidden;
     }
 
@@ -305,7 +302,7 @@
         overflow-y: auto;
       }
       .viewer-pane {
-        border-left: none;
+        border-right: none;
         border-bottom: 1px solid var(--line);
       }
     }
@@ -316,13 +313,13 @@
   <header>
     <div class="brand-left">
       <img src="logo.jpg" alt="Logo" onerror="this.style.display='none'" />
-      <span class="btn" onclick="alert('خطوة Sign In هنربطها المرحلة الجاية')">Sign In</span>
+      <button class="btn" onclick="alert('Sign In will be connected in the next step.')">Sign In</button>
     </div>
     <div class="site-title-right">MnfDesigns</div>
   </header>
 
   <div class="notice-bar" id="noticeBar">
-    <span id="noticeText">تنبيه / إعلان: جميع صور العرض معروضة بدقة خفيفة لحماية التصاميم وسرعة التصفح.</span>
+    <span id="noticeText">Notice: Preview images are compressed for fast loading and design protection.</span>
   </div>
 
   <div class="container">
@@ -330,7 +327,6 @@
     <div id="sectionsContainer"></div>
   </div>
 
-  <!-- نافذة عرض التصميم الكامل + بروفيل المصمم على الجنب -->
   <div class="modal-backdrop" id="designModal" onclick="closeModal(event)">
     <div class="modal-box" onclick="event.stopPropagation()">
       <div class="viewer-pane">
@@ -338,17 +334,17 @@
           <img id="modalFullImg" src="" alt="Full Preview" />
         </div>
         <div class="zoom-controls">
-          <button class="btn" onclick="changeZoom(-0.25)">تصغير -</button>
+          <button class="btn" onclick="changeZoom(-0.25)">Zoom -</button>
           <span id="zoomLabel" style="font-size: 12px; color: var(--muted);">100%</span>
-          <button class="btn" onclick="changeZoom(0.25)">تكبير +</button>
-          <button class="btn" onclick="resetZoom()">إعادة ضبط</button>
+          <button class="btn" onclick="changeZoom(0.25)">Zoom +</button>
+          <button class="btn" onclick="resetZoom()">Reset</button>
         </div>
       </div>
 
       <div class="profile-pane">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <span id="modalCategory" class="cat-pill active" style="cursor:default;"></span>
-          <button class="btn" onclick="closeModal()">إغلاق ✕</button>
+          <button class="btn" onclick="closeModal()">Close ✕</button>
         </div>
 
         <h3 id="modalTitle" style="font-size:19px;"></h3>
@@ -356,7 +352,7 @@
         <p class="desc-text" id="modalDesc"></p>
 
         <div class="designer-box">
-          <img id="modalAvatar" src="logo.jpg" alt="Designer" onerror="this.src='logo.jpg'" />
+          <img id="modalAvatar" src="logo.jpg" alt="Designer" onerror="this.style.display='none'" />
           <div>
             <div id="modalDesignerName" style="font-weight:700; font-size:14px;"></div>
             <div id="modalDesignerBio" style="font-size:12px; color:var(--muted);"></div>
@@ -380,33 +376,8 @@
       "Czech Gloryhole Hut"
     ];
 
-    // بيانات تجريبية مبدئية لاختبار الشكل والأقسام
-    const DESIGNS = [
-      {
-        id: 1,
-        title: "Modern Studio Concept",
-        category: "Studio apartment",
-        price: "$45",
-        desc: "تصميم استوديو مودرن بإضاءة دافئة وتوزيع عملي للمساحات.",
-        thumb: "designs/1.jpg",
-        full: "designs/1.jpg",
-        designer: "Zeko",
-        bio: "مصمم مساحات وتصاميم ثلاثية الأبعاد.",
-        contact: "Discord: zekacoolvip"
-      },
-      {
-        id: 2,
-        title: "Luxury Neon Garage",
-        category: "Garage",
-        price: "$60",
-        desc: "جراج بتفاصيل إضاءة قوية وأرضية لامعة لعرض السيارات.",
-        thumb: "designs/2.jpg",
-        full: "designs/2.jpg",
-        designer: "Mnf Designer",
-        bio: "متخصص في الديكورات الحديثة والمشاهد الخاصة.",
-        contact: "Discord: mnf_studio"
-      }
-    ];
+    // Empty until real items are added
+    const DESIGNS = [];
 
     let activeCategory = "ALL";
     let zoomLevel = 1;
@@ -417,7 +388,7 @@
 
       const allBtn = document.createElement("button");
       allBtn.className = "cat-pill" + (activeCategory === "ALL" ? " active" : "");
-      allBtn.textContent = "الكل";
+      allBtn.textContent = "All";
       allBtn.onclick = () => { activeCategory = "ALL"; renderAll(); };
       nav.appendChild(allBtn);
 
@@ -446,14 +417,14 @@
         sec.innerHTML = `
           <div class="category-head">
             <h2>${cat}</h2>
-            <span style="font-size:12px; color:var(--muted);">${items.length} تصميم</span>
+            <span style="font-size:12px; color:var(--muted);">${items.length} items</span>
           </div>
-          <div class="grid" id="grid-${cat.replace(/\s+/g, "-")}"></div>
+          <div class="grid"></div>
         `;
 
         const grid = sec.querySelector(".grid");
         if (items.length === 0) {
-          grid.innerHTML = `<div class="card-sub">لا توجد تصاميم مضافة في هذا القسم حالياً.</div>`;
+          grid.innerHTML = `<div class="card-sub">No designs in this category yet.</div>`;
         } else {
           items.forEach(item => {
             const card = document.createElement("div");
@@ -466,7 +437,7 @@
               </div>
               <div class="card-body">
                 <div class="card-title">${item.title}</div>
-                <div class="card-sub">بواسطة ${item.designer}</div>
+                <div class="card-sub">by ${item.designer}</div>
               </div>
             `;
             grid.appendChild(card);
