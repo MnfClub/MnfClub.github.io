@@ -93,11 +93,61 @@
       box-shadow: 0 0 24px rgba(56, 189, 248, 0.45), inset 0 0 14px rgba(56, 189, 248, 0.14);
     }
 
-    .mnf-name-badge {
+    /* Name Banners around Creator Name */
+    .name-banner-none {
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+    .name-banner-cyber {
+      background: linear-gradient(90deg, rgba(14, 165, 233, 0.22), rgba(59, 130, 246, 0.12));
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      padding: 3px 9px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.28);
+    }
+    .name-banner-gold {
+      background: linear-gradient(90deg, rgba(250, 204, 21, 0.24), rgba(245, 158, 11, 0.12));
+      border: 1px solid rgba(250, 204, 21, 0.7);
+      padding: 3px 9px;
+      border-radius: 8px;
+      box-shadow: 0 0 14px rgba(250, 204, 21, 0.32);
+    }
+    .name-banner-neon {
+      background: linear-gradient(90deg, rgba(217, 70, 239, 0.24), rgba(168, 85, 247, 0.14));
+      border: 1px solid rgba(251, 171, 255, 0.7);
+      padding: 3px 9px;
+      border-radius: 8px;
+      box-shadow: 0 0 14px rgba(251, 171, 255, 0.35);
+    }
+    .name-banner-emerald {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.22), rgba(20, 184, 166, 0.12));
+      border: 1px solid rgba(52, 211, 153, 0.65);
+      padding: 3px 9px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(52, 211, 153, 0.3);
+    }
+
+    /* Varied Neon Name Styles */
+    .neon-name-cyan {
       font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.03em;
       color: #e0f2fe;
-      text-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+      text-shadow: 0 0 8px rgba(56, 189, 248, 0.85), 0 0 18px rgba(14, 165, 233, 0.55);
+    }
+    .neon-name-pink {
+      font-family: 'JetBrains Mono', monospace;
+      color: #fdf4ff;
+      text-shadow: 0 0 8px rgba(251, 171, 255, 0.9), 0 0 18px rgba(217, 70, 239, 0.65);
+    }
+    .neon-name-gold {
+      font-family: 'JetBrains Mono', monospace;
+      color: #fef9c3;
+      text-shadow: 0 0 9px rgba(250, 204, 21, 0.9), 0 0 20px rgba(245, 158, 11, 0.65);
+    }
+    .neon-name-violet {
+      font-family: 'JetBrains Mono', monospace;
+      color: #ede9fe;
+      text-shadow: 0 0 9px rgba(167, 139, 250, 0.9), 0 0 18px rgba(129, 140, 248, 0.65);
     }
 
     .badge-founder {
@@ -123,6 +173,12 @@
       background: rgba(192, 193, 255, 0.16);
       border: 1px solid rgba(192, 193, 255, 0.45);
       color: #c0c1ff;
+    }
+
+    .badge-none {
+      background: rgba(148, 163, 184, 0.14);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: #cbd5e1;
     }
 
     .magenta-glow {
@@ -207,7 +263,7 @@
         </h1>
 
         <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-          Explore custom interior and exterior builds priced in cash mnfclub, complete with creator titles, priority listings, and zoom inspection.
+          Explore custom interior and exterior builds priced in cash mnfclub, complete with creator titles, banners, priority listings, and zoom inspection.
         </p>
 
         <div class="flex items-center justify-center gap-3 pt-2">
@@ -240,8 +296,10 @@
           <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-sky-400/70 shrink-0 bg-black/40" />
           <div class="space-y-1.5 overflow-hidden">
             <div class="flex items-center gap-2 flex-wrap">
-              <span id="studioInGameNameDisplay" class="font-bold text-sm md:text-base mnf-name-badge truncate">Name on MnfClub: Not Set</span>
-              <span id="studioBadgePill" class="px-2 py-0.5 rounded-full font-mono text-[10px] badge-designer">Designer</span>
+              <div id="studioNameBannerWrap" class="name-banner-none">
+                <span id="studioInGameNameDisplay" class="font-bold text-sm md:text-base neon-name-cyan truncate">Name on MnfClub: Not Set</span>
+              </div>
+              <span id="studioBadgePill" class="px-2 py-0.5 rounded-full font-mono text-[10px] badge-none">None</span>
             </div>
             <div id="studioDiscordDisplay" class="text-xs font-mono text-sky-300 truncate">Discord: Not Set</div>
           </div>
@@ -387,10 +445,10 @@
       <div id="adminPendingList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
 
-    <!-- 2. Creators & Titles Management (Founder / Designer / Trusted) -->
+    <!-- 2. Creators, Titles & Name Banners Management -->
     <div class="glass-card rounded-2xl p-6 border border-sky-400/30 space-y-4">
       <div class="flex items-center justify-between border-b border-white/10 pb-3">
-        <h3 class="text-lg font-bold text-sky-300">Creators, Emails &amp; Titles</h3>
+        <h3 class="text-lg font-bold text-sky-300">Creators, Emails, Titles &amp; Name Banners</h3>
         <span id="creatorsCountBadge" class="font-mono text-xs text-on-surface-variant">0 Creators</span>
       </div>
       <div id="adminCreatorsList" class="space-y-3"></div>
@@ -406,7 +464,7 @@
     </div>
   </section>
 
-  <!-- Enlarged Design Inspector Modal + Zoom + Creator Card + Edit + Remove -->
+  <!-- Enlarged Design Inspector Modal + Zoom + Creator Card + Edit & Approve + Remove -->
   <div id="inspectorModal" onclick="closeInspectorModal(event)"
     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
     <div onclick="event.stopPropagation()"
@@ -437,11 +495,18 @@
           <div class="flex items-center justify-between gap-2 flex-wrap">
             <div class="flex items-center gap-2 flex-wrap">
               <span id="modalCategoryBadge" class="px-3 py-1 rounded-full bg-secondary/15 border border-secondary/30 text-secondary font-mono text-xs"></span>
+              <span id="modalPendingBadge" class="hidden px-2.5 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 font-mono text-[11px] font-bold">
+                Pending
+              </span>
               <span id="modalFeaturedBadge" class="hidden px-2.5 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 font-mono text-[11px] font-bold">
                 ★ Featured
               </span>
             </div>
-            <div class="flex items-center gap-1.5">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <button id="modalApproveBtn" type="button" onclick="adminApproveInspectedDesign()"
+                class="hidden px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
+                Approve
+              </button>
               <button id="modalEditBtn" type="button" onclick="openEditDesignMode()"
                 class="hidden px-3 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-xs font-bold text-tertiary hover:bg-tertiary/30 transition">
                 Edit
@@ -473,8 +538,10 @@
               <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-sky-400/70 shrink-0 bg-black/40" />
               <div class="overflow-hidden space-y-1">
                 <div class="flex items-center gap-1.5 flex-wrap">
-                  <span id="modalDesignerName" class="font-bold text-sm mnf-name-badge truncate"></span>
-                  <span id="modalDesignerBadge" class="px-2 py-0.5 rounded-full font-mono text-[10px] badge-designer">Designer</span>
+                  <div id="modalDesignerBannerWrap" class="name-banner-none">
+                    <span id="modalDesignerName" class="font-bold text-sm neon-name-cyan truncate"></span>
+                  </div>
+                  <span id="modalDesignerBadge" class="px-2 py-0.5 rounded-full font-mono text-[10px] badge-none">None</span>
                 </div>
                 <div id="modalDesignerDiscord" class="text-xs font-mono text-sky-300 truncate"></div>
               </div>
@@ -594,7 +661,9 @@
       "Czech Gloryhole Hut"
     ];
 
-    const BADGES = ["Founder", "Trusted", "Designer"];
+    const BADGES = ["Founder", "Trusted", "Designer", "None"];
+    const BANNERS = ["none", "cyber", "gold", "neon", "emerald"];
+    const NEON_STYLES = ["cyan", "pink", "gold", "violet"];
 
     const SCRIPT_BOLD_UPPER = "𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩";
     const SCRIPT_BOLD_LOWER = "𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃";
@@ -624,13 +693,45 @@
     function getBadgeStyleClass(badge) {
       if (badge === "Founder") return "badge-founder";
       if (badge === "Trusted") return "badge-trusted";
-      return "badge-designer";
+      if (badge === "Designer") return "badge-designer";
+      return "badge-none";
     }
 
     function renderBadgePill(badge) {
-      const label = BADGES.includes(badge) ? badge : "Designer";
+      const label = BADGES.includes(badge) ? badge : "None";
       const icon = label === "Founder" ? "★ " : label === "Trusted" ? "✔ " : "";
       return `<span class="px-2 py-0.5 rounded-full font-mono text-[10px] inline-flex items-center ${getBadgeStyleClass(label)}">${icon}${label}</span>`;
+    }
+
+    function getBannerClass(bannerKey) {
+      if (bannerKey === "cyber") return "name-banner-cyber";
+      if (bannerKey === "gold") return "name-banner-gold";
+      if (bannerKey === "neon") return "name-banner-neon";
+      if (bannerKey === "emerald") return "name-banner-emerald";
+      return "name-banner-none";
+    }
+
+    function getNeonNameClass(neonKey, fallbackId = "") {
+      if (NEON_STYLES.includes(neonKey)) return `neon-name-${neonKey}`;
+      const idx = Math.abs(String(fallbackId).split("").reduce((acc, c) => acc + c.charCodeAt(0), 0)) % NEON_STYLES.length;
+      return `neon-name-${NEON_STYLES[idx]}`;
+    }
+
+    function getCreatorExtras(profileId) {
+      try {
+        const map = JSON.parse(localStorage.getItem("mnf_creator_extras") || "{}");
+        return map[profileId] || { banner: "none", neon: "" };
+      } catch {
+        return { banner: "none", neon: "" };
+      }
+    }
+
+    function setCreatorExtras(profileId, patch) {
+      try {
+        const map = JSON.parse(localStorage.getItem("mnf_creator_extras") || "{}");
+        map[profileId] = { ...(map[profileId] || { banner: "none", neon: "" }), ...patch };
+        localStorage.setItem("mnf_creator_extras", JSON.stringify(map));
+      } catch {}
     }
 
     let currentSessionUser = null;
@@ -695,7 +796,7 @@
 
     async function syncFounderBadgeForAdmin() {
       if (!currentSessionUser || !isAdminUser()) return;
-      const defaultBadge = currentProfile?.badge === "Founder" ? "Founder" : "Founder";
+      const defaultBadge = currentProfile?.badge || "Founder";
       const payload = {
         id: currentSessionUser.id,
         email: currentSessionUser.email || ADMIN_EMAIL,
@@ -818,12 +919,19 @@
     }
 
     function updateStudioProfileUI() {
-      const badge = currentProfile?.badge || (isAdminUser() ? "Founder" : "Designer");
+      const badge = currentProfile?.badge || (isAdminUser() ? "Founder" : "None");
+      const extras = getCreatorExtras(currentSessionUser?.id || "");
+
       document.getElementById("mnfNameInput").value = currentProfile?.display_name || "";
       document.getElementById("discordInput").value = currentProfile?.contact || "";
-      document.getElementById("studioInGameNameDisplay").textContent = currentProfile?.display_name
+
+      const nameEl = document.getElementById("studioInGameNameDisplay");
+      nameEl.textContent = currentProfile?.display_name
         ? `Name on MnfClub: ${currentProfile.display_name}`
         : "Name on MnfClub: Not Set";
+      nameEl.className = `font-bold text-sm md:text-base ${getNeonNameClass(extras.neon, currentSessionUser?.id)} truncate`;
+
+      document.getElementById("studioNameBannerWrap").className = getBannerClass(extras.banner);
       document.getElementById("studioDiscordDisplay").textContent = currentProfile?.contact
         ? `Discord: ${currentProfile.contact}`
         : "Discord: Not Set";
@@ -865,7 +973,7 @@
 
         const resolvedBadge = isAdminUser()
           ? (currentProfile?.badge || "Founder")
-          : (currentProfile?.badge || "Designer");
+          : (currentProfile?.badge || "None");
 
         const payload = {
           id: currentSessionUser.id,
@@ -1018,7 +1126,8 @@
           grid.textContent = `No designs published in "${category}" yet.`;
         } else {
           items.forEach(item => {
-            const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "Designer" };
+            const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
+            const extras = getCreatorExtras(item.user_id);
             const styledTitle = toScriptBold(item.title);
             const styledDesc = toSansBold(item.description);
             const isFeatured = Boolean(item.is_featured);
@@ -1049,9 +1158,11 @@
 
               <div class="p-3 bg-surface-container-low border-t border-white/5 flex items-center gap-2.5">
                 <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-sky-400/50 shrink-0 bg-black/40" />
-                <div class="overflow-hidden space-y-0.5">
+                <div class="overflow-hidden space-y-1">
                   <div class="flex items-center gap-1.5 flex-wrap">
-                    <span class="font-bold text-xs mnf-name-badge truncate">Name on MnfClub: ${creator.display_name}</span>
+                    <div class="${getBannerClass(extras.banner)}">
+                      <span class="font-bold text-xs ${getNeonNameClass(extras.neon, item.user_id)} truncate">Name on MnfClub: ${creator.display_name}</span>
+                    </div>
                     ${renderBadgePill(creator.badge)}
                   </div>
                   <div class="text-[10px] font-mono text-sky-300 truncate">Discord: ${creator.contact || 'N/A'}</div>
@@ -1098,7 +1209,7 @@
       document.getElementById("creatorsCountBadge").textContent = `${creatorsList.length} Creators`;
       document.getElementById("allDesignsCountBadge").textContent = `${allDesigns.length} Total`;
 
-      // 1. Pending Queue
+      // 1. Pending Queue (Click image/card to inspect & edit before approving)
       const pendingContainer = document.getElementById("adminPendingList");
       if (pendingItems.length === 0) {
         pendingContainer.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No pending designs right now.</div>`;
@@ -1107,9 +1218,12 @@
           const creator = profilesMap[item.user_id] || { display_name: "Unknown", email: "N/A", contact: "N/A" };
           return `
             <div class="bg-surface-container-low border border-amber-400/30 rounded-xl p-4 space-y-3">
-              <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-36 object-cover rounded-lg bg-black/40" />
-              <div class="font-bold text-sm text-on-surface">${item.title} <span class="text-xs font-mono text-secondary">(${item.category})</span></div>
-              <div class="text-xs font-mono text-sky-300 truncate">Creator: ${creator.display_name} • ${creator.email || "No Email"}</div>
+              <div onclick="openInspectorModalById('${item.id}')" class="cursor-pointer space-y-1.5 group">
+                <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-36 object-cover rounded-lg bg-black/40 group-hover:opacity-90 transition" />
+                <div class="font-bold text-sm text-on-surface group-hover:text-amber-300 transition">${item.title} <span class="text-xs font-mono text-secondary">(${item.category})</span></div>
+                <div class="text-xs font-mono text-sky-300 truncate">Creator: ${creator.display_name} • ${creator.email || "No Email"}</div>
+                <div class="text-[10px] font-mono text-on-surface-variant">Click design to inspect or edit before approving</div>
+              </div>
               <div class="flex items-center gap-2 pt-1">
                 <button type="button" onclick="adminApproveDesign('${item.id}')"
                   class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
@@ -1125,31 +1239,61 @@
         }).join("");
       }
 
-      // 2. Creators & Titles
+      // 2. Creators, Titles & Banners
       const creatorsContainer = document.getElementById("adminCreatorsList");
       creatorsContainer.innerHTML = creatorsList.map(p => {
-        const currentBadge = p.badge || "Designer";
+        const currentBadge = p.badge || "None";
+        const extras = getCreatorExtras(p.id);
+        const activeBanner = extras.banner || "none";
+        const activeNeon = extras.neon || "";
+
         return `
-          <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3 min-w-0">
-              <img src="${p.avatar_url || 'logo.jpg'}" alt="${p.display_name}" class="w-11 h-11 rounded-xl object-cover border border-sky-400/50 shrink-0" />
-              <div class="min-w-0">
-                <div class="flex items-center gap-2 flex-wrap">
-                  <span class="font-bold text-sm text-on-surface truncate">${p.display_name || "No Name"}</span>
-                  ${renderBadgePill(currentBadge)}
+          <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="${p.avatar_url || 'logo.jpg'}" alt="${p.display_name}" class="w-11 h-11 rounded-xl object-cover border border-sky-400/50 shrink-0" />
+                <div class="min-w-0 space-y-1">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <div class="${getBannerClass(activeBanner)}">
+                      <span class="font-bold text-sm ${getNeonNameClass(activeNeon, p.id)} truncate">${p.display_name || "No Name"}</span>
+                    </div>
+                    ${renderBadgePill(currentBadge)}
+                  </div>
+                  <div class="text-xs font-mono text-tertiary truncate">Email: ${p.email || "Not recorded yet"}</div>
+                  <div class="text-[11px] font-mono text-sky-300 truncate">Discord: ${p.contact || "N/A"}</div>
                 </div>
-                <div class="text-xs font-mono text-tertiary truncate">Email: ${p.email || "Not recorded yet"}</div>
-                <div class="text-[11px] font-mono text-sky-300 truncate">Discord: ${p.contact || "N/A"}</div>
+              </div>
+
+              <div class="flex items-center gap-1.5 flex-wrap">
+                ${BADGES.map(b => `
+                  <button type="button" onclick="adminSetCreatorBadge('${p.id}', '${b}')"
+                    class="px-3 py-1 rounded-lg font-mono text-xs font-bold transition ${currentBadge === b ? "bg-secondary text-on-secondary" : "bg-surface-container-high border border-white/15 text-on-surface hover:border-secondary"}">
+                    ${b}
+                  </button>
+                `).join("")}
               </div>
             </div>
 
-            <div class="flex items-center gap-1.5 flex-wrap">
-              ${BADGES.map(b => `
-                <button type="button" onclick="adminSetCreatorBadge('${p.id}', '${b}')"
-                  class="px-3 py-1 rounded-lg font-mono text-xs font-bold transition ${currentBadge === b ? "bg-secondary text-on-secondary" : "bg-surface-container-high border border-white/15 text-on-surface hover:border-secondary"}">
-                  ${b}
-                </button>
-              `).join("")}
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/5 text-[11px] font-mono">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-on-surface-variant">Banner:</span>
+                ${BANNERS.map(bn => `
+                  <button type="button" onclick="adminSetCreatorBanner('${p.id}', '${bn}')"
+                    class="px-2 py-0.5 rounded transition ${activeBanner === bn ? "bg-sky-400 text-slate-950 font-bold" : "bg-surface-container-high text-on-surface-variant hover:text-on-surface"}">
+                    ${bn}
+                  </button>
+                `).join("")}
+              </div>
+
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="text-on-surface-variant">Neon:</span>
+                ${NEON_STYLES.map(nn => `
+                  <button type="button" onclick="adminSetCreatorNeon('${p.id}', '${nn}')"
+                    class="px-2 py-0.5 rounded transition ${activeNeon === nn ? "bg-secondary text-on-secondary font-bold" : "bg-surface-container-high text-on-surface-variant hover:text-on-surface"}">
+                    ${nn}
+                  </button>
+                `).join("")}
+              </div>
             </div>
           </div>
         `;
@@ -1194,7 +1338,7 @@
     function openInspectorModalById(designId) {
       const item = allDesigns.find(d => String(d.id) === String(designId));
       if (!item) return;
-      const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "Designer" };
+      const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
       showShowcaseView();
       openInspectorModal(item, creator);
     }
@@ -1203,6 +1347,12 @@
       if (!isAdminUser()) return;
       const { error } = await sb.from("designs").update({ status: "approved" }).eq("id", designId);
       if (!error) await fetchShowcaseData();
+    }
+
+    async function adminApproveInspectedDesign() {
+      if (!isAdminUser() || !activeInspectedDesign) return;
+      await adminApproveDesign(activeInspectedDesign.id);
+      closeInspectorModal();
     }
 
     async function adminToggleFeatured(designId, nextFeatured) {
@@ -1229,10 +1379,27 @@
       }
     }
 
+    function adminSetCreatorBanner(profileId, banner) {
+      if (!isAdminUser() || !BANNERS.includes(banner)) return;
+      setCreatorExtras(profileId, { banner });
+      if (currentSessionUser && currentSessionUser.id === profileId) updateStudioProfileUI();
+      renderShowcase();
+      renderAdminDashboard();
+    }
+
+    function adminSetCreatorNeon(profileId, neon) {
+      if (!isAdminUser() || !NEON_STYLES.includes(neon)) return;
+      setCreatorExtras(profileId, { neon });
+      if (currentSessionUser && currentSessionUser.id === profileId) updateStudioProfileUI();
+      renderShowcase();
+      renderAdminDashboard();
+    }
+
     function updateOwnerActionsVisibility() {
       const editBtn = document.getElementById("modalEditBtn");
       const removeBtn = document.getElementById("modalRemoveBtn");
-      if (!editBtn || !removeBtn) return;
+      const approveBtn = document.getElementById("modalApproveBtn");
+      if (!editBtn || !removeBtn || !approveBtn) return;
 
       const canManage = Boolean(
         currentSessionUser &&
@@ -1240,8 +1407,15 @@
         (String(currentSessionUser.id) === String(activeInspectedDesign.user_id) || isAdminUser())
       );
 
+      const canApprove = Boolean(
+        isAdminUser() &&
+        activeInspectedDesign &&
+        activeInspectedDesign.status === "pending"
+      );
+
       editBtn.classList.toggle("hidden", !canManage);
       removeBtn.classList.toggle("hidden", !canManage);
+      approveBtn.classList.toggle("hidden", !canApprove);
     }
 
     function openInspectorModal(item, creator) {
@@ -1257,11 +1431,17 @@
       document.getElementById("modalDesignPrice").textContent = Number(item.price).toLocaleString();
       document.getElementById("modalDesignDesc").textContent = toSansBold(item.description);
 
-      const featBadge = document.getElementById("modalFeaturedBadge");
-      featBadge.classList.toggle("hidden", !item.is_featured);
+      document.getElementById("modalPendingBadge").classList.toggle("hidden", item.status !== "pending");
+      document.getElementById("modalFeaturedBadge").classList.toggle("hidden", !item.is_featured);
 
-      const badge = creator.badge || "Designer";
-      document.getElementById("modalDesignerName").textContent = `Name on MnfClub: ${creator.display_name || "MNF Creator"}`;
+      const badge = creator.badge || "None";
+      const extras = getCreatorExtras(item.user_id);
+
+      const nameEl = document.getElementById("modalDesignerName");
+      nameEl.textContent = `Name on MnfClub: ${creator.display_name || "MNF Creator"}`;
+      nameEl.className = `font-bold text-sm ${getNeonNameClass(extras.neon, item.user_id)} truncate`;
+
+      document.getElementById("modalDesignerBannerWrap").className = getBannerClass(extras.banner);
       document.getElementById("modalDesignerDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
       document.getElementById("modalDesignerAvatar").src = creator.avatar_url || "logo.jpg";
 
@@ -1292,6 +1472,11 @@
       document.getElementById("editDesignCategory").value = activeInspectedDesign.category || CATEGORIES[0];
       document.getElementById("editDesignDesc").value = activeInspectedDesign.description || "";
       document.getElementById("editDesignImage").value = "";
+
+      const saveBtn = document.getElementById("saveEditBtn");
+      saveBtn.textContent = (isAdminUser() && activeInspectedDesign.status === "pending")
+        ? "Save & Approve Design"
+        : "Save Changes";
 
       document.getElementById("modalViewMode").classList.add("hidden");
       document.getElementById("modalEditForm").classList.remove("hidden");
@@ -1362,6 +1547,10 @@
           thumb_url: imageUrl,
           full_url: imageUrl
         };
+
+        if (isAdminUser() && activeInspectedDesign.status === "pending") {
+          updatedFields.status = "approved";
+        }
 
         let query = sb.from("designs").update(updatedFields).eq("id", activeInspectedDesign.id);
         if (!isAdminUser()) {
