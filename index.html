@@ -76,9 +76,23 @@
       box-shadow: 0 14px 32px -12px rgba(251, 171, 255, 0.18);
     }
 
+    /* Gold Priority Showcase & Cards */
+    .priority-gold-banner {
+      background: linear-gradient(145deg, rgba(42, 27, 4, 0.92), rgba(18, 22, 34, 0.92));
+      border: 1.5px solid rgba(250, 204, 21, 0.65);
+      box-shadow: 0 0 36px rgba(250, 204, 21, 0.18), inset 0 0 24px rgba(245, 158, 11, 0.08);
+    }
+
     .featured-card {
-      border: 1px solid rgba(250, 204, 21, 0.8) !important;
-      box-shadow: 0 0 24px rgba(250, 204, 21, 0.25), 0 0 14px rgba(251, 171, 255, 0.15) !important;
+      background: linear-gradient(160deg, rgba(36, 25, 8, 0.88), rgba(14, 24, 38, 0.9)) !important;
+      border: 1.5px solid rgba(250, 204, 21, 0.92) !important;
+      box-shadow: 0 0 26px rgba(250, 204, 21, 0.32), 0 0 14px rgba(245, 158, 11, 0.2) !important;
+    }
+
+    .featured-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      border-color: rgba(253, 224, 71, 1) !important;
+      box-shadow: 0 0 36px rgba(253, 224, 71, 0.48), 0 16px 32px -10px rgba(245, 158, 11, 0.35) !important;
     }
 
     .blue-neon-card {
@@ -281,7 +295,7 @@
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
           </span>
-          MNF CLUBS Showcase • Click any design to inspect full size &amp; creator card
+          MNF CLUBS Official Marketplace • Buy Exclusive Builds or List Your Own
         </div>
 
         <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
@@ -290,16 +304,21 @@
           </span>
         </h1>
 
-        <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
-          Explore custom interior and exterior builds priced in cash mnfclub, complete with multi-photo galleries, creator titles, image banners, and zoom inspection.
+        <p class="text-sm md:text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+          Grab standout apartments, garages, yachts, farms, and custom builds in <span class="text-secondary font-bold">cash mnfclub</span> before they’re gone — or publish your own designs to reach buyers across MNF CLUBS and grow your sales.
         </p>
 
-        <div class="flex items-center justify-center gap-3 pt-2">
+        <div class="flex items-center justify-center gap-3 pt-2 flex-wrap">
           <a href="#categoriesSection"
             class="h-10 px-6 border border-white/15 hover:border-secondary hover:bg-white/5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2">
             <span class="material-symbols-outlined text-sm">grid_view</span>
             Browse Categories
           </a>
+          <button type="button" onclick="handleHeroPublishClick()"
+            class="h-10 px-6 bg-gradient-to-r from-secondary-container to-secondary text-on-secondary-container text-xs font-bold rounded-lg transition-all hover:brightness-110 flex items-center justify-center gap-2 shadow-md shadow-secondary/20">
+            <span class="material-symbols-outlined text-sm">add_photo_alternate</span>
+            List Your Design
+          </button>
         </div>
       </div>
     </header>
@@ -391,11 +410,29 @@
             </div>
           </div>
 
-          <div>
-            <label class="block font-mono text-xs text-on-surface-variant mb-1">Category</label>
-            <select id="designCategorySelect" required
-              class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none">
-            </select>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Category</label>
+              <select id="designCategorySelect" required
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none">
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Listing Duration (Optional)</label>
+              <select id="designDurationUnit" onchange="toggleDurationValueInput()"
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none">
+                <option value="permanent">Permanent (No Timer)</option>
+                <option value="hours">Timed — Hours</option>
+                <option value="days">Timed — Days</option>
+              </select>
+            </div>
+
+            <div id="designDurationValueWrap" class="hidden">
+              <label id="designDurationValueLabel" class="block font-mono text-xs text-on-surface-variant mb-1">Duration Value</label>
+              <input id="designDurationValue" type="number" min="1" max="365" value="2" placeholder="2"
+                class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
+            </div>
           </div>
 
           <div>
@@ -417,6 +454,26 @@
           </button>
           <p id="uploadStatusMsg" class="text-xs text-secondary text-center min-h-[16px]"></p>
         </form>
+      </section>
+
+      <!-- Gold Priority List Section (Directly Above Design Categories) -->
+      <section id="priorityGoldSection" class="hidden priority-gold-banner rounded-2xl p-6 md:p-7 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-amber-400/25 pb-3.5">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-amber-400/15 border border-amber-300/40 text-amber-300 font-mono text-[11px] font-bold">
+              <span>👑</span>
+              <span>PRIORITY SPOTLIGHT • TOP PICKS</span>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-black bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-500 bg-clip-text text-transparent">
+              Priority Designs
+            </h2>
+          </div>
+          <span id="priorityCountLabel" class="font-mono text-xs text-amber-200/90 bg-amber-400/10 border border-amber-400/25 px-3 py-1 rounded-full">
+            0 Active
+          </span>
+        </div>
+
+        <div id="priorityGoldGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
       </section>
 
       <!-- Categories & Designs Display Area -->
@@ -501,10 +558,13 @@
       <div id="adminCreatorsList" class="space-y-3"></div>
     </div>
 
-    <!-- 3. All Designs: Priority (Featured) + Edit + Remove -->
+    <!-- 3. All Designs: Priority Subscription (Hours/Days) + Edit + Remove -->
     <div class="glass-card rounded-2xl p-6 border border-white/10 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
-        <h3 class="text-lg font-bold text-secondary">All Designs &amp; Priority (Featured)</h3>
+        <div>
+          <h3 class="text-lg font-bold text-secondary">All Designs &amp; Priority Subscription</h3>
+          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Set Priority duration in Hours or Days for paid/featured subscriptions.</p>
+        </div>
         <div class="flex items-center gap-3 flex-wrap">
           <input id="adminDesignsSearchInput" type="text" oninput="renderAdminDashboard()" placeholder="Search design, category or creator..."
             class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-secondary focus:ring-0 outline-none" />
@@ -603,8 +663,9 @@
                 Pending
               </span>
               <span id="modalFeaturedBadge" class="hidden px-2.5 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 font-mono text-[11px] font-bold">
-                ★ Featured
+                ★ Priority
               </span>
+              <span id="modalExpiryBadge" class="hidden px-2.5 py-1 rounded-full bg-sky-400/15 border border-sky-400/40 text-sky-300 font-mono text-[11px] font-bold"></span>
             </div>
             <div class="flex items-center gap-1.5 flex-wrap">
               <button id="modalApproveBtn" type="button" onclick="adminApproveInspectedDesign()"
@@ -790,6 +851,67 @@
 
     function toSansBold(text) {
       return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
+    }
+
+    // Local metadata storage for Priority subscriptions & Listing expiry timers (works even before DB column migration)
+    function getDesignTimersMap() {
+      try {
+        return JSON.parse(localStorage.getItem("mnf_design_timers") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function setDesignTimerMeta(designId, patch) {
+      if (!designId) return;
+      try {
+        const map = getDesignTimersMap();
+        const key = String(designId);
+        map[key] = { ...(map[key] || {}), ...patch };
+        localStorage.setItem("mnf_design_timers", JSON.stringify(map));
+      } catch {}
+    }
+
+    function getEffectivePriorityUntil(item) {
+      const meta = getDesignTimersMap()[String(item.id)] || {};
+      const localUntil = meta.priorityUntil ? new Date(meta.priorityUntil).getTime() : 0;
+      const dbUntil = item.priority_until ? new Date(item.priority_until).getTime() : 0;
+      const maxUntil = Math.max(localUntil, dbUntil);
+
+      if (maxUntil > 0) return maxUntil;
+      if (item.is_featured && !meta.priorityCleared) return Infinity;
+      return 0;
+    }
+
+    function isDesignPriorityActive(item) {
+      const until = getEffectivePriorityUntil(item);
+      if (until === Infinity) return true;
+      return until > Date.now();
+    }
+
+    function getEffectiveListingExpiresAt(item) {
+      const meta = getDesignTimersMap()[String(item.id)] || {};
+      const localExp = meta.listingExpiresAt ? new Date(meta.listingExpiresAt).getTime() : 0;
+      const dbExp = item.expires_at ? new Date(item.expires_at).getTime() : 0;
+      return Math.max(localExp, dbExp);
+    }
+
+    function isDesignExpiredForPublic(item) {
+      const exp = getEffectiveListingExpiresAt(item);
+      return exp > 0 && exp <= Date.now();
+    }
+
+    function formatRemainingTime(targetMs) {
+      if (!targetMs || targetMs === Infinity) return "";
+      const diff = targetMs - Date.now();
+      if (diff <= 0) return "Expired";
+      const totalMins = Math.floor(diff / 60000);
+      const days = Math.floor(totalMins / 1440);
+      const hours = Math.floor((totalMins % 1440) / 60);
+      const mins = totalMins % 60;
+      if (days > 0) return `${days}d ${hours}h left`;
+      if (hours > 0) return `${hours}h ${mins}m left`;
+      return `${Math.max(1, mins)}m left`;
     }
 
     function getLocalGalleryMap() {
@@ -986,11 +1108,44 @@
       }
     }
 
+    function toggleDurationValueInput() {
+      const unit = document.getElementById("designDurationUnit")?.value || "permanent";
+      const wrap = document.getElementById("designDurationValueWrap");
+      const label = document.getElementById("designDurationValueLabel");
+      const input = document.getElementById("designDurationValue");
+      if (!wrap || !label || !input) return;
+
+      if (unit === "permanent") {
+        wrap.classList.add("hidden");
+      } else {
+        wrap.classList.remove("hidden");
+        if (unit === "hours") {
+          label.textContent = "Hours Count";
+          input.value = input.value || "24";
+        } else {
+          label.textContent = "Days Count";
+          input.value = input.value || "2";
+        }
+      }
+    }
+
+    function handleHeroPublishClick() {
+      if (!currentSessionUser) {
+        signInWithGoogle();
+        return;
+      }
+      openPanel("publishDesignPanel");
+    }
+
     async function init() {
       setupCategorySelects();
       renderCategoryFilters();
       updateApprovalModeUI();
       await fetchShowcaseData();
+
+      setInterval(() => {
+        renderShowcase();
+      }, 60000);
 
       const { data: { session } } = await sb.auth.getSession();
       await handleSessionState(session);
@@ -1266,6 +1421,15 @@
         return;
       }
 
+      const durationUnit = document.getElementById("designDurationUnit")?.value || "permanent";
+      const durationVal = Math.max(1, Number(document.getElementById("designDurationValue")?.value || 1));
+      let expiresAtIso = null;
+      if (durationUnit === "hours") {
+        expiresAtIso = new Date(Date.now() + durationVal * 3600 * 1000).toISOString();
+      } else if (durationUnit === "days") {
+        expiresAtIso = new Date(Date.now() + durationVal * 86400 * 1000).toISOString();
+      }
+
       btn.disabled = true;
       msg.textContent = `Uploading ${imgFiles.length} image(s)...`;
 
@@ -1290,23 +1454,36 @@
 
         let insertRes = await sb.from("designs").insert({
           ...basePayload,
-          gallery_urls: imageUrls
+          gallery_urls: imageUrls,
+          expires_at: expiresAtIso
         }).select();
 
         if (insertRes.error) {
-          insertRes = await sb.from("designs").insert(basePayload).select();
-          if (insertRes.error) throw insertRes.error;
+          insertRes = await sb.from("designs").insert({
+            ...basePayload,
+            gallery_urls: imageUrls
+          }).select();
+          if (insertRes.error) {
+            insertRes = await sb.from("designs").insert(basePayload).select();
+            if (insertRes.error) throw insertRes.error;
+          }
         }
 
         const insertedRow = Array.isArray(insertRes.data) ? insertRes.data[0] : insertRes.data;
         if (insertedRow && insertedRow.id) {
           saveLocalGallery(insertedRow.id, imageUrls);
+          if (expiresAtIso) {
+            setDesignTimerMeta(insertedRow.id, { listingExpiresAt: expiresAtIso });
+          }
         }
 
         document.getElementById("uploadDesignForm").reset();
+        toggleDurationValueInput();
+
+        const timerNote = expiresAtIso ? ` • Active for ${durationVal} ${durationUnit}` : "";
         msg.textContent = initialStatus === "pending"
-          ? `Submitted (${imageUrls.length} photo(s))! Waiting for Admin approval.`
-          : `Design published with ${imageUrls.length} photo(s)!`;
+          ? `Submitted (${imageUrls.length} photo(s))${timerNote}! Waiting for Admin approval.`
+          : `Design published with ${imageUrls.length} photo(s)${timerNote}!`;
         await fetchShowcaseData();
       } catch (err) {
         msg.textContent = err.message || "Failed to publish design.";
@@ -1370,14 +1547,92 @@
       renderShowcase();
     }
 
-    function renderShowcase() {
-      const container = document.getElementById("categoryGroups");
-      container.innerHTML = "";
+    function buildDesignCardElement(item, creator, options = {}) {
+      const { forceGold = false, showExpiryBadge = false } = options;
+      const extras = getCreatorExtras(item.user_id);
+      const styledTitle = toScriptBold(item.title);
+      const styledDesc = toSansBold(item.description);
+      const isPriority = isDesignPriorityActive(item);
+      const priorityUntil = getEffectivePriorityUntil(item);
+      const expiresAt = getEffectiveListingExpiresAt(item);
+      const imgs = getDesignImages(item);
+      const activeIdx = Math.min(cardSlideIndexes[item.id] || 0, Math.max(imgs.length - 1, 0));
+      const currentImg = imgs[activeIdx] || item.thumb_url || item.full_url;
 
+      const card = document.createElement("div");
+      card.className = `glass-card rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between ${(isPriority || forceGold) ? "featured-card" : ""}`;
+      card.onclick = () => openInspectorModal(item, creator, activeIdx);
+
+      const priorityTagHtml = isPriority
+        ? `<div class="absolute top-2 left-2 z-10 px-2.5 py-0.5 rounded bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-mono text-[10px] font-black shadow-md">
+             👑 PRIORITY${priorityUntil !== Infinity ? ` • ${formatRemainingTime(priorityUntil)}` : ""}
+           </div>`
+        : "";
+
+      const expiryTagHtml = (showExpiryBadge && expiresAt > 0)
+        ? `<div class="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-sky-400/15 border border-sky-400/35 text-sky-300 font-mono text-[10px] font-bold">
+             ⏳ ${formatRemainingTime(expiresAt)}
+           </div>`
+        : "";
+
+      const galleryControlsHtml = imgs.length > 1
+        ? `
+          <button type="button" onclick="flipCardPhoto(event, '${item.id}', -1)" title="Previous photo"
+            class="absolute left-1.5 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-black/70 hover:bg-black/95 border border-white/20 text-white flex items-center justify-center transition">
+            <span class="material-symbols-outlined text-base">chevron_left</span>
+          </button>
+          <button type="button" onclick="flipCardPhoto(event, '${item.id}', 1)" title="Next photo"
+            class="absolute right-1.5 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-black/70 hover:bg-black/95 border border-white/20 text-white flex items-center justify-center transition">
+            <span class="material-symbols-outlined text-base">chevron_right</span>
+          </button>
+          <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1 bg-black/65 px-2 py-1 rounded-full">
+            ${imgs.map((_, dotIdx) => `
+              <button type="button" onclick="setCardPhotoIndex(event, '${item.id}', ${dotIdx})"
+                class="w-2 h-2 rounded-full transition ${dotIdx === activeIdx ? "bg-secondary scale-110" : "bg-white/40 hover:bg-white/75"}"></button>
+            `).join("")}
+          </div>
+        `
+        : "";
+
+      card.innerHTML = `
+        <div>
+          <div class="relative h-44 bg-black/40 overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
+            <img src="${currentImg}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover transition duration-300 hover:scale-105" />
+            ${renderLuxuryBannerTag(extras.banner)}
+            ${priorityTagHtml}
+            ${galleryControlsHtml}
+            <div class="absolute bottom-2 right-2 z-10 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
+              ${Number(item.price).toLocaleString()} cash mnfclub
+            </div>
+          </div>
+
+          <div class="p-4 space-y-1">
+            <div class="font-bold text-lg text-on-surface truncate">${styledTitle}</div>
+            <div class="text-xs text-on-surface-variant line-clamp-2">${styledDesc}</div>
+            ${expiryTagHtml}
+          </div>
+        </div>
+
+        <div class="p-3 bg-surface-container-low border-t border-white/5 flex items-center gap-2.5">
+          <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-sky-400/50 shrink-0 bg-black/40" />
+          <div class="overflow-hidden space-y-0.5">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-bold text-xs ${getNeonNameClass(extras.neon)} truncate">${creator.display_name}</span>
+              ${renderTitleGlowText(creator.badge)}
+            </div>
+            <div class="text-[10px] font-mono text-sky-300 truncate">Discord: ${creator.contact || 'N/A'}</div>
+          </div>
+        </div>
+      `;
+      return card;
+    }
+
+    function renderShowcase() {
       const searchTerm = (document.getElementById("showcaseSearchInput")?.value || "").trim().toLowerCase();
 
       const publicApprovedDesigns = allDesigns
         .filter(d => (d.status || "approved") === "approved")
+        .filter(d => !isDesignExpiredForPublic(d))
         .filter(d => {
           if (!searchTerm) return true;
           const creator = profilesMap[d.user_id] || {};
@@ -1386,11 +1641,30 @@
           const categoryName = (d.category || "").toLowerCase();
           return designTitle.includes(searchTerm) || creatorName.includes(searchTerm) || categoryName.includes(searchTerm);
         })
-        .sort((a, b) => {
-          const featDiff = Number(Boolean(b.is_featured)) - Number(Boolean(a.is_featured));
-          if (featDiff !== 0) return featDiff;
-          return new Date(b.created_at || 0) - new Date(a.created_at || 0);
+        .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+
+      // Render Dedicated Gold Priority List right above Design Categories
+      const prioritySection = document.getElementById("priorityGoldSection");
+      const priorityGrid = document.getElementById("priorityGoldGrid");
+      const priorityLabel = document.getElementById("priorityCountLabel");
+
+      const activePriorityItems = publicApprovedDesigns.filter(d => isDesignPriorityActive(d));
+      if (activePriorityItems.length > 0) {
+        prioritySection.classList.remove("hidden");
+        priorityLabel.textContent = `${activePriorityItems.length} Active`;
+        priorityGrid.innerHTML = "";
+        activePriorityItems.forEach(item => {
+          const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
+          priorityGrid.appendChild(buildDesignCardElement(item, creator, { forceGold: true, showExpiryBadge: true }));
         });
+      } else {
+        prioritySection.classList.add("hidden");
+        priorityGrid.innerHTML = "";
+      }
+
+      // Render Design Categories
+      const container = document.getElementById("categoryGroups");
+      container.innerHTML = "";
 
       const categoriesToRender = activeFilter === "ALL" ? CATEGORIES : CATEGORIES.filter(c => c === activeFilter);
 
@@ -1417,71 +1691,7 @@
         } else {
           items.forEach(item => {
             const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
-            const extras = getCreatorExtras(item.user_id);
-            const styledTitle = toScriptBold(item.title);
-            const styledDesc = toSansBold(item.description);
-            const isFeatured = Boolean(item.is_featured);
-            const imgs = getDesignImages(item);
-            const activeIdx = Math.min(cardSlideIndexes[item.id] || 0, Math.max(imgs.length - 1, 0));
-            const currentImg = imgs[activeIdx] || item.thumb_url || item.full_url;
-
-            const card = document.createElement("div");
-            card.className = `glass-card rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between ${isFeatured ? "featured-card" : ""}`;
-            card.onclick = () => openInspectorModal(item, creator, activeIdx);
-
-            const featuredTagHtml = isFeatured
-              ? `<div class="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-mono text-[10px] font-black shadow">★ PRIORITY</div>`
-              : "";
-
-            const galleryControlsHtml = imgs.length > 1
-              ? `
-                <button type="button" onclick="flipCardPhoto(event, '${item.id}', -1)" title="Previous photo"
-                  class="absolute left-1.5 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-black/70 hover:bg-black/95 border border-white/20 text-white flex items-center justify-center transition">
-                  <span class="material-symbols-outlined text-base">chevron_left</span>
-                </button>
-                <button type="button" onclick="flipCardPhoto(event, '${item.id}', 1)" title="Next photo"
-                  class="absolute right-1.5 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-black/70 hover:bg-black/95 border border-white/20 text-white flex items-center justify-center transition">
-                  <span class="material-symbols-outlined text-base">chevron_right</span>
-                </button>
-                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1 bg-black/65 px-2 py-1 rounded-full">
-                  ${imgs.map((_, dotIdx) => `
-                    <button type="button" onclick="setCardPhotoIndex(event, '${item.id}', ${dotIdx})"
-                      class="w-2 h-2 rounded-full transition ${dotIdx === activeIdx ? "bg-secondary scale-110" : "bg-white/40 hover:bg-white/75"}"></button>
-                  `).join("")}
-                </div>
-              `
-              : "";
-
-            card.innerHTML = `
-              <div>
-                <div class="relative h-44 bg-black/40 overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
-                  <img src="${currentImg}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover transition duration-300 hover:scale-105" />
-                  ${renderLuxuryBannerTag(extras.banner)}
-                  ${featuredTagHtml}
-                  ${galleryControlsHtml}
-                  <div class="absolute bottom-2 right-2 z-10 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
-                    ${Number(item.price).toLocaleString()} cash mnfclub
-                  </div>
-                </div>
-
-                <div class="p-4 space-y-1">
-                  <div class="font-bold text-lg text-on-surface truncate">${styledTitle}</div>
-                  <div class="text-xs text-on-surface-variant line-clamp-2">${styledDesc}</div>
-                </div>
-              </div>
-
-              <div class="p-3 bg-surface-container-low border-t border-white/5 flex items-center gap-2.5">
-                <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-sky-400/50 shrink-0 bg-black/40" />
-                <div class="overflow-hidden space-y-0.5">
-                  <div class="flex items-center gap-2 flex-wrap">
-                    <span class="font-bold text-xs ${getNeonNameClass(extras.neon)} truncate">${creator.display_name}</span>
-                    ${renderTitleGlowText(creator.badge)}
-                  </div>
-                  <div class="text-[10px] font-mono text-sky-300 truncate">Discord: ${creator.contact || 'N/A'}</div>
-                </div>
-              </div>
-            `;
-            grid.appendChild(card);
+            grid.appendChild(buildDesignCardElement(item, creator, { showExpiryBadge: true }));
           });
         }
 
@@ -1817,14 +2027,17 @@
         `;
       }).join("");
 
-      // 3. All Designs & Priority
+      // 3. All Designs & Priority Subscription (Hours / Days)
       const allContainer = document.getElementById("adminAllDesignsList");
       allContainer.innerHTML = filteredDesigns.map(item => {
         const creator = profilesMap[item.user_id] || { display_name: "Creator", email: "N/A" };
         const extras = getCreatorExtras(item.user_id);
-        const isFeat = Boolean(item.is_featured);
+        const isFeat = isDesignPriorityActive(item);
+        const priorityUntil = getEffectivePriorityUntil(item);
+        const expiresAt = getEffectiveListingExpiresAt(item);
+
         return `
-          <div class="bg-surface-container-low border ${isFeat ? "border-amber-400/60" : "border-white/10"} rounded-xl p-4 flex flex-col justify-between gap-3">
+          <div class="bg-surface-container-low border ${isFeat ? "border-amber-400/70" : "border-white/10"} rounded-xl p-4 flex flex-col justify-between gap-3">
             <div class="space-y-2">
               <div class="relative rounded-lg overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
                 <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-32 object-cover bg-black/40" />
@@ -1836,21 +2049,41 @@
               </div>
               <div class="text-xs font-mono text-secondary">${Number(item.price).toLocaleString()} cash mnfclub • ${item.category}</div>
               <div class="text-[11px] font-mono text-on-surface-variant truncate">${creator.display_name} (${creator.email || "N/A"})</div>
+              ${isFeat ? `<div class="text-[11px] font-mono text-amber-300">👑 Priority Active${priorityUntil !== Infinity ? ` (${formatRemainingTime(priorityUntil)})` : " (Permanent)"}</div>` : ""}
+              ${expiresAt > 0 ? `<div class="text-[11px] font-mono text-sky-300">⏳ Listing: ${formatRemainingTime(expiresAt)}</div>` : ""}
             </div>
 
-            <div class="flex items-center gap-1.5 pt-2 border-t border-white/5 flex-wrap">
-              <button type="button" onclick="adminToggleFeatured('${item.id}', ${!isFeat})"
-                class="px-2.5 py-1 rounded-lg font-mono text-xs font-bold transition ${isFeat ? "bg-amber-400 text-slate-950" : "bg-surface-container-high border border-amber-400/30 text-amber-300"}">
-                ${isFeat ? "★ Priority ON" : "☆ Set Priority"}
-              </button>
-              <button type="button" onclick="openInspectorModalById('${item.id}')"
-                class="px-2.5 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-tertiary text-xs font-bold">
-                Inspect / Edit
-              </button>
-              <button type="button" onclick="adminDeleteDesign('${item.id}')"
-                class="px-2.5 py-1 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 text-xs font-bold">
-                Remove
-              </button>
+            <div class="space-y-2 pt-2 border-t border-white/5">
+              <div class="flex items-center gap-1.5">
+                <input id="prioVal_${item.id}" type="number" min="1" max="365" value="24"
+                  class="w-16 rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-amber-400 focus:ring-0 outline-none" />
+                <select id="prioUnit_${item.id}"
+                  class="rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-amber-400 focus:ring-0 outline-none">
+                  <option value="hours">Hours</option>
+                  <option value="days" selected>Days</option>
+                </select>
+                <button type="button" onclick="adminGrantPrioritySubscription('${item.id}')"
+                  class="flex-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-300 to-amber-500 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition">
+                  👑 Set Priority
+                </button>
+              </div>
+
+              <div class="flex items-center gap-1.5 flex-wrap">
+                ${isFeat ? `
+                  <button type="button" onclick="adminClearPriority('${item.id}')"
+                    class="px-2.5 py-1 rounded-lg bg-surface-container-high border border-amber-400/35 text-amber-300 font-mono text-xs font-bold">
+                    Stop Priority
+                  </button>
+                ` : ""}
+                <button type="button" onclick="openInspectorModalById('${item.id}')"
+                  class="px-2.5 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-tertiary text-xs font-bold">
+                  Inspect / Edit
+                </button>
+                <button type="button" onclick="adminDeleteDesign('${item.id}')"
+                  class="px-2.5 py-1 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 text-xs font-bold">
+                  Remove
+                </button>
+              </div>
             </div>
           </div>
         `;
@@ -1877,10 +2110,41 @@
       closeInspectorModal();
     }
 
-    async function adminToggleFeatured(designId, nextFeatured) {
+    async function adminGrantPrioritySubscription(designId) {
       if (!isAdminUser()) return;
-      const { error } = await sb.from("designs").update({ is_featured: nextFeatured }).eq("id", designId);
-      if (!error) await fetchShowcaseData();
+      const val = Math.max(1, Number(document.getElementById(`prioVal_${designId}`)?.value || 1));
+      const unit = document.getElementById(`prioUnit_${designId}`)?.value || "days";
+      const ms = unit === "hours" ? val * 3600 * 1000 : val * 86400 * 1000;
+      const untilIso = new Date(Date.now() + ms).toISOString();
+
+      setDesignTimerMeta(designId, { priorityUntil: untilIso, priorityCleared: false });
+
+      let res = await sb.from("designs").update({
+        is_featured: true,
+        priority_until: untilIso
+      }).eq("id", designId);
+
+      if (res.error) {
+        await sb.from("designs").update({ is_featured: true }).eq("id", designId);
+      }
+
+      await fetchShowcaseData();
+    }
+
+    async function adminClearPriority(designId) {
+      if (!isAdminUser()) return;
+      setDesignTimerMeta(designId, { priorityUntil: null, priorityCleared: true });
+
+      let res = await sb.from("designs").update({
+        is_featured: false,
+        priority_until: null
+      }).eq("id", designId);
+
+      if (res.error) {
+        await sb.from("designs").update({ is_featured: false }).eq("id", designId);
+      }
+
+      await fetchShowcaseData();
     }
 
     async function adminDeleteDesign(designId) {
@@ -1989,6 +2253,8 @@
 
       const badge = creator.badge || "None";
       const extras = getCreatorExtras(item.user_id);
+      const isPriority = isDesignPriorityActive(item);
+      const expiresAt = getEffectiveListingExpiresAt(item);
 
       const fullImgEl = document.getElementById("modalFullImage");
       fullImgEl.className = `max-w-full max-h-[58vh] object-contain rounded-lg transition-transform duration-200 select-none ${getImgBannerFrameClass(extras.banner)}`;
@@ -2000,7 +2266,15 @@
       document.getElementById("modalDesignDesc").textContent = toSansBold(item.description);
 
       document.getElementById("modalPendingBadge").classList.toggle("hidden", item.status !== "pending");
-      document.getElementById("modalFeaturedBadge").classList.toggle("hidden", !item.is_featured);
+      document.getElementById("modalFeaturedBadge").classList.toggle("hidden", !isPriority);
+
+      const expiryBadge = document.getElementById("modalExpiryBadge");
+      if (expiresAt > 0) {
+        expiryBadge.textContent = `⏳ ${formatRemainingTime(expiresAt)}`;
+        expiryBadge.classList.remove("hidden");
+      } else {
+        expiryBadge.classList.add("hidden");
+      }
 
       const nameEl = document.getElementById("modalDesignerName");
       nameEl.textContent = creator.display_name || "MNF Creator";
