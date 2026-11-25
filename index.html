@@ -95,6 +95,7 @@
       box-shadow: 0 0 36px rgba(253, 224, 71, 0.48), 0 16px 32px -10px rgba(245, 158, 11, 0.35) !important;
     }
 
+    /* Creator Card Base & Tier Glows */
     .blue-neon-card {
       background: rgba(10, 25, 47, 0.85);
       border: 1px solid rgba(56, 189, 248, 0.65);
@@ -105,6 +106,24 @@
     .blue-neon-card:hover {
       border-color: rgba(125, 211, 252, 0.95);
       box-shadow: 0 0 26px rgba(56, 189, 248, 0.48), inset 0 0 14px rgba(56, 189, 248, 0.14);
+    }
+
+    .creator-card-founder {
+      background: linear-gradient(135deg, rgba(58, 36, 4, 0.94), rgba(24, 18, 6, 0.94)) !important;
+      border: 1.5px solid rgba(250, 204, 21, 0.95) !important;
+      box-shadow: 0 0 24px rgba(250, 204, 21, 0.55), 0 0 42px rgba(245, 158, 11, 0.32), inset 0 0 14px rgba(253, 224, 71, 0.22) !important;
+    }
+
+    .creator-card-trusted {
+      background: linear-gradient(135deg, rgba(8, 38, 62, 0.94), rgba(10, 22, 38, 0.94)) !important;
+      border: 1.5px solid rgba(56, 189, 248, 0.95) !important;
+      box-shadow: 0 0 22px rgba(56, 189, 248, 0.55), 0 0 38px rgba(37, 99, 235, 0.32), inset 0 0 14px rgba(125, 211, 252, 0.2) !important;
+    }
+
+    .creator-card-designer {
+      background: linear-gradient(135deg, rgba(44, 14, 66, 0.94), rgba(20, 10, 34, 0.94)) !important;
+      border: 1.5px solid rgba(192, 132, 252, 0.95) !important;
+      box-shadow: 0 0 22px rgba(192, 132, 252, 0.55), 0 0 38px rgba(168, 85, 247, 0.32), inset 0 0 14px rgba(216, 180, 254, 0.2) !important;
     }
 
     /* Gold Glowing Chat Button at Bottom */
@@ -152,17 +171,27 @@
     }
     .neon-name-gold {
       font-family: 'JetBrains Mono', monospace;
-      color: #fef9c3;
+      color: #fef08a;
       font-weight: 900;
       text-shadow:
         0 0 6px rgba(254, 240, 138, 1),
         0 0 14px rgba(250, 204, 21, 0.95),
-        0 0 28px rgba(245, 158, 11, 0.8),
-        0 0 42px rgba(217, 119, 6, 0.55);
+        0 0 28px rgba(245, 158, 11, 0.85),
+        0 0 42px rgba(217, 119, 6, 0.6);
+    }
+    .neon-name-sky {
+      font-family: 'JetBrains Mono', monospace;
+      color: #bae6fd;
+      font-weight: 900;
+      text-shadow:
+        0 0 6px rgba(186, 230, 253, 1),
+        0 0 15px rgba(56, 189, 248, 0.95),
+        0 0 30px rgba(37, 99, 235, 0.8),
+        0 0 44px rgba(29, 78, 216, 0.55);
     }
     .neon-name-violet {
       font-family: 'JetBrains Mono', monospace;
-      color: #faf5ff;
+      color: #f3e8ff;
       font-weight: 900;
       text-shadow:
         0 0 6px rgba(233, 213, 255, 1),
@@ -339,7 +368,7 @@
           </button>
         </div>
 
-        <div class="blue-neon-card rounded-xl p-4 flex items-center gap-4">
+        <div id="studioCreatorCardBox" class="blue-neon-card rounded-xl p-4 flex items-center gap-4">
           <img id="studioAvatarImg" src="logo.jpg" alt="Avatar" class="w-16 h-16 rounded-xl object-cover border-2 border-sky-400/70 shrink-0 bg-black/40" />
           <div class="space-y-1.5 overflow-hidden">
             <div class="flex items-center gap-2 flex-wrap">
@@ -481,7 +510,7 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
           <div>
             <h2 class="text-2xl md:text-3xl font-black text-secondary">Design Categories</h2>
-            <p class="text-on-surface-variant text-sm mt-1">Search by design name or creator name, flip photos on cards, or click to inspect full size.</p>
+            <p class="text-on-surface-variant text-sm mt-1">Sorted by stars &amp; A–Z • Star your favorite designs to boost them higher, or click to inspect full size.</p>
           </div>
 
           <div class="w-full md:w-80 relative">
@@ -543,6 +572,22 @@
         <span id="adminMessagesCountBadge" class="font-mono text-xs text-on-surface-variant">0 Threads</span>
       </div>
       <div id="adminMessagesQueueList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+
+    <!-- 1C. Dedicated Stars Management Section (قسم النجوم) -->
+    <div class="glass-card rounded-2xl p-6 border border-yellow-400/40 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
+        <div>
+          <h3 class="text-lg font-bold text-yellow-300">★ Stars Management (قسم النجوم)</h3>
+          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Boost stars on any design (+1, +5, +10) or set a custom star count to push designs higher.</p>
+        </div>
+        <div class="flex items-center gap-3 flex-wrap">
+          <input id="adminStarsSearchInput" type="text" oninput="renderAdminDashboard()" placeholder="Search design or creator for stars..."
+            class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-yellow-400 focus:ring-0 outline-none" />
+          <span id="starsTotalBadge" class="font-mono text-xs text-yellow-300">0 ★ Total</span>
+        </div>
+      </div>
+      <div id="adminStarsList" class="space-y-3"></div>
     </div>
 
     <!-- 2. Creators, Emails, Titles & Image Banners Management -->
@@ -687,7 +732,14 @@
             </div>
           </div>
 
-          <h3 id="modalDesignTitle" class="text-2xl font-bold text-on-surface tracking-wide"></h3>
+          <div class="flex items-start justify-between gap-3">
+            <h3 id="modalDesignTitle" class="text-2xl font-bold text-on-surface tracking-wide"></h3>
+            <button id="modalStarBtn" type="button" onclick="toggleDesignStarFromModal()"
+              class="px-3 py-1.5 rounded-xl bg-surface-container-high border border-yellow-400/35 text-yellow-300 font-mono text-xs font-bold hover:border-yellow-300 transition shrink-0 flex items-center gap-1">
+              <span>★</span>
+              <span id="modalStarCount">0</span>
+            </button>
+          </div>
 
           <div class="flex items-baseline gap-2">
             <span id="modalDesignPrice" class="font-mono text-2xl font-black text-secondary"></span>
@@ -696,8 +748,8 @@
 
           <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
 
-          <!-- Blue Neon Creator Card -->
-          <div class="blue-neon-card rounded-xl p-4 space-y-3">
+          <!-- Tier-Glowing Creator Card -->
+          <div id="modalCreatorCardBox" class="blue-neon-card rounded-xl p-4 space-y-3">
             <span class="font-mono text-[10px] text-sky-300 uppercase tracking-wider font-bold">Creator Card</span>
             <div class="flex items-center gap-3">
               <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-sky-400/70 shrink-0 bg-black/40" />
@@ -828,10 +880,11 @@
     const IMG_BANNERS = ["founder", "trusted", "designer"];
     const NEON_STYLES = ["none", "gold", "rainbow", "violet"];
 
-    const SCRIPT_BOLD_UPPER = "𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩";
-    const SCRIPT_BOLD_LOWER = "𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃";
-    const SANS_BOLD_UPPER  = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭";
-    const SANS_BOLD_LOWER  = "𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓";
+    // Mathematical Double-Struck (𝕊𝕥𝕪𝕝𝕚𝕤𝕙 𝕥𝕖𝕩𝕥) for Design Titles
+    const DOUBLE_STRUCK_UPPER = "𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ";
+    const DOUBLE_STRUCK_LOWER = "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫";
+    const SANS_BOLD_UPPER     = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭";
+    const SANS_BOLD_LOWER     = "𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓";
 
     function mapStylishText(text, upperMap, lowerMap) {
       if (!text) return "";
@@ -845,15 +898,122 @@
       }).join("");
     }
 
-    function toScriptBold(text) {
-      return mapStylishText(text, SCRIPT_BOLD_UPPER, SCRIPT_BOLD_LOWER);
+    function toStylishDesignTitle(text) {
+      return mapStylishText(text, DOUBLE_STRUCK_UPPER, DOUBLE_STRUCK_LOWER);
     }
 
     function toSansBold(text) {
       return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
     }
 
-    // Local metadata storage for Priority subscriptions & Listing expiry timers (works even before DB column migration)
+    // Stars & User Likes Tracking
+    function getDesignStarsMap() {
+      try {
+        return JSON.parse(localStorage.getItem("mnf_design_stars") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function setDesignStarsLocal(designId, count) {
+      if (!designId) return;
+      try {
+        const map = getDesignStarsMap();
+        map[String(designId)] = Math.max(0, Number(count) || 0);
+        localStorage.setItem("mnf_design_stars", JSON.stringify(map));
+      } catch {}
+    }
+
+    function getUserStarredIds() {
+      try {
+        return JSON.parse(localStorage.getItem("mnf_user_starred_designs") || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function hasUserStarredDesign(designId) {
+      return getUserStarredIds().includes(String(designId));
+    }
+
+    function setUserStarredDesign(designId, starred) {
+      try {
+        const list = new Set(getUserStarredIds());
+        const key = String(designId);
+        if (starred) list.add(key);
+        else list.delete(key);
+        localStorage.setItem("mnf_user_starred_designs", JSON.stringify(Array.from(list)));
+      } catch {}
+    }
+
+    function getDesignStarsCount(item) {
+      if (!item) return 0;
+      const localMap = getDesignStarsMap();
+      const dbStars = Number(item.stars ?? item.likes ?? 0);
+      if (localMap[String(item.id)] !== undefined) {
+        return Math.max(dbStars, Number(localMap[String(item.id)]) || 0);
+      }
+      return Math.max(0, dbStars);
+    }
+
+    async function persistDesignStars(designId, nextStars) {
+      const safeStars = Math.max(0, Number(nextStars) || 0);
+      setDesignStarsLocal(designId, safeStars);
+
+      const target = allDesigns.find(d => String(d.id) === String(designId));
+      if (target) {
+        target.stars = safeStars;
+      }
+
+      let res = await sb.from("designs").update({ stars: safeStars }).eq("id", designId);
+      if (res.error) {
+        await sb.from("designs").update({ likes: safeStars }).eq("id", designId);
+      }
+    }
+
+    async function toggleDesignStar(event, designId) {
+      if (event) event.stopPropagation();
+      const item = allDesigns.find(d => String(d.id) === String(designId));
+      if (!item) return;
+
+      const currentStars = getDesignStarsCount(item);
+      const alreadyStarred = hasUserStarredDesign(designId);
+      const nextStars = alreadyStarred ? Math.max(0, currentStars - 1) : currentStars + 1;
+
+      setUserStarredDesign(designId, !alreadyStarred);
+      await persistDesignStars(designId, nextStars);
+
+      renderShowcase();
+      if (isAdminUser() && !document.getElementById("adminPageView").classList.contains("hidden")) {
+        renderAdminDashboard();
+      }
+      if (activeInspectedDesign && String(activeInspectedDesign.id) === String(designId)) {
+        updateModalStarUI(item);
+      }
+    }
+
+    async function toggleDesignStarFromModal() {
+      if (!activeInspectedDesign) return;
+      await toggleDesignStar(null, activeInspectedDesign.id);
+    }
+
+    function updateModalStarUI(item) {
+      const btn = document.getElementById("modalStarBtn");
+      const countEl = document.getElementById("modalStarCount");
+      if (!btn || !countEl || !item) return;
+
+      const stars = getDesignStarsCount(item);
+      const starred = hasUserStarredDesign(item.id);
+      countEl.textContent = stars;
+
+      if (starred) {
+        btn.className = "px-3 py-1.5 rounded-xl bg-yellow-400 text-slate-950 font-mono text-xs font-black transition shrink-0 flex items-center gap-1 shadow-md shadow-yellow-400/30";
+      } else {
+        btn.className = "px-3 py-1.5 rounded-xl bg-surface-container-high border border-yellow-400/35 text-yellow-300 font-mono text-xs font-bold hover:border-yellow-300 transition shrink-0 flex items-center gap-1";
+      }
+    }
+
+    // Local metadata storage for Priority subscriptions & Listing expiry timers
     function getDesignTimersMap() {
       try {
         return JSON.parse(localStorage.getItem("mnf_design_timers") || "{}");
@@ -1008,11 +1168,27 @@
       return "";
     }
 
-    function getNeonNameClass(neonKey) {
-      if (neonKey === "gold") return "neon-name-gold";
-      if (neonKey === "rainbow") return "neon-name-rainbow";
-      if (neonKey === "violet") return "neon-name-violet";
+    // Automatic Neon Name & Creator Card Tier Glow based on Rank/Badge + Custom Overrides
+    function getEffectiveNeonClass(badge, profileId) {
+      const extras = getCreatorExtras(profileId);
+      if (extras.neon && extras.neon !== "none") {
+        if (extras.neon === "gold") return "neon-name-gold";
+        if (extras.neon === "rainbow") return "neon-name-rainbow";
+        if (extras.neon === "violet") return "neon-name-violet";
+      }
+      if (badge === "Founder") return "neon-name-gold";
+      if (badge === "Trusted") return "neon-name-sky";
+      if (badge === "Designer") return "neon-name-violet";
       return "neon-name-none";
+    }
+
+    function getCreatorCardGlowClass(badge, profileId) {
+      const extras = getCreatorExtras(profileId);
+      const effectiveTier = extras.banner || badge;
+      if (effectiveTier === "Founder" || effectiveTier === "founder") return "creator-card-founder";
+      if (effectiveTier === "Trusted" || effectiveTier === "trusted") return "creator-card-trusted";
+      if (effectiveTier === "Designer" || effectiveTier === "designer") return "creator-card-designer";
+      return "blue-neon-card";
     }
 
     function getCreatorExtras(profileId) {
@@ -1326,14 +1502,19 @@
 
     function updateStudioProfileUI() {
       const badge = currentProfile?.badge || (isAdminUser() ? "Founder" : "None");
-      const extras = getCreatorExtras(currentSessionUser?.id || "");
+      const uid = currentSessionUser?.id || "";
 
       document.getElementById("mnfNameInput").value = currentProfile?.display_name || "";
       document.getElementById("discordInput").value = currentProfile?.contact || "";
 
+      const cardBox = document.getElementById("studioCreatorCardBox");
+      if (cardBox) {
+        cardBox.className = `${getCreatorCardGlowClass(badge, uid)} rounded-xl p-4 flex items-center gap-4`;
+      }
+
       const nameEl = document.getElementById("studioInGameNameDisplay");
       nameEl.textContent = currentProfile?.display_name || "Not Set";
-      nameEl.className = `font-bold text-sm md:text-base ${getNeonNameClass(extras.neon)} truncate`;
+      nameEl.className = `font-bold text-sm md:text-base ${getEffectiveNeonClass(badge, uid)} truncate`;
 
       document.getElementById("studioBadgeText").innerHTML = renderTitleGlowText(badge);
       document.getElementById("studioDiscordDisplay").textContent = currentProfile?.contact
@@ -1449,7 +1630,8 @@
           thumb_url: imageUrls[0],
           full_url: imageUrls[0],
           status: initialStatus,
-          is_featured: false
+          is_featured: false,
+          stars: 0
         };
 
         let insertRes = await sb.from("designs").insert({
@@ -1464,7 +1646,17 @@
             gallery_urls: imageUrls
           }).select();
           if (insertRes.error) {
-            insertRes = await sb.from("designs").insert(basePayload).select();
+            insertRes = await sb.from("designs").insert({
+              user_id: basePayload.user_id,
+              title: basePayload.title,
+              price: basePayload.price,
+              category: basePayload.category,
+              description: basePayload.description,
+              thumb_url: basePayload.thumb_url,
+              full_url: basePayload.full_url,
+              status: basePayload.status,
+              is_featured: basePayload.is_featured
+            }).select();
             if (insertRes.error) throw insertRes.error;
           }
         }
@@ -1472,6 +1664,7 @@
         const insertedRow = Array.isArray(insertRes.data) ? insertRes.data[0] : insertRes.data;
         if (insertedRow && insertedRow.id) {
           saveLocalGallery(insertedRow.id, imageUrls);
+          setDesignStarsLocal(insertedRow.id, 0);
           if (expiresAtIso) {
             setDesignTimerMeta(insertedRow.id, { listingExpiresAt: expiresAtIso });
           }
@@ -1547,14 +1740,25 @@
       renderShowcase();
     }
 
+    function compareDesignsByStarsAndAlphabet(a, b) {
+      const starsDiff = getDesignStarsCount(b) - getDesignStarsCount(a);
+      if (starsDiff !== 0) return starsDiff;
+      const titleA = (a.title || "").trim().toLowerCase();
+      const titleB = (b.title || "").trim().toLowerCase();
+      return titleA.localeCompare(titleB, undefined, { sensitivity: "base" });
+    }
+
     function buildDesignCardElement(item, creator, options = {}) {
       const { forceGold = false, showExpiryBadge = false } = options;
       const extras = getCreatorExtras(item.user_id);
-      const styledTitle = toScriptBold(item.title);
+      const badge = creator.badge || "None";
+      const styledTitle = toStylishDesignTitle(item.title);
       const styledDesc = toSansBold(item.description);
       const isPriority = isDesignPriorityActive(item);
       const priorityUntil = getEffectivePriorityUntil(item);
       const expiresAt = getEffectiveListingExpiresAt(item);
+      const starsCount = getDesignStarsCount(item);
+      const isStarred = hasUserStarredDesign(item.id);
       const imgs = getDesignImages(item);
       const activeIdx = Math.min(cardSlideIndexes[item.id] || 0, Math.max(imgs.length - 1, 0));
       const currentImg = imgs[activeIdx] || item.thumb_url || item.full_url;
@@ -1594,6 +1798,10 @@
         `
         : "";
 
+      const starBtnClass = isStarred
+        ? "bg-yellow-400 text-slate-950 border-yellow-300 shadow-sm shadow-yellow-400/40"
+        : "bg-surface-container-high text-yellow-300 border-yellow-400/30 hover:border-yellow-300";
+
       card.innerHTML = `
         <div>
           <div class="relative h-44 bg-black/40 overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
@@ -1606,19 +1814,26 @@
             </div>
           </div>
 
-          <div class="p-4 space-y-1">
-            <div class="font-bold text-lg text-on-surface truncate">${styledTitle}</div>
+          <div class="p-4 space-y-1.5">
+            <div class="flex items-start justify-between gap-2">
+              <div class="font-bold text-lg text-on-surface truncate">${styledTitle}</div>
+              <button type="button" onclick="toggleDesignStar(event, '${item.id}')" title="Star design to boost rank"
+                class="px-2 py-0.5 rounded-lg border font-mono text-xs font-black transition shrink-0 flex items-center gap-1 ${starBtnClass}">
+                <span>★</span>
+                <span>${starsCount}</span>
+              </button>
+            </div>
             <div class="text-xs text-on-surface-variant line-clamp-2">${styledDesc}</div>
             ${expiryTagHtml}
           </div>
         </div>
 
-        <div class="p-3 bg-surface-container-low border-t border-white/5 flex items-center gap-2.5">
-          <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-sky-400/50 shrink-0 bg-black/40" />
+        <div class="p-3 border-t border-white/10 flex items-center gap-2.5 ${getCreatorCardGlowClass(badge, item.user_id)}">
+          <img src="${creator.avatar_url || 'logo.jpg'}" alt="${creator.display_name}" class="w-8 h-8 rounded-lg object-cover border border-white/30 shrink-0 bg-black/40" />
           <div class="overflow-hidden space-y-0.5">
             <div class="flex items-center gap-2 flex-wrap">
-              <span class="font-bold text-xs ${getNeonNameClass(extras.neon)} truncate">${creator.display_name}</span>
-              ${renderTitleGlowText(creator.badge)}
+              <span class="font-bold text-xs ${getEffectiveNeonClass(badge, item.user_id)} truncate">${creator.display_name}</span>
+              ${renderTitleGlowText(badge)}
             </div>
             <div class="text-[10px] font-mono text-sky-300 truncate">Discord: ${creator.contact || 'N/A'}</div>
           </div>
@@ -1641,7 +1856,7 @@
           const categoryName = (d.category || "").toLowerCase();
           return designTitle.includes(searchTerm) || creatorName.includes(searchTerm) || categoryName.includes(searchTerm);
         })
-        .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+        .sort(compareDesignsByStarsAndAlphabet);
 
       // Render Dedicated Gold Priority List right above Design Categories
       const prioritySection = document.getElementById("priorityGoldSection");
@@ -1662,14 +1877,17 @@
         priorityGrid.innerHTML = "";
       }
 
-      // Render Design Categories
+      // Render Design Categories sorted by Stars & Alphabetically (A-Z)
       const container = document.getElementById("categoryGroups");
       container.innerHTML = "";
 
       const categoriesToRender = activeFilter === "ALL" ? CATEGORIES : CATEGORIES.filter(c => c === activeFilter);
 
       categoriesToRender.forEach(category => {
-        const items = publicApprovedDesigns.filter(d => d.category === category);
+        const items = publicApprovedDesigns
+          .filter(d => d.category === category)
+          .sort(compareDesignsByStarsAndAlphabet);
+
         const section = document.createElement("div");
         section.className = "space-y-4";
 
@@ -1905,10 +2123,34 @@
       }
     }
 
+    async function adminAdjustStars(designId, delta) {
+      if (!isAdminUser()) return;
+      const item = allDesigns.find(d => String(d.id) === String(designId));
+      if (!item) return;
+      const current = getDesignStarsCount(item);
+      const next = Math.max(0, current + Number(delta || 0));
+      setDesignStarsLocal(designId, next);
+      await persistDesignStars(designId, next);
+      renderShowcase();
+      renderAdminDashboard();
+    }
+
+    async function adminSetExactStars(designId) {
+      if (!isAdminUser()) return;
+      const inputEl = document.getElementById(`exactStars_${designId}`);
+      if (!inputEl) return;
+      const next = Math.max(0, Number(inputEl.value || 0));
+      setDesignStarsLocal(designId, next);
+      await persistDesignStars(designId, next);
+      renderShowcase();
+      renderAdminDashboard();
+    }
+
     function renderAdminDashboard() {
       if (!isAdminUser()) return;
 
       const pendingItems = allDesigns.filter(d => d.status === "pending");
+      const starsQuery = (document.getElementById("adminStarsSearchInput")?.value || "").trim().toLowerCase();
       const creatorsQuery = (document.getElementById("adminCreatorsSearchInput")?.value || "").trim().toLowerCase();
       const designsQuery = (document.getElementById("adminDesignsSearchInput")?.value || "").trim().toLowerCase();
 
@@ -1929,11 +2171,66 @@
           || (creator.email || "").toLowerCase().includes(designsQuery);
       });
 
+      const starsDesigns = [...allDesigns]
+        .filter(item => {
+          if (!starsQuery) return true;
+          const creator = profilesMap[item.user_id] || {};
+          return (item.title || "").toLowerCase().includes(starsQuery)
+            || (item.category || "").toLowerCase().includes(starsQuery)
+            || (creator.display_name || "").toLowerCase().includes(starsQuery);
+        })
+        .sort(compareDesignsByStarsAndAlphabet);
+
+      const totalStarsSum = allDesigns.reduce((acc, d) => acc + getDesignStarsCount(d), 0);
+      document.getElementById("starsTotalBadge").textContent = `${totalStarsSum} ★ Total`;
       document.getElementById("pendingCountBadge").textContent = `${pendingItems.length} Pending`;
       document.getElementById("creatorsCountBadge").textContent = `${creatorsList.length} Creators`;
       document.getElementById("allDesignsCountBadge").textContent = `${filteredDesigns.length} / ${allDesigns.length} Designs`;
 
       renderAdminMessagesQueue();
+
+      // 1C. Dedicated Stars Management Section
+      const starsContainer = document.getElementById("adminStarsList");
+      if (starsDesigns.length === 0) {
+        starsContainer.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No designs found for stars management.</div>`;
+      } else {
+        starsContainer.innerHTML = starsDesigns.map(item => {
+          const creator = profilesMap[item.user_id] || { display_name: "Creator" };
+          const stars = getDesignStarsCount(item);
+          return `
+            <div class="bg-surface-container-low border border-yellow-400/20 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="${item.thumb_url}" alt="${item.title}" class="w-12 h-12 rounded-lg object-cover border border-yellow-400/30 shrink-0 bg-black/40" />
+                <div class="min-w-0">
+                  <div class="font-bold text-sm text-on-surface truncate">${item.title} <span class="text-xs font-mono text-secondary">(${item.category})</span></div>
+                  <div class="text-[11px] font-mono text-on-surface-variant truncate">Creator: ${creator.display_name} • Current: <span class="text-yellow-300 font-bold">★ ${stars}</span></div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <button type="button" onclick="adminAdjustStars('${item.id}', 1)"
+                  class="px-2.5 py-1 rounded-lg bg-yellow-400/20 border border-yellow-400/40 text-yellow-200 font-mono text-xs font-bold hover:bg-yellow-400/30 transition">
+                  +1 ★
+                </button>
+                <button type="button" onclick="adminAdjustStars('${item.id}', 5)"
+                  class="px-2.5 py-1 rounded-lg bg-yellow-400/20 border border-yellow-400/40 text-yellow-200 font-mono text-xs font-bold hover:bg-yellow-400/30 transition">
+                  +5 ★
+                </button>
+                <button type="button" onclick="adminAdjustStars('${item.id}', 10)"
+                  class="px-2.5 py-1 rounded-lg bg-yellow-400/20 border border-yellow-400/40 text-yellow-200 font-mono text-xs font-bold hover:bg-yellow-400/30 transition">
+                  +10 ★
+                </button>
+                <input id="exactStars_${item.id}" type="number" min="0" value="${stars}"
+                  class="w-20 rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-yellow-400 focus:ring-0 outline-none" />
+                <button type="button" onclick="adminSetExactStars('${item.id}')"
+                  class="px-3 py-1 rounded-lg bg-yellow-400 text-slate-950 font-mono text-xs font-black hover:bg-yellow-300 transition">
+                  Set ★
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
 
       // 1. Pending Queue
       const pendingContainer = document.getElementById("adminPendingList");
@@ -1974,13 +2271,13 @@
         const activeNeon = extras.neon || "none";
 
         return `
-          <div class="bg-surface-container-low border border-white/10 rounded-xl p-4 space-y-3">
+          <div class="border rounded-xl p-4 space-y-3 ${getCreatorCardGlowClass(currentBadge, p.id)}">
             <div class="flex flex-wrap items-center justify-between gap-4">
               <div class="flex items-center gap-3 min-w-0">
                 <img src="${p.avatar_url || 'logo.jpg'}" alt="${p.display_name}" class="w-11 h-11 rounded-xl object-cover shrink-0 ${getImgBannerFrameClass(activeBanner)}" />
                 <div class="min-w-0 space-y-1">
                   <div class="flex items-center gap-2 flex-wrap">
-                    <span class="font-bold text-sm ${getNeonNameClass(activeNeon)} truncate">${p.display_name || "No Name"}</span>
+                    <span class="font-bold text-sm ${getEffectiveNeonClass(currentBadge, p.id)} truncate">${p.display_name || "No Name"}</span>
                     ${renderTitleGlowText(currentBadge)}
                   </div>
                   <div class="text-xs font-mono text-tertiary truncate">Email: ${p.email || "Not recorded yet"}</div>
@@ -1998,12 +2295,12 @@
               </div>
             </div>
 
-            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/5 text-[11px] font-mono">
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/10 text-[11px] font-mono">
               <div class="flex items-center gap-1.5 flex-wrap">
                 <span class="text-on-surface-variant">Image Banner:</span>
                 <button type="button" onclick="adminSetCreatorBanner('${p.id}', '')"
                   class="px-2 py-0.5 rounded transition ${activeBanner === "" ? "bg-white text-slate-950 font-bold" : "bg-surface-container-high text-on-surface-variant hover:text-on-surface"}">
-                  none
+                  auto
                 </button>
                 ${IMG_BANNERS.map(bn => `
                   <button type="button" onclick="adminSetCreatorBanner('${p.id}', '${bn}')"
@@ -2035,6 +2332,7 @@
         const isFeat = isDesignPriorityActive(item);
         const priorityUntil = getEffectivePriorityUntil(item);
         const expiresAt = getEffectiveListingExpiresAt(item);
+        const stars = getDesignStarsCount(item);
 
         return `
           <div class="bg-surface-container-low border ${isFeat ? "border-amber-400/70" : "border-white/10"} rounded-xl p-4 flex flex-col justify-between gap-3">
@@ -2045,7 +2343,7 @@
               </div>
               <div class="flex items-center justify-between gap-2">
                 <span class="font-bold text-sm text-on-surface truncate">${item.title}</span>
-                <span class="font-mono text-[10px] px-2 py-0.5 rounded ${item.status === "pending" ? "bg-amber-400/20 text-amber-300" : "bg-emerald-500/20 text-emerald-300"}">${item.status || "approved"}</span>
+                <span class="font-mono text-xs text-yellow-300 font-bold shrink-0">★ ${stars}</span>
               </div>
               <div class="text-xs font-mono text-secondary">${Number(item.price).toLocaleString()} cash mnfclub • ${item.category}</div>
               <div class="text-[11px] font-mono text-on-surface-variant truncate">${creator.display_name} (${creator.email || "N/A"})</div>
@@ -2261,9 +2559,10 @@
       renderModalGallery();
 
       document.getElementById("modalCategoryBadge").textContent = item.category;
-      document.getElementById("modalDesignTitle").textContent = toScriptBold(item.title);
+      document.getElementById("modalDesignTitle").textContent = toStylishDesignTitle(item.title);
       document.getElementById("modalDesignPrice").textContent = Number(item.price).toLocaleString();
       document.getElementById("modalDesignDesc").textContent = toSansBold(item.description);
+      updateModalStarUI(item);
 
       document.getElementById("modalPendingBadge").classList.toggle("hidden", item.status !== "pending");
       document.getElementById("modalFeaturedBadge").classList.toggle("hidden", !isPriority);
@@ -2276,9 +2575,14 @@
         expiryBadge.classList.add("hidden");
       }
 
+      const creatorBox = document.getElementById("modalCreatorCardBox");
+      if (creatorBox) {
+        creatorBox.className = `${getCreatorCardGlowClass(badge, item.user_id)} rounded-xl p-4 space-y-3`;
+      }
+
       const nameEl = document.getElementById("modalDesignerName");
       nameEl.textContent = creator.display_name || "MNF Creator";
-      nameEl.className = `font-bold text-sm ${getNeonNameClass(extras.neon)} truncate`;
+      nameEl.className = `font-bold text-sm ${getEffectiveNeonClass(badge, item.user_id)} truncate`;
 
       document.getElementById("modalDesignerBadgeText").innerHTML = renderTitleGlowText(badge);
       document.getElementById("modalDesignerDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
