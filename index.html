@@ -163,7 +163,7 @@
         inset 0 0 14px rgba(216, 180, 254, 0.22);
     }
 
-    /* Name Neon Styles: none + 3 Strong Styles */
+    /* Name & Design Title Neon Styles */
     .neon-name-none {
       font-family: 'JetBrains Mono', monospace;
       color: #e2e8f0;
@@ -204,6 +204,11 @@
       font-weight: 900;
       color: #ffffff;
       animation: rainbowNeonGlow 2.8s linear infinite;
+    }
+
+    .design-title-default {
+      color: #d4e4fa;
+      text-shadow: none;
     }
 
     @keyframes rainbowNeonGlow {
@@ -539,6 +544,30 @@
       </button>
     </div>
 
+    <!-- Top Order Code Lookup Bar (Buyer Code Lookup & Delete After Sale) -->
+    <div class="glass-card rounded-2xl p-5 border border-emerald-400/40 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h3 class="text-base font-bold text-emerald-300">🎟️ Buyer Order Code Lookup (كود العميل)</h3>
+          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Paste a buyer's 24h order code to see the exact design, creator &amp; Discord — then delete once sold.</p>
+        </div>
+        <span id="activeOrderCodesBadge" class="font-mono text-xs text-emerald-300 bg-emerald-500/10 border border-emerald-400/25 px-3 py-1 rounded-full">
+          0 Active Codes
+        </span>
+      </div>
+
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <input id="adminOrderCodeInput" type="text" oninput="renderAdminOrderCodeLookup()" placeholder="Paste buyer code e.g. MNF-8K4P2..."
+          class="flex-1 min-w-[220px] rounded-xl bg-surface-container-low border border-white/15 px-4 py-2.5 text-xs font-mono uppercase text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
+        <button type="button" onclick="clearAdminOrderCodeInput()"
+          class="px-4 py-2.5 rounded-xl bg-surface-container-high border border-white/15 text-xs font-mono font-bold text-on-surface hover:border-emerald-400 transition">
+          Clear
+        </button>
+      </div>
+
+      <div id="adminOrderCodeResult" class="hidden"></div>
+    </div>
+
     <!-- Admin Settings: Approval Mode Toggle -->
     <div class="glass-card rounded-2xl p-5 border border-white/10 flex flex-wrap items-center justify-between gap-4">
       <div class="space-y-1">
@@ -733,7 +762,7 @@
           </div>
 
           <div class="flex items-start justify-between gap-3">
-            <h3 id="modalDesignTitle" class="text-2xl font-bold text-on-surface tracking-wide"></h3>
+            <h3 id="modalDesignTitle" class="text-2xl font-bold tracking-wide"></h3>
             <button id="modalStarBtn" type="button" onclick="toggleDesignStarFromModal()"
               class="px-3 py-1.5 rounded-xl bg-surface-container-high border border-yellow-400/35 text-yellow-300 font-mono text-xs font-bold hover:border-yellow-300 transition shrink-0 flex items-center gap-1">
               <span>★</span>
@@ -748,19 +777,28 @@
 
           <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
 
-          <!-- Tier-Glowing Creator Card -->
-          <div id="modalCreatorCardBox" class="blue-neon-card rounded-xl p-4 space-y-3">
-            <span class="font-mono text-[10px] text-sky-300 uppercase tracking-wider font-bold">Creator Card</span>
-            <div class="flex items-center gap-3">
-              <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-sky-400/70 shrink-0 bg-black/40" />
-              <div class="overflow-hidden space-y-1">
-                <div class="flex items-center gap-2 flex-wrap">
-                  <span id="modalDesignerName" class="font-bold text-sm neon-name-none truncate"></span>
-                  <span id="modalDesignerBadgeText"></span>
+          <!-- Tier-Glowing Creator Card + I want it Button -->
+          <div id="modalCreatorCardBox" class="blue-neon-card rounded-xl p-4 space-y-2.5">
+            <span class="font-mono text-[10px] text-sky-300 uppercase tracking-wider font-bold block">Creator Card</span>
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-sky-400/70 shrink-0 bg-black/40" />
+                <div class="overflow-hidden space-y-1">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span id="modalDesignerName" class="font-bold text-sm neon-name-none truncate"></span>
+                    <span id="modalDesignerBadgeText"></span>
+                  </div>
+                  <div id="modalDesignerDiscord" class="text-xs font-mono text-sky-300 truncate"></div>
                 </div>
-                <div id="modalDesignerDiscord" class="text-xs font-mono text-sky-300 truncate"></div>
               </div>
+
+              <button id="iWantItBtn" type="button" onclick="handleIWantItClick()"
+                class="px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md shadow-emerald-400/30 shrink-0 cursor-pointer">
+                I want it
+              </button>
             </div>
+
+            <div id="iWantItCopyNotice" class="hidden text-[11px] font-mono text-emerald-300 bg-black/40 border border-emerald-400/35 rounded-lg px-3 py-2 leading-relaxed"></div>
           </div>
         </div>
 
@@ -880,11 +918,11 @@
     const IMG_BANNERS = ["founder", "trusted", "designer"];
     const NEON_STYLES = ["none", "gold", "rainbow", "violet"];
 
-    // Mathematical Double-Struck (𝕊𝕥𝕪𝕝𝕚𝕤𝕙 𝕥𝕖𝕩𝕥) for Design Titles
-    const DOUBLE_STRUCK_UPPER = "𝔸𝔹ℂ𝔻𝔼𝔽𝔾ℍ𝕀𝕁𝕂𝕃𝕄ℕ𝕆ℙℚℝ𝕊𝕋𝕌𝕍𝕎𝕏𝕐ℤ";
-    const DOUBLE_STRUCK_LOWER = "𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫";
-    const SANS_BOLD_UPPER     = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭";
-    const SANS_BOLD_LOWER     = "𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓";
+    // Mathematical Bold Italic (𝐄𝐱𝐩) for Design Titles
+    const BOLD_ITALIC_UPPER = "𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁";
+    const BOLD_ITALIC_LOWER = "𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛";
+    const SANS_BOLD_UPPER   = "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭";
+    const SANS_BOLD_LOWER   = "𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓";
 
     function mapStylishText(text, upperMap, lowerMap) {
       if (!text) return "";
@@ -899,11 +937,188 @@
     }
 
     function toStylishDesignTitle(text) {
-      return mapStylishText(text, DOUBLE_STRUCK_UPPER, DOUBLE_STRUCK_LOWER);
+      return mapStylishText(text, BOLD_ITALIC_UPPER, BOLD_ITALIC_LOWER);
     }
 
     function toSansBold(text) {
       return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
+    }
+
+    // 24h Buyer Order Codes (Stored locally + synced via support_messages if desired)
+    const ORDER_CODE_TTL_MS = 24 * 3600 * 1000;
+
+    function getOrderCodesMap() {
+      try {
+        const raw = JSON.parse(localStorage.getItem("mnf_order_codes") || "{}");
+        const now = Date.now();
+        const cleaned = {};
+        let changed = false;
+        Object.entries(raw).forEach(([code, entry]) => {
+          if (entry && entry.expiresAt && entry.expiresAt > now) {
+            cleaned[code] = entry;
+          } else {
+            changed = true;
+          }
+        });
+        if (changed) {
+          localStorage.setItem("mnf_order_codes", JSON.stringify(cleaned));
+        }
+        return cleaned;
+      } catch {
+        return {};
+      }
+    }
+
+    function saveOrderCodesMap(map) {
+      try {
+        localStorage.setItem("mnf_order_codes", JSON.stringify(map));
+      } catch {}
+    }
+
+    function generateRandomOrderCode() {
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let token = "";
+      for (let i = 0; i < 6; i++) {
+        token += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return `MNF-${token}`;
+    }
+
+    function createOrderCodeForDesign(design, creator) {
+      const map = getOrderCodesMap();
+      let code = generateRandomOrderCode();
+      while (map[code]) {
+        code = generateRandomOrderCode();
+      }
+
+      const now = Date.now();
+      const entry = {
+        code,
+        designId: design.id,
+        designTitle: design.title,
+        designPrice: design.price,
+        designCategory: design.category,
+        creatorId: design.user_id,
+        creatorName: creator?.display_name || "MNF Creator",
+        creatorDiscord: creator?.contact || "N/A",
+        creatorBadge: creator?.badge || "None",
+        createdAt: now,
+        expiresAt: now + ORDER_CODE_TTL_MS
+      };
+
+      map[code] = entry;
+      saveOrderCodesMap(map);
+      updateAdminOrderCodesBadge();
+      return entry;
+    }
+
+    function deleteOrderCode(code) {
+      if (!code) return;
+      const key = String(code).trim().toUpperCase();
+      const map = getOrderCodesMap();
+      if (map[key]) {
+        delete map[key];
+        saveOrderCodesMap(map);
+      }
+      updateAdminOrderCodesBadge();
+      renderAdminOrderCodeLookup();
+    }
+
+    function updateAdminOrderCodesBadge() {
+      const badge = document.getElementById("activeOrderCodesBadge");
+      if (!badge) return;
+      const count = Object.keys(getOrderCodesMap()).length;
+      badge.textContent = `${count} Active ${count === 1 ? "Code" : "Codes"}`;
+    }
+
+    function clearAdminOrderCodeInput() {
+      const input = document.getElementById("adminOrderCodeInput");
+      if (input) input.value = "";
+      renderAdminOrderCodeLookup();
+    }
+
+    function renderAdminOrderCodeLookup() {
+      const resultBox = document.getElementById("adminOrderCodeResult");
+      const input = document.getElementById("adminOrderCodeInput");
+      if (!resultBox || !input) return;
+
+      updateAdminOrderCodesBadge();
+      const query = input.value.trim().toUpperCase();
+      const map = getOrderCodesMap();
+
+      if (!query) {
+        resultBox.classList.add("hidden");
+        resultBox.innerHTML = "";
+        return;
+      }
+
+      const entry = map[query];
+      resultBox.classList.remove("hidden");
+
+      if (!entry) {
+        resultBox.innerHTML = `
+          <div class="bg-surface-container-low border border-red-500/30 rounded-xl p-4 text-xs font-mono text-red-300">
+            No active 24h order code found for "${escapeHtml(query)}". It may be sold, deleted, or expired.
+          </div>
+        `;
+        return;
+      }
+
+      const liveDesign = allDesigns.find(d => String(d.id) === String(entry.designId));
+      const liveCreator = profilesMap[entry.creatorId] || {};
+      const titleText = liveDesign?.title || entry.designTitle;
+      const creatorName = liveCreator.display_name || entry.creatorName;
+      const creatorDiscord = liveCreator.contact || entry.creatorDiscord;
+      const priceVal = Number(liveDesign?.price ?? entry.designPrice ?? 0).toLocaleString();
+      const thumbSrc = liveDesign?.thumb_url || liveCreator.avatar_url || "logo.jpg";
+
+      resultBox.innerHTML = `
+        <div class="bg-surface-container-low border border-emerald-400/50 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5 min-w-0">
+            <img src="${thumbSrc}" alt="${escapeHtml(titleText)}" class="w-14 h-14 rounded-xl object-cover border border-emerald-400/40 shrink-0 bg-black/40" />
+            <div class="space-y-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 font-mono text-xs font-black">${escapeHtml(entry.code)}</span>
+                <span class="font-bold text-sm text-on-surface truncate">${toStylishDesignTitle(titleText)}</span>
+                <span class="text-xs font-mono text-secondary">${priceVal} cash mnfclub</span>
+              </div>
+              <div class="text-xs font-mono text-sky-300 truncate">
+                Creator: ${escapeHtml(creatorName)} • Discord: ${escapeHtml(creatorDiscord)}
+              </div>
+              <div class="text-[11px] font-mono text-on-surface-variant">
+                Expires in: ${formatRemainingTime(entry.expiresAt)}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            ${liveDesign ? `<button type="button" onclick="openInspectorModalById('${liveDesign.id}')" class="px-3 py-2 rounded-xl bg-surface-container-high border border-white/15 text-xs font-mono font-bold text-on-surface hover:border-emerald-400 transition">View Design</button>` : ""}
+            <button type="button" onclick="deleteOrderCode('${escapeHtml(entry.code)}')"
+              class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-mono text-xs font-black transition">
+              Delete After Sale
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    async function handleIWantItClick() {
+      if (!activeInspectedDesign) return;
+      const noticeEl = document.getElementById("iWantItCopyNotice");
+      const entry = createOrderCodeForDesign(activeInspectedDesign, activeInspectedCreator);
+
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(entry.code);
+        }
+      } catch {}
+
+      if (noticeEl) {
+        noticeEl.classList.remove("hidden");
+        noticeEl.innerHTML = `
+          ✅ Code <span class="text-amber-300 font-black">${entry.code}</span> copied! Send this code to <span class="text-sky-300 font-bold">Discord</span> to claim this design (valid for 24h).
+        `;
+      }
     }
 
     // Stars & User Likes Tracking
@@ -1168,7 +1383,7 @@
       return "";
     }
 
-    // Automatic Neon Name & Creator Card Tier Glow based on Rank/Badge + Custom Overrides
+    // Automatic Neon Name & Design Title Color based on Rank/Badge + Custom Overrides
     function getEffectiveNeonClass(badge, profileId) {
       const extras = getCreatorExtras(profileId);
       if (extras.neon && extras.neon !== "none") {
@@ -1180,6 +1395,19 @@
       if (badge === "Trusted") return "neon-name-sky";
       if (badge === "Designer") return "neon-name-violet";
       return "neon-name-none";
+    }
+
+    function getDesignTitleRankClass(badge, profileId) {
+      const extras = getCreatorExtras(profileId);
+      if (extras.neon && extras.neon !== "none") {
+        if (extras.neon === "gold") return "neon-name-gold";
+        if (extras.neon === "rainbow") return "neon-name-rainbow";
+        if (extras.neon === "violet") return "neon-name-violet";
+      }
+      if (badge === "Founder") return "neon-name-gold";
+      if (badge === "Trusted") return "neon-name-sky";
+      if (badge === "Designer") return "neon-name-violet";
+      return "design-title-default";
     }
 
     function getCreatorCardGlowClass(badge, profileId) {
@@ -1317,10 +1545,15 @@
       setupCategorySelects();
       renderCategoryFilters();
       updateApprovalModeUI();
+      updateAdminOrderCodesBadge();
       await fetchShowcaseData();
 
       setInterval(() => {
         renderShowcase();
+        updateAdminOrderCodesBadge();
+        if (isAdminUser() && !document.getElementById("adminPageView").classList.contains("hidden")) {
+          renderAdminOrderCodeLookup();
+        }
       }, 60000);
 
       const { data: { session } } = await sb.auth.getSession();
@@ -1816,7 +2049,7 @@
 
           <div class="p-4 space-y-1.5">
             <div class="flex items-start justify-between gap-2">
-              <div class="font-bold text-lg text-on-surface truncate">${styledTitle}</div>
+              <div class="font-bold text-lg truncate ${getDesignTitleRankClass(badge, item.user_id)}">${styledTitle}</div>
               <button type="button" onclick="toggleDesignStar(event, '${item.id}')" title="Star design to boost rank"
                 class="px-2 py-0.5 rounded-lg border font-mono text-xs font-black transition shrink-0 flex items-center gap-1 ${starBtnClass}">
                 <span>★</span>
@@ -2148,6 +2381,8 @@
 
     function renderAdminDashboard() {
       if (!isAdminUser()) return;
+
+      renderAdminOrderCodeLookup();
 
       const pendingItems = allDesigns.filter(d => d.status === "pending");
       const starsQuery = (document.getElementById("adminStarsSearchInput")?.value || "").trim().toLowerCase();
@@ -2549,6 +2784,12 @@
       resetZoom();
       resetSubModes();
 
+      const noticeEl = document.getElementById("iWantItCopyNotice");
+      if (noticeEl) {
+        noticeEl.classList.add("hidden");
+        noticeEl.innerHTML = "";
+      }
+
       const badge = creator.badge || "None";
       const extras = getCreatorExtras(item.user_id);
       const isPriority = isDesignPriorityActive(item);
@@ -2559,7 +2800,10 @@
       renderModalGallery();
 
       document.getElementById("modalCategoryBadge").textContent = item.category;
-      document.getElementById("modalDesignTitle").textContent = toStylishDesignTitle(item.title);
+      const modalTitleEl = document.getElementById("modalDesignTitle");
+      modalTitleEl.textContent = toStylishDesignTitle(item.title);
+      modalTitleEl.className = `text-2xl font-bold tracking-wide ${getDesignTitleRankClass(badge, item.user_id)}`;
+
       document.getElementById("modalDesignPrice").textContent = Number(item.price).toLocaleString();
       document.getElementById("modalDesignDesc").textContent = toSansBold(item.description);
       updateModalStarUI(item);
@@ -2577,7 +2821,7 @@
 
       const creatorBox = document.getElementById("modalCreatorCardBox");
       if (creatorBox) {
-        creatorBox.className = `${getCreatorCardGlowClass(badge, item.user_id)} rounded-xl p-4 space-y-3`;
+        creatorBox.className = `${getCreatorCardGlowClass(badge, item.user_id)} rounded-xl p-4 space-y-2.5`;
       }
 
       const nameEl = document.getElementById("modalDesignerName");
