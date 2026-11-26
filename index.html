@@ -291,6 +291,45 @@
 
 <body class="custom-scrollbar overflow-x-hidden min-h-screen flex flex-col justify-between">
 
+  <!-- 18+ Age Gate Modal -->
+  <div id="ageGateModal" class="fixed inset-0 z-[70] hidden items-center justify-center bg-[#020b14]/95 backdrop-blur-lg p-4">
+    <div class="glass-card border border-secondary/45 rounded-2xl max-w-md w-full p-7 text-center space-y-6 shadow-2xl">
+      <div class="w-14 h-14 mx-auto rounded-2xl bg-secondary/15 border border-secondary/40 flex items-center justify-center font-mono text-lg font-black text-secondary">
+        18+
+      </div>
+
+      <div id="ageGateQuestionView" class="space-y-3">
+        <span class="font-mono text-[11px] uppercase tracking-widest text-tertiary">MNF DESIGNS • AGE VERIFICATION</span>
+        <h2 class="text-2xl font-black text-on-surface">Are you 18+?</h2>
+        <p class="text-xs text-on-surface-variant leading-relaxed">
+          Please confirm your age to continue browsing MNF DESIGNS.
+        </p>
+
+        <div class="grid grid-cols-2 gap-3 pt-3">
+          <button type="button" onclick="confirmAgeGate(true)"
+            class="py-2.5 rounded-xl bg-gradient-to-r from-secondary-container to-secondary text-on-secondary-container font-mono text-xs font-black hover:brightness-110 transition shadow-md cursor-pointer">
+            Yes
+          </button>
+          <button type="button" onclick="confirmAgeGate(false)"
+            class="py-2.5 rounded-xl bg-surface-container-high border border-white/15 text-on-surface font-mono text-xs font-bold hover:border-secondary transition cursor-pointer">
+            No
+          </button>
+        </div>
+      </div>
+
+      <div id="ageGateBlockedView" class="hidden space-y-4">
+        <h2 class="text-xl font-black text-secondary">Access Restricted</h2>
+        <p class="text-xs text-on-surface-variant leading-relaxed">
+          You must be 18 or older to enter this showcase.
+        </p>
+        <button type="button" onclick="resetAgeGateQuestion()"
+          class="px-5 py-2 rounded-xl bg-surface-container-high border border-white/15 text-xs font-mono font-bold text-on-surface hover:border-secondary transition cursor-pointer">
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Top Navigation Bar -->
   <nav class="bg-[#051424]/95 backdrop-blur-md sticky top-0 z-40 border-b border-white/10 shadow-sm">
     <div class="flex justify-between items-center px-4 md:px-8 py-3.5 max-w-7xl mx-auto w-full gap-3">
@@ -630,7 +669,7 @@
       <div id="adminCreatorsList" class="space-y-3"></div>
     </div>
 
-    <!-- Collapsible Toggle Bar for Stars Management & All Designs -->
+    <!-- Collapsible Toggle Bar for Stars Management, All Designs & Discount -->
     <div class="flex flex-wrap items-center gap-3">
       <button type="button" onclick="toggleAdminSection('stars')"
         class="px-4 py-2.5 rounded-xl bg-yellow-400/15 border border-yellow-400/45 text-yellow-300 font-mono text-xs font-black hover:bg-yellow-400/25 transition flex items-center gap-2 cursor-pointer">
@@ -645,6 +684,26 @@
         <span id="allDesignsCountBadge" class="px-2 py-0.5 rounded bg-black/40 text-[11px]">0</span>
         <span id="designsToggleState" class="text-[11px] text-secondary/80">[Expand]</span>
       </button>
+
+      <button type="button" onclick="toggleAdminSection('discount')"
+        class="px-4 py-2.5 rounded-xl bg-emerald-400/15 border border-emerald-400/45 text-emerald-300 font-mono text-xs font-black hover:bg-emerald-400/25 transition flex items-center gap-2 cursor-pointer">
+        <span>Discount</span>
+        <span id="discountActiveBadge" class="px-2 py-0.5 rounded bg-black/40 text-[11px]">0 Active</span>
+        <span id="discountToggleState" class="text-[11px] text-emerald-200/80">[Expand]</span>
+      </button>
+    </div>
+
+    <!-- Collapsible Discount Section (1% to 100%) -->
+    <div id="adminDiscountSection" class="hidden glass-card rounded-2xl p-6 border border-emerald-400/40 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
+        <div>
+          <h3 class="text-lg font-bold text-emerald-300">Discount (1% - 100%)</h3>
+          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Search any design and apply a discount percentage from 1% to 100%.</p>
+        </div>
+        <input id="adminDiscountSearchInput" type="text" oninput="renderAdminDashboard()" placeholder="Search design, category or creator..."
+          class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
+      </div>
+      <div id="adminDiscountList" class="space-y-3"></div>
     </div>
 
     <!-- Collapsible Stars Management Section -->
@@ -870,10 +929,7 @@
             </button>
           </div>
 
-          <div class="flex items-baseline gap-2">
-            <span id="modalDesignPrice" class="font-mono text-2xl font-black text-secondary"></span>
-            <span class="font-mono text-xs text-tertiary">cash mnfclub</span>
-          </div>
+          <div id="modalPriceBlock" class="flex items-baseline gap-2 flex-wrap"></div>
 
           <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
 
@@ -1050,6 +1106,152 @@
 
     function toSansBold(text) {
       return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
+    }
+
+    // 18+ Age Gate
+    function initAgeGate() {
+      const accepted = sessionStorage.getItem("mnf_age_18_ok") === "true";
+      const modal = document.getElementById("ageGateModal");
+      if (!modal) return;
+      if (!accepted) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function confirmAgeGate(isAdult) {
+      const modal = document.getElementById("ageGateModal");
+      if (isAdult) {
+        sessionStorage.setItem("mnf_age_18_ok", "true");
+        if (modal) {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+        }
+      } else {
+        document.getElementById("ageGateQuestionView").classList.add("hidden");
+        document.getElementById("ageGateBlockedView").classList.remove("hidden");
+      }
+    }
+
+    function resetAgeGateQuestion() {
+      document.getElementById("ageGateBlockedView").classList.add("hidden");
+      document.getElementById("ageGateQuestionView").classList.remove("hidden");
+    }
+
+    // Discounts (1% to 100%)
+    function getDiscountsMap() {
+      try {
+        const raw = JSON.parse(localStorage.getItem("mnf_design_discounts") || "{}");
+        const clean = {};
+        Object.entries(raw).forEach(([id, pct]) => {
+          const n = Number(pct);
+          if (n >= 1 && n <= 100) clean[String(id)] = Math.round(n);
+        });
+        return clean;
+      } catch {
+        return {};
+      }
+    }
+
+    function getDesignDiscountPercent(item) {
+      if (!item) return 0;
+      const localMap = getDiscountsMap();
+      if (localMap[String(item.id)] !== undefined) {
+        return Number(localMap[String(item.id)]) || 0;
+      }
+      const dbPct = Number(item.discount_percent ?? 0);
+      return (dbPct >= 1 && dbPct <= 100) ? Math.round(dbPct) : 0;
+    }
+
+    async function applyDesignDiscount(designId, pct) {
+      if (!isAdminUser()) return;
+      const cleanPct = Math.min(100, Math.max(1, Math.round(Number(pct) || 0)));
+      try {
+        const map = getDiscountsMap();
+        map[String(designId)] = cleanPct;
+        localStorage.setItem("mnf_design_discounts", JSON.stringify(map));
+      } catch {}
+
+      const target = allDesigns.find(d => String(d.id) === String(designId));
+      if (target) target.discount_percent = cleanPct;
+
+      await sb.from("designs").update({ discount_percent: cleanPct }).eq("id", designId);
+      renderShowcase();
+      if (activePortfolioCreatorId) renderCreatorPortfolio();
+      renderAdminDashboard();
+      if (activeInspectedDesign && String(activeInspectedDesign.id) === String(designId)) {
+        activeInspectedDesign.discount_percent = cleanPct;
+        renderModalPriceBlock(activeInspectedDesign);
+      }
+    }
+
+    async function clearDesignDiscount(designId) {
+      if (!isAdminUser()) return;
+      try {
+        const map = getDiscountsMap();
+        delete map[String(designId)];
+        localStorage.setItem("mnf_design_discounts", JSON.stringify(map));
+      } catch {}
+
+      const target = allDesigns.find(d => String(d.id) === String(designId));
+      if (target) target.discount_percent = 0;
+
+      await sb.from("designs").update({ discount_percent: null }).eq("id", designId);
+      renderShowcase();
+      if (activePortfolioCreatorId) renderCreatorPortfolio();
+      renderAdminDashboard();
+      if (activeInspectedDesign && String(activeInspectedDesign.id) === String(designId)) {
+        activeInspectedDesign.discount_percent = 0;
+        renderModalPriceBlock(activeInspectedDesign);
+      }
+    }
+
+    function computeDiscountedPrice(originalPrice, pct) {
+      const orig = Math.max(0, Number(originalPrice) || 0);
+      const safePct = Math.min(100, Math.max(0, Number(pct) || 0));
+      if (safePct <= 0) return orig;
+      return Math.round(orig * (1 - safePct / 100));
+    }
+
+    function renderCardPriceBadgeHtml(item) {
+      const orig = Math.max(0, Number(item.price) || 0);
+      const pct = getDesignDiscountPercent(item);
+      if (pct >= 1 && pct <= 100) {
+        const finalPrice = computeDiscountedPrice(orig, pct);
+        return `
+          <div class="absolute bottom-2 right-2 z-10 px-2.5 py-1 rounded bg-black/85 border border-emerald-400/40 font-mono flex items-center gap-1.5">
+            <span class="text-xs font-black text-white">${finalPrice.toLocaleString()}</span>
+            <span class="text-[11px] text-on-surface-variant line-through">${orig.toLocaleString()}</span>
+            <span class="text-xs font-black text-emerald-400">${pct}%</span>
+          </div>
+        `;
+      }
+      return `
+        <div class="absolute bottom-2 right-2 z-10 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
+          ${orig.toLocaleString()} cash mnfclub
+        </div>
+      `;
+    }
+
+    function renderModalPriceBlock(item) {
+      const wrap = document.getElementById("modalPriceBlock");
+      if (!wrap || !item) return;
+      const orig = Math.max(0, Number(item.price) || 0);
+      const pct = getDesignDiscountPercent(item);
+      if (pct >= 1 && pct <= 100) {
+        const finalPrice = computeDiscountedPrice(orig, pct);
+        wrap.innerHTML = `
+          <span class="font-mono text-2xl font-black text-white">${finalPrice.toLocaleString()}</span>
+          <span class="font-mono text-base text-on-surface-variant line-through">${orig.toLocaleString()}</span>
+          <span class="font-mono text-lg font-black text-emerald-400">${pct}%</span>
+          <span class="font-mono text-xs text-tertiary">cash mnfclub</span>
+        `;
+      } else {
+        wrap.innerHTML = `
+          <span class="font-mono text-2xl font-black text-secondary">${orig.toLocaleString()}</span>
+          <span class="font-mono text-xs text-tertiary">cash mnfclub</span>
+        `;
+      }
     }
 
     // 24h Buyer Order Codes
@@ -1772,7 +1974,7 @@
     let modalSlideIndex = 0;
     let activeChatThreadUserId = null;
     let requireAdminApproval = localStorage.getItem("mnf_require_approval") === "true";
-    let adminSectionsOpen = { stars: false, designs: false };
+    let adminSectionsOpen = { stars: false, designs: false, discount: false };
 
     function isAdminUser() {
       return Boolean(
@@ -1792,6 +1994,10 @@
       return badge === "Designer" || badge === "Trusted" || badge === "Founder";
     }
 
+    function hasPendingApprovals() {
+      return allDesigns.some(d => d.status === "pending");
+    }
+
     function hasAdminUnreadMessages() {
       const grouped = {};
       supportMessages.forEach(m => {
@@ -1802,6 +2008,10 @@
         const last = list[list.length - 1];
         return last && last.sender_role === "user";
       });
+    }
+
+    function hasAdminRedDotAlert() {
+      return hasAdminUnreadMessages() || hasPendingApprovals();
     }
 
     function hasUserUnreadAdminReply() {
@@ -1855,6 +2065,7 @@
     }
 
     async function init() {
+      initAgeGate();
       setupCategorySelects();
       renderCategoryFilters();
       updateApprovalModeUI();
@@ -1950,7 +2161,7 @@
       if (currentSessionUser) {
         const displayName = currentProfile?.display_name || "Creator";
         const avatarUrl = currentProfile?.avatar_url || "logo.jpg";
-        const hasUnreadAdmin = isAdminUser() && hasAdminUnreadMessages();
+        const hasUnreadAdmin = isAdminUser() && hasAdminRedDotAlert();
         const showOrderBtn = !isAdminUser() && canAccessOrderDrawer();
         const orderBtnHtml = showOrderBtn
           ? `<button type="button" onclick="openOrderDrawerModal()"
@@ -2256,6 +2467,7 @@
       }
 
       allDesigns = designsRes.data || [];
+      renderNavControls();
       renderShowcase();
       if (activePortfolioCreatorId) renderCreatorPortfolio();
       if (isAdminUser() && !document.getElementById("adminPageView").classList.contains("hidden")) {
@@ -2369,9 +2581,7 @@
             ${renderLuxuryBannerTag(extras.banner)}
             ${priorityTagHtml}
             ${galleryControlsHtml}
-            <div class="absolute bottom-2 right-2 z-10 px-2.5 py-1 rounded bg-black/80 border border-white/10 font-mono text-xs font-bold text-secondary">
-              ${Number(item.price).toLocaleString()} cash mnfclub
-            </div>
+            ${renderCardPriceBadgeHtml(item)}
           </div>
 
           <div class="p-4 space-y-1.5">
@@ -2507,13 +2717,17 @@
     function syncAdminSectionsVisibility() {
       const starsSec = document.getElementById("adminStarsSection");
       const designsSec = document.getElementById("adminDesignsSection");
+      const discountSec = document.getElementById("adminDiscountSection");
       const starsState = document.getElementById("starsToggleState");
       const designsState = document.getElementById("designsToggleState");
+      const discountState = document.getElementById("discountToggleState");
 
       if (starsSec) starsSec.classList.toggle("hidden", !adminSectionsOpen.stars);
       if (designsSec) designsSec.classList.toggle("hidden", !adminSectionsOpen.designs);
+      if (discountSec) discountSec.classList.toggle("hidden", !adminSectionsOpen.discount);
       if (starsState) starsState.textContent = adminSectionsOpen.stars ? "[Hide]" : "[Expand]";
       if (designsState) designsState.textContent = adminSectionsOpen.designs ? "[Hide]" : "[Expand]";
+      if (discountState) discountState.textContent = adminSectionsOpen.discount ? "[Hide]" : "[Expand]";
     }
 
     // Support & Mutual Chat Logic
@@ -2731,6 +2945,7 @@
 
       const pendingItems = allDesigns.filter(d => d.status === "pending");
       const starsQuery = (document.getElementById("adminStarsSearchInput")?.value || "").trim().toLowerCase();
+      const discountQuery = (document.getElementById("adminDiscountSearchInput")?.value || "").trim().toLowerCase();
       const creatorsQuery = (document.getElementById("adminCreatorsSearchInput")?.value || "").trim().toLowerCase();
       const designsQuery = (document.getElementById("adminDesignsSearchInput")?.value || "").trim().toLowerCase();
 
@@ -2751,6 +2966,16 @@
           || (creator.email || "").toLowerCase().includes(designsQuery);
       });
 
+      const discountDesigns = [...allDesigns]
+        .filter(item => {
+          if (!discountQuery) return true;
+          const creator = profilesMap[item.user_id] || {};
+          return (item.title || "").toLowerCase().includes(discountQuery)
+            || (item.category || "").toLowerCase().includes(discountQuery)
+            || (creator.display_name || "").toLowerCase().includes(discountQuery);
+        })
+        .sort(compareDesignsByStarsAndAlphabet);
+
       const starsDesigns = [...allDesigns]
         .filter(item => {
           if (!starsQuery) return true;
@@ -2762,7 +2987,9 @@
         .sort(compareDesignsByStarsAndAlphabet);
 
       const totalStarsSum = allDesigns.reduce((acc, d) => acc + getDesignStarsCount(d), 0);
+      const activeDiscountsCount = allDesigns.filter(d => getDesignDiscountPercent(d) > 0).length;
       document.getElementById("starsTotalBadge").textContent = `${totalStarsSum} ★`;
+      document.getElementById("discountActiveBadge").textContent = `${activeDiscountsCount} Active`;
       document.getElementById("pendingCountBadge").textContent = `${pendingItems.length} Pending`;
       document.getElementById("creatorsCountBadge").textContent = `${creatorsList.length} Creators`;
       document.getElementById("allDesignsCountBadge").textContent = `${filteredDesigns.length} / ${allDesigns.length}`;
@@ -2830,6 +3057,42 @@
           </div>
         `;
       }).join("");
+
+      // Collapsible Discount Section (1% - 100%)
+      const discountContainer = document.getElementById("adminDiscountList");
+      if (discountDesigns.length === 0) {
+        discountContainer.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No designs found for discount.</div>`;
+      } else {
+        discountContainer.innerHTML = discountDesigns.map(item => {
+          const creator = profilesMap[item.user_id] || { display_name: "Creator" };
+          const orig = Math.max(0, Number(item.price) || 0);
+          const pct = getDesignDiscountPercent(item);
+          const finalPrice = computeDiscountedPrice(orig, pct);
+          return `
+            <div class="bg-surface-container-low border border-emerald-400/25 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="${item.thumb_url}" alt="${item.title}" class="w-12 h-12 rounded-lg object-cover border border-emerald-400/30 shrink-0 bg-black/40" />
+                <div class="min-w-0 space-y-0.5">
+                  <div class="font-bold text-sm text-on-surface truncate">${item.title} <span class="text-xs font-mono text-secondary">(${item.category})</span></div>
+                  <div class="text-[11px] font-mono text-on-surface-variant truncate">Creator: ${creator.display_name} • Original: ${orig.toLocaleString()}</div>
+                  ${pct > 0 ? `<div class="text-xs font-mono flex items-center gap-1.5"><span class="font-black text-white">${finalPrice.toLocaleString()}</span><span class="line-through text-on-surface-variant">${orig.toLocaleString()}</span><span class="font-black text-emerald-400">${pct}%</span></div>` : `<div class="text-[11px] font-mono text-on-surface-variant">No discount</div>`}
+                </div>
+              </div>
+
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <input id="discountPct_${item.id}" type="number" min="1" max="100" value="${pct || 50}" placeholder="1-100"
+                  class="w-20 rounded-lg bg-surface-container border border-white/15 px-2.5 py-1 text-xs font-mono text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
+                <span class="font-mono text-xs text-emerald-300 font-bold">%</span>
+                <button type="button" onclick="applyDesignDiscount('${item.id}', document.getElementById('discountPct_${item.id}').value)"
+                  class="px-3 py-1 rounded-lg bg-emerald-400 text-slate-950 font-mono text-xs font-black hover:bg-emerald-300 transition">
+                  Apply
+                </button>
+                ${pct > 0 ? `<button type="button" onclick="clearDesignDiscount('${item.id}')" class="px-2.5 py-1 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 font-mono text-xs font-bold">Remove</button>` : ""}
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
 
       // Collapsible Stars Management Section
       const starsContainer = document.getElementById("adminStarsList");
@@ -3150,7 +3413,7 @@
       modalTitleEl.textContent = toStylishDesignTitle(item.title);
       modalTitleEl.className = `text-2xl font-bold tracking-wide ${getDesignTitleRankClass(badge, item.user_id)}`;
 
-      document.getElementById("modalDesignPrice").textContent = Number(item.price).toLocaleString();
+      renderModalPriceBlock(item);
       document.getElementById("modalDesignDesc").textContent = toSansBold(item.description);
       updateModalStarUI(item);
 
