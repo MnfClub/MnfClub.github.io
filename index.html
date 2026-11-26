@@ -339,7 +339,7 @@
         </h1>
 
         <p class="text-sm md:text-base text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-          Grab standout apartments, garages, yachts, farms, and custom builds in <span class="text-secondary font-bold">cash mnfclub</span> before they’re gone — or publish your own designs to reach buyers across MNF CLUBS and grow your sales.
+          Grab standout apartments, garages, yachts, farms, 8 ball pool, editor, and custom builds in <span class="text-secondary font-bold">cash mnfclub</span> before they’re gone — or publish your own designs to reach buyers across MNF CLUBS and grow your sales.
         </p>
 
         <div class="flex items-center justify-center gap-3 pt-2 flex-wrap">
@@ -359,6 +359,55 @@
 
     <!-- Main Content Layout -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-6 space-y-12">
+
+      <!-- Creator Showcase View (Opened via Profile Button or Short Creator Link) -->
+      <section id="creatorPortfolioView" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/40 space-y-8">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <span class="font-mono text-xs uppercase tracking-wider text-secondary font-bold">Creator Showcase</span>
+            <button type="button" onclick="copyCreatorShortLink()"
+              class="px-3 py-1 rounded-full bg-surface-container-high border border-secondary/35 text-secondary font-mono text-xs font-bold hover:border-secondary transition flex items-center gap-1.5 cursor-pointer">
+              <span class="material-symbols-outlined text-sm">link</span>
+              <span id="creatorShortLinkText">Copy Short Link</span>
+            </button>
+          </div>
+          <button type="button" onclick="closeCreatorPortfolioView()"
+            class="px-4 py-1.5 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition">
+            ✕ Back to Marketplace
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Creator Profile Card on Left -->
+          <div id="portfolioCreatorCardBox" class="lg:col-span-4 blue-neon-card rounded-2xl p-5 space-y-4">
+            <span class="font-mono text-[10px] text-sky-300 uppercase tracking-wider font-bold block">Creator Profile Card</span>
+            <div class="flex items-center gap-3.5">
+              <img id="portfolioCreatorAvatar" src="logo.jpg" alt="Creator Avatar" class="w-16 h-16 rounded-xl object-cover border border-sky-400/70 shrink-0 bg-black/40" />
+              <div class="min-w-0 space-y-1">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span id="portfolioCreatorName" class="font-bold text-base neon-name-none truncate"></span>
+                  <span id="portfolioCreatorBadgeText"></span>
+                </div>
+                <div id="portfolioCreatorDiscord" class="text-xs font-mono text-sky-300 truncate"></div>
+                <div id="portfolioCreatorStats" class="text-[11px] font-mono text-on-surface-variant"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Creator Priority & Categories on Right -->
+          <div class="lg:col-span-8 space-y-8">
+            <div id="portfolioPriorityWrap" class="hidden priority-gold-banner rounded-2xl p-5 space-y-4">
+              <div class="flex items-center justify-between border-b border-amber-400/25 pb-2.5">
+                <h3 class="text-lg font-black text-amber-300">👑 Creator Priority</h3>
+                <span id="portfolioPriorityCount" class="font-mono text-xs text-amber-200">0</span>
+              </div>
+              <div id="portfolioPriorityGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-5"></div>
+            </div>
+
+            <div id="portfolioCategoriesWrap" class="space-y-6"></div>
+          </div>
+        </div>
+      </section>
 
       <!-- 1. Creator Profile Card Panel -->
       <section id="profileCardPanel" class="hidden glass-card rounded-2xl p-6 md:p-8 border border-secondary/35 max-w-2xl mx-auto w-full space-y-6">
@@ -531,7 +580,7 @@
   </div>
 
   <!-- Dedicated Admin Page View (Opened When Clicking Admin Button) -->
-  <section id="adminPageView" class="hidden flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-10">
+  <section id="adminPageView" class="hidden flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-8">
     <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
       <div>
         <span class="font-mono text-xs uppercase tracking-wider text-amber-300">Founder Control Center • ss4459206@gmail.com</span>
@@ -544,20 +593,20 @@
       </button>
     </div>
 
-    <!-- Top Order Code Lookup Bar (Buyer Code Lookup & Delete After Sale) -->
+    <!-- 1. Buyer Order Code Lookup Bar (Top Position) -->
     <div class="glass-card rounded-2xl p-5 border border-emerald-400/40 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h3 class="text-base font-bold text-emerald-300">🎟️ Buyer Order Code Lookup (كود العميل)</h3>
-          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Paste a buyer's 24h order code to see the exact design, creator &amp; Discord — then delete once sold.</p>
+          <h3 class="text-base font-bold text-emerald-300">Buyer Order Code Lookup</h3>
+          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Enter a 24h buyer order code to inspect the design, creator &amp; Discord, then delete after sale.</p>
         </div>
-        <span id="activeOrderCodesBadge" class="font-mono text-xs text-emerald-300 bg-emerald-500/10 border border-emerald-400/25 px-3 py-1 rounded-full">
+        <span id="adminActiveOrderCodesBadge" class="font-mono text-xs text-emerald-300 bg-emerald-500/10 border border-emerald-400/25 px-3 py-1 rounded-full">
           0 Active Codes
         </span>
       </div>
 
       <div class="flex items-center gap-2.5 flex-wrap">
-        <input id="adminOrderCodeInput" type="text" oninput="renderAdminOrderCodeLookup()" placeholder="Paste buyer code e.g. MNF-8K4P2..."
+        <input id="adminOrderCodeInput" type="text" oninput="renderAdminOrderCodeLookup()" placeholder="Enter code e.g. MNF-8K4P2..."
           class="flex-1 min-w-[220px] rounded-xl bg-surface-container-low border border-white/15 px-4 py-2.5 text-xs font-mono uppercase text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
         <button type="button" onclick="clearAdminOrderCodeInput()"
           class="px-4 py-2.5 rounded-xl bg-surface-container-high border border-white/15 text-xs font-mono font-bold text-on-surface hover:border-emerald-400 transition">
@@ -568,58 +617,7 @@
       <div id="adminOrderCodeResult" class="hidden"></div>
     </div>
 
-    <!-- Admin Settings: Approval Mode Toggle -->
-    <div class="glass-card rounded-2xl p-5 border border-white/10 flex flex-wrap items-center justify-between gap-4">
-      <div class="space-y-1">
-        <div class="font-bold text-sm text-on-surface">New Design Publishing Mode</div>
-        <div id="approvalModeDesc" class="text-xs text-on-surface-variant font-mono">
-          Currently: Instant publish. Trusted &amp; Founder bypass review queue automatically.
-        </div>
-      </div>
-      <button id="toggleApprovalModeBtn" type="button" onclick="toggleApprovalMode()"
-        class="px-4 py-2 rounded-lg bg-secondary/20 border border-secondary/40 text-secondary font-mono text-xs font-bold hover:bg-secondary/30 transition">
-        Switch to Review Queue
-      </button>
-    </div>
-
-    <!-- 1. Pending Approval Queue -->
-    <div class="glass-card rounded-2xl p-6 border border-white/10 space-y-4">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
-        <h3 class="text-lg font-bold text-amber-300">Pending Review Queue</h3>
-        <span id="pendingCountBadge" class="font-mono text-xs text-on-surface-variant">0 Pending</span>
-      </div>
-      <div id="adminPendingList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-    </div>
-
-    <!-- 1B. Admin Messages Queue (Double Click User Card to Open Chat & Reply) -->
-    <div class="glass-card rounded-2xl p-6 border border-amber-400/35 space-y-4">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
-        <div>
-          <h3 class="text-lg font-bold text-amber-300">Admin Messages Queue</h3>
-          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Double-click any user card below to view their messages and reply directly.</p>
-        </div>
-        <span id="adminMessagesCountBadge" class="font-mono text-xs text-on-surface-variant">0 Threads</span>
-      </div>
-      <div id="adminMessagesQueueList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-    </div>
-
-    <!-- 1C. Dedicated Stars Management Section (قسم النجوم) -->
-    <div class="glass-card rounded-2xl p-6 border border-yellow-400/40 space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
-        <div>
-          <h3 class="text-lg font-bold text-yellow-300">★ Stars Management (قسم النجوم)</h3>
-          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Boost stars on any design (+1, +5, +10) or set a custom star count to push designs higher.</p>
-        </div>
-        <div class="flex items-center gap-3 flex-wrap">
-          <input id="adminStarsSearchInput" type="text" oninput="renderAdminDashboard()" placeholder="Search design or creator for stars..."
-            class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-yellow-400 focus:ring-0 outline-none" />
-          <span id="starsTotalBadge" class="font-mono text-xs text-yellow-300">0 ★ Total</span>
-        </div>
-      </div>
-      <div id="adminStarsList" class="space-y-3"></div>
-    </div>
-
-    <!-- 2. Creators, Emails, Titles & Image Banners Management -->
+    <!-- 2. Creators, Emails, Titles & Image Banners Management (Directly Below Order Code Lookup) -->
     <div class="glass-card rounded-2xl p-6 border border-sky-400/30 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
         <h3 class="text-lg font-bold text-sky-300">Creators, Emails, Titles &amp; Image Banners</h3>
@@ -632,22 +630,124 @@
       <div id="adminCreatorsList" class="space-y-3"></div>
     </div>
 
-    <!-- 3. All Designs: Priority Subscription (Hours/Days) + Edit + Remove -->
-    <div class="glass-card rounded-2xl p-6 border border-white/10 space-y-4">
+    <!-- Collapsible Toggle Bar for Stars Management & All Designs -->
+    <div class="flex flex-wrap items-center gap-3">
+      <button type="button" onclick="toggleAdminSection('stars')"
+        class="px-4 py-2.5 rounded-xl bg-yellow-400/15 border border-yellow-400/45 text-yellow-300 font-mono text-xs font-black hover:bg-yellow-400/25 transition flex items-center gap-2 cursor-pointer">
+        <span>★ Stars Management</span>
+        <span id="starsTotalBadge" class="px-2 py-0.5 rounded bg-black/40 text-[11px]">0 ★</span>
+        <span id="starsToggleState" class="text-[11px] text-yellow-200/80">[Expand]</span>
+      </button>
+
+      <button type="button" onclick="toggleAdminSection('designs')"
+        class="px-4 py-2.5 rounded-xl bg-secondary/15 border border-secondary/45 text-secondary font-mono text-xs font-black hover:bg-secondary/25 transition flex items-center gap-2 cursor-pointer">
+        <span>All Designs &amp; Priority Subscription</span>
+        <span id="allDesignsCountBadge" class="px-2 py-0.5 rounded bg-black/40 text-[11px]">0</span>
+        <span id="designsToggleState" class="text-[11px] text-secondary/80">[Expand]</span>
+      </button>
+    </div>
+
+    <!-- Collapsible Stars Management Section -->
+    <div id="adminStarsSection" class="hidden glass-card rounded-2xl p-6 border border-yellow-400/40 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
+        <div>
+          <h3 class="text-lg font-bold text-yellow-300">★ Stars Management</h3>
+          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Boost stars on any design (+1, +5, +10) or set an exact star count.</p>
+        </div>
+        <input id="adminStarsSearchInput" type="text" oninput="renderAdminDashboard()" placeholder="Search design or creator..."
+          class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-yellow-400 focus:ring-0 outline-none" />
+      </div>
+      <div id="adminStarsList" class="space-y-3"></div>
+    </div>
+
+    <!-- Collapsible All Designs & Priority Subscription Section -->
+    <div id="adminDesignsSection" class="hidden glass-card rounded-2xl p-6 border border-white/10 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
         <div>
           <h3 class="text-lg font-bold text-secondary">All Designs &amp; Priority Subscription</h3>
           <p class="text-xs text-on-surface-variant font-mono mt-0.5">Set Priority duration in Hours or Days for paid/featured subscriptions.</p>
         </div>
-        <div class="flex items-center gap-3 flex-wrap">
-          <input id="adminDesignsSearchInput" type="text" oninput="renderAdminDashboard()" placeholder="Search design, category or creator..."
-            class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-secondary focus:ring-0 outline-none" />
-          <span id="allDesignsCountBadge" class="font-mono text-xs text-on-surface-variant">0 Total</span>
-        </div>
+        <input id="adminDesignsSearchInput" type="text" oninput="renderAdminDashboard()" placeholder="Search design, category or creator..."
+          class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-secondary focus:ring-0 outline-none" />
       </div>
       <div id="adminAllDesignsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
+
+    <!-- Admin Settings: Approval Mode Toggle -->
+    <div class="glass-card rounded-2xl p-5 border border-white/10 flex flex-wrap items-center justify-between gap-4">
+      <div class="space-y-1">
+        <div class="font-bold text-sm text-on-surface">New Design Publishing Mode</div>
+        <div id="approvalModeDesc" class="text-xs text-on-surface-variant font-mono">
+          Currently: Instant publish. Founder, Trusted &amp; Designer bypass review queue automatically.
+        </div>
+      </div>
+      <button id="toggleApprovalModeBtn" type="button" onclick="toggleApprovalMode()"
+        class="px-4 py-2 rounded-lg bg-secondary/20 border border-secondary/40 text-secondary font-mono text-xs font-bold hover:bg-secondary/30 transition">
+        Switch to Review Queue
+      </button>
+    </div>
+
+    <!-- Pending Approval Queue -->
+    <div class="glass-card rounded-2xl p-6 border border-white/10 space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <h3 class="text-lg font-bold text-amber-300">Pending Review Queue</h3>
+        <span id="pendingCountBadge" class="font-mono text-xs text-on-surface-variant">0 Pending</span>
+      </div>
+      <div id="adminPendingList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+
+    <!-- Admin Messages Queue (Double Click User Card to Open Chat & Reply) -->
+    <div class="glass-card rounded-2xl p-6 border border-amber-400/35 space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div>
+          <h3 class="text-lg font-bold text-amber-300">Admin Messages Queue</h3>
+          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Double-click any user card below to view their messages and reply directly.</p>
+        </div>
+        <span id="adminMessagesCountBadge" class="font-mono text-xs text-on-surface-variant">0 Threads</span>
+      </div>
+      <div id="adminMessagesQueueList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
   </section>
+
+  <!-- Order Lookup Side Drawer / Modal (For Designer / Trusted / Founder / Admin) -->
+  <div id="orderDrawerModal" onclick="closeOrderDrawerModal(event)"
+    class="fixed inset-0 z-50 hidden justify-end bg-black/75 backdrop-blur-sm">
+    <div onclick="event.stopPropagation()"
+      class="w-full max-w-md h-full bg-surface-container border-l border-emerald-400/40 p-6 overflow-y-auto custom-scrollbar flex flex-col justify-between gap-6 shadow-2xl">
+      <div class="space-y-5">
+        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <div>
+            <div class="font-mono text-xs uppercase tracking-wider text-emerald-300 font-bold">Order Code Lookup</div>
+            <div class="text-[11px] font-mono text-on-surface-variant">Check buyer code &amp; clear after sale</div>
+          </div>
+          <button type="button" onclick="closeOrderDrawerModal()"
+            class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">
+            ✕ Close
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between text-xs font-mono text-emerald-300">
+          <span>Active 24h Codes</span>
+          <span id="drawerActiveOrderCodesBadge">0 Active</span>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input id="drawerOrderCodeInput" type="text" oninput="renderDrawerOrderCodeLookup()" placeholder="Enter code e.g. MNF-8K4P2..."
+            class="flex-1 rounded-xl bg-surface-container-low border border-white/15 px-3.5 py-2.5 text-xs font-mono uppercase text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
+          <button type="button" onclick="clearDrawerOrderCodeInput()"
+            class="px-3 py-2.5 rounded-xl bg-surface-container-high border border-white/15 text-xs font-mono font-bold text-on-surface hover:border-emerald-400 transition">
+            Clear
+          </button>
+        </div>
+
+        <div id="drawerOrderCodeResult" class="hidden"></div>
+      </div>
+
+      <div class="p-3 rounded-xl bg-surface-container-low border border-white/10 text-[11px] font-mono text-on-surface-variant">
+        Delete order codes after completing a sale to keep your list clean.
+      </div>
+    </div>
+  </div>
 
   <!-- Glowing Gold Bottom Button for Signed-In Users -->
   <button id="chatToAdminFab" type="button" onclick="openUserSupportChat()"
@@ -777,7 +877,7 @@
 
           <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
 
-          <!-- Tier-Glowing Creator Card + I want it Button -->
+          <!-- Tier-Glowing Creator Card + Profile & I want it Buttons -->
           <div id="modalCreatorCardBox" class="blue-neon-card rounded-xl p-4 space-y-2.5">
             <span class="font-mono text-[10px] text-sky-300 uppercase tracking-wider font-bold block">Creator Card</span>
             <div class="flex items-center justify-between gap-3">
@@ -792,10 +892,16 @@
                 </div>
               </div>
 
-              <button id="iWantItBtn" type="button" onclick="handleIWantItClick()"
-                class="px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md shadow-emerald-400/30 shrink-0 cursor-pointer">
-                I want it
-              </button>
+              <div class="flex flex-col gap-1.5 shrink-0">
+                <button id="creatorProfileBtn" type="button" onclick="openCreatorProfileFromInspector()"
+                  class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md shadow-purple-400/30 cursor-pointer">
+                  Profile
+                </button>
+                <button id="iWantItBtn" type="button" onclick="handleIWantItClick()"
+                  class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md shadow-emerald-400/30 cursor-pointer">
+                  I want it
+                </button>
+              </div>
             </div>
 
             <div id="iWantItCopyNotice" class="hidden text-[11px] font-mono text-emerald-300 bg-black/40 border border-emerald-400/35 rounded-lg px-3 py-2 leading-relaxed"></div>
@@ -858,7 +964,7 @@
           <div>
             <label class="block font-mono text-[11px] text-on-surface-variant mb-1">Replace Image(s) (Optional)</label>
             <input id="editDesignImage" type="file" accept="image/*" multiple
-              class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:bg-tertiary/20 file:text-tertiary file:font-bold cursor-pointer" />
+              class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-2.5 file:rounded-lg file:border-0 file:bg-tertiary/20 file:text-tertiary file:font-bold cursor-pointer" />
           </div>
 
           <button type="submit" id="saveEditBtn"
@@ -911,7 +1017,9 @@
       "Farm",
       "Jet",
       "Wedding Chapel",
-      "Czech Gloryhole Hut"
+      "Czech Gloryhole Hut",
+      "8 ball pool",
+      "editor"
     ];
 
     const BADGES = ["Founder", "Trusted", "Designer", "None"];
@@ -944,7 +1052,7 @@
       return mapStylishText(text, SANS_BOLD_UPPER, SANS_BOLD_LOWER);
     }
 
-    // 24h Buyer Order Codes (Stored locally + synced via support_messages if desired)
+    // 24h Buyer Order Codes
     const ORDER_CODE_TTL_MS = 24 * 3600 * 1000;
 
     function getOrderCodesMap() {
@@ -1008,7 +1116,7 @@
 
       map[code] = entry;
       saveOrderCodesMap(map);
-      updateAdminOrderCodesBadge();
+      updateAllOrderCodeBadges();
       return entry;
     }
 
@@ -1020,15 +1128,17 @@
         delete map[key];
         saveOrderCodesMap(map);
       }
-      updateAdminOrderCodesBadge();
+      updateAllOrderCodeBadges();
       renderAdminOrderCodeLookup();
+      renderDrawerOrderCodeLookup();
     }
 
-    function updateAdminOrderCodesBadge() {
-      const badge = document.getElementById("activeOrderCodesBadge");
-      if (!badge) return;
+    function updateAllOrderCodeBadges() {
       const count = Object.keys(getOrderCodesMap()).length;
-      badge.textContent = `${count} Active ${count === 1 ? "Code" : "Codes"}`;
+      const adminBadge = document.getElementById("adminActiveOrderCodesBadge");
+      const drawerBadge = document.getElementById("drawerActiveOrderCodesBadge");
+      if (adminBadge) adminBadge.textContent = `${count} Active ${count === 1 ? "Code" : "Codes"}`;
+      if (drawerBadge) drawerBadge.textContent = `${count} Active`;
     }
 
     function clearAdminOrderCodeInput() {
@@ -1037,31 +1147,24 @@
       renderAdminOrderCodeLookup();
     }
 
-    function renderAdminOrderCodeLookup() {
-      const resultBox = document.getElementById("adminOrderCodeResult");
-      const input = document.getElementById("adminOrderCodeInput");
-      if (!resultBox || !input) return;
+    function clearDrawerOrderCodeInput() {
+      const input = document.getElementById("drawerOrderCodeInput");
+      if (input) input.value = "";
+      renderDrawerOrderCodeLookup();
+    }
 
-      updateAdminOrderCodesBadge();
-      const query = input.value.trim().toUpperCase();
+    function buildOrderLookupCardHtml(rawQuery) {
+      const query = String(rawQuery || "").trim().toUpperCase();
       const map = getOrderCodesMap();
-
-      if (!query) {
-        resultBox.classList.add("hidden");
-        resultBox.innerHTML = "";
-        return;
-      }
+      if (!query) return null;
 
       const entry = map[query];
-      resultBox.classList.remove("hidden");
-
       if (!entry) {
-        resultBox.innerHTML = `
+        return `
           <div class="bg-surface-container-low border border-red-500/30 rounded-xl p-4 text-xs font-mono text-red-300">
-            No active 24h order code found for "${escapeHtml(query)}". It may be sold, deleted, or expired.
+            No active 24h order code found for "${escapeHtml(query)}".
           </div>
         `;
-        return;
       }
 
       const liveDesign = allDesigns.find(d => String(d.id) === String(entry.designId));
@@ -1072,7 +1175,7 @@
       const priceVal = Number(liveDesign?.price ?? entry.designPrice ?? 0).toLocaleString();
       const thumbSrc = liveDesign?.thumb_url || liveCreator.avatar_url || "logo.jpg";
 
-      resultBox.innerHTML = `
+      return `
         <div class="bg-surface-container-low border border-emerald-400/50 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
           <div class="flex items-center gap-3.5 min-w-0">
             <img src="${thumbSrc}" alt="${escapeHtml(titleText)}" class="w-14 h-14 rounded-xl object-cover border border-emerald-400/40 shrink-0 bg-black/40" />
@@ -1102,6 +1205,55 @@
       `;
     }
 
+    function renderAdminOrderCodeLookup() {
+      const resultBox = document.getElementById("adminOrderCodeResult");
+      const input = document.getElementById("adminOrderCodeInput");
+      if (!resultBox || !input) return;
+
+      updateAllOrderCodeBadges();
+      const html = buildOrderLookupCardHtml(input.value);
+      if (!html) {
+        resultBox.classList.add("hidden");
+        resultBox.innerHTML = "";
+        return;
+      }
+      resultBox.classList.remove("hidden");
+      resultBox.innerHTML = html;
+    }
+
+    function renderDrawerOrderCodeLookup() {
+      const resultBox = document.getElementById("drawerOrderCodeResult");
+      const input = document.getElementById("drawerOrderCodeInput");
+      if (!resultBox || !input) return;
+
+      updateAllOrderCodeBadges();
+      const html = buildOrderLookupCardHtml(input.value);
+      if (!html) {
+        resultBox.classList.add("hidden");
+        resultBox.innerHTML = "";
+        return;
+      }
+      resultBox.classList.remove("hidden");
+      resultBox.innerHTML = html;
+    }
+
+    function openOrderDrawerModal() {
+      if (!canAccessOrderDrawer()) return;
+      updateAllOrderCodeBadges();
+      renderDrawerOrderCodeLookup();
+      const modal = document.getElementById("orderDrawerModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeOrderDrawerModal(e) {
+      if (!e || e.target.id === "orderDrawerModal") {
+        const modal = document.getElementById("orderDrawerModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
     async function handleIWantItClick() {
       if (!activeInspectedDesign) return;
       const noticeEl = document.getElementById("iWantItCopyNotice");
@@ -1116,8 +1268,160 @@
       if (noticeEl) {
         noticeEl.classList.remove("hidden");
         noticeEl.innerHTML = `
-          ✅ Code <span class="text-amber-300 font-black">${entry.code}</span> copied! Send this code to <span class="text-sky-300 font-bold">Discord</span> to claim this design (valid for 24h).
+          Code <span class="text-amber-300 font-black">${entry.code}</span> copied! Send this code on <span class="text-sky-300 font-bold">Discord</span> to claim this design (24h).
         `;
+      }
+    }
+
+    // Creator Profile Showcase & Short Link
+    let activePortfolioCreatorId = null;
+
+    function getCreatorShortLink(creatorId) {
+      const base = window.location.origin + window.location.pathname;
+      return `${base}#c=${encodeURIComponent(String(creatorId || ""))}`;
+    }
+
+    function openCreatorProfileFromInspector() {
+      if (!activeInspectedDesign) return;
+      const creatorId = activeInspectedDesign.user_id;
+      closeInspectorModal();
+      openCreatorPortfolio(creatorId, true);
+    }
+
+    function openCreatorPortfolio(creatorId, updateHash = false) {
+      if (!creatorId) return;
+      activePortfolioCreatorId = String(creatorId);
+      showShowcaseView();
+      closePanels();
+
+      if (updateHash) {
+        try {
+          history.replaceState(null, "", `#c=${encodeURIComponent(activePortfolioCreatorId)}`);
+        } catch {
+          window.location.hash = `c=${encodeURIComponent(activePortfolioCreatorId)}`;
+        }
+      }
+
+      renderCreatorPortfolio();
+      const panel = document.getElementById("creatorPortfolioView");
+      panel.classList.remove("hidden");
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function closeCreatorPortfolioView() {
+      activePortfolioCreatorId = null;
+      document.getElementById("creatorPortfolioView").classList.add("hidden");
+      if ((window.location.hash || "").startsWith("#c=")) {
+        try {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        } catch {
+          window.location.hash = "";
+        }
+      }
+    }
+
+    async function copyCreatorShortLink() {
+      if (!activePortfolioCreatorId) return;
+      const shortLink = getCreatorShortLink(activePortfolioCreatorId);
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(shortLink);
+        }
+      } catch {}
+      const label = document.getElementById("creatorShortLinkText");
+      if (label) {
+        label.textContent = "Copied!";
+        setTimeout(() => {
+          label.textContent = "Copy Short Link";
+        }, 1800);
+      }
+    }
+
+    function renderCreatorPortfolio() {
+      if (!activePortfolioCreatorId) return;
+      const creator = profilesMap[activePortfolioCreatorId] || {
+        id: activePortfolioCreatorId,
+        display_name: "MNF Creator",
+        contact: "N/A",
+        avatar_url: "logo.jpg",
+        badge: "None"
+      };
+
+      const badge = creator.badge || "None";
+      const cardBox = document.getElementById("portfolioCreatorCardBox");
+      if (cardBox) {
+        cardBox.className = `lg:col-span-4 ${getCreatorCardGlowClass(badge, activePortfolioCreatorId)} rounded-2xl p-5 space-y-4`;
+      }
+
+      document.getElementById("portfolioCreatorAvatar").src = creator.avatar_url || "logo.jpg";
+      const nameEl = document.getElementById("portfolioCreatorName");
+      nameEl.textContent = creator.display_name || "MNF Creator";
+      nameEl.className = `font-bold text-base ${getEffectiveNeonClass(badge, activePortfolioCreatorId)} truncate`;
+
+      document.getElementById("portfolioCreatorBadgeText").innerHTML = renderTitleGlowText(badge);
+      document.getElementById("portfolioCreatorDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
+
+      const creatorDesigns = allDesigns
+        .filter(d => String(d.user_id) === String(activePortfolioCreatorId))
+        .filter(d => (d.status || "approved") === "approved")
+        .filter(d => !isDesignExpiredForPublic(d))
+        .sort(compareDesignsByStarsAndAlphabet);
+
+      document.getElementById("portfolioCreatorStats").textContent = `${creatorDesigns.length} ${creatorDesigns.length === 1 ? "Design" : "Designs"}`;
+
+      const prioWrap = document.getElementById("portfolioPriorityWrap");
+      const prioGrid = document.getElementById("portfolioPriorityGrid");
+      const prioCount = document.getElementById("portfolioPriorityCount");
+      const prioItems = creatorDesigns.filter(d => isDesignPriorityActive(d));
+
+      if (prioItems.length > 0) {
+        prioWrap.classList.remove("hidden");
+        prioCount.textContent = `${prioItems.length} Active`;
+        prioGrid.innerHTML = "";
+        prioItems.forEach(item => {
+          prioGrid.appendChild(buildDesignCardElement(item, creator, { forceGold: true, showExpiryBadge: true }));
+        });
+      } else {
+        prioWrap.classList.add("hidden");
+        prioGrid.innerHTML = "";
+      }
+
+      const catsWrap = document.getElementById("portfolioCategoriesWrap");
+      catsWrap.innerHTML = "";
+
+      const activeCats = CATEGORIES.filter(cat => creatorDesigns.some(d => d.category === cat));
+      if (activeCats.length === 0) {
+        catsWrap.innerHTML = `<div class="glass-card rounded-xl p-6 text-sm text-on-surface-variant">No published designs for this creator yet.</div>`;
+        return;
+      }
+
+      activeCats.forEach(cat => {
+        const items = creatorDesigns.filter(d => d.category === cat).sort(compareDesignsByStarsAndAlphabet);
+        const block = document.createElement("div");
+        block.className = "space-y-3";
+        block.innerHTML = `
+          <div class="flex items-center justify-between border-b border-white/10 pb-2">
+            <h4 class="text-lg font-bold text-on-surface">${cat}</h4>
+            <span class="font-mono text-xs text-on-surface-variant">${items.length}</span>
+          </div>
+        `;
+        const grid = document.createElement("div");
+        grid.className = "grid grid-cols-1 sm:grid-cols-2 gap-5";
+        items.forEach(item => {
+          grid.appendChild(buildDesignCardElement(item, creator, { showExpiryBadge: true }));
+        });
+        block.appendChild(grid);
+        catsWrap.appendChild(block);
+      });
+    }
+
+    function checkHashCreatorRoute() {
+      const hash = window.location.hash || "";
+      if (hash.startsWith("#c=")) {
+        const cid = decodeURIComponent(hash.slice(3)).trim();
+        if (cid) {
+          openCreatorPortfolio(cid, false);
+        }
       }
     }
 
@@ -1199,6 +1503,7 @@
       await persistDesignStars(designId, nextStars);
 
       renderShowcase();
+      if (activePortfolioCreatorId) renderCreatorPortfolio();
       if (isAdminUser() && !document.getElementById("adminPageView").classList.contains("hidden")) {
         renderAdminDashboard();
       }
@@ -1467,6 +1772,7 @@
     let modalSlideIndex = 0;
     let activeChatThreadUserId = null;
     let requireAdminApproval = localStorage.getItem("mnf_require_approval") === "true";
+    let adminSectionsOpen = { stars: false, designs: false };
 
     function isAdminUser() {
       return Boolean(
@@ -1476,7 +1782,14 @@
     }
 
     function hasBypassApproval(badge) {
-      return isAdminUser() || badge === "Founder" || badge === "Trusted";
+      return isAdminUser() || badge === "Founder" || badge === "Trusted" || badge === "Designer";
+    }
+
+    function canAccessOrderDrawer() {
+      if (!currentSessionUser) return false;
+      if (isAdminUser()) return true;
+      const badge = currentProfile?.badge || "None";
+      return badge === "Designer" || badge === "Trusted" || badge === "Founder";
     }
 
     function hasAdminUnreadMessages() {
@@ -1545,12 +1858,16 @@
       setupCategorySelects();
       renderCategoryFilters();
       updateApprovalModeUI();
-      updateAdminOrderCodesBadge();
+      updateAllOrderCodeBadges();
       await fetchShowcaseData();
+      checkHashCreatorRoute();
+
+      window.addEventListener("hashchange", checkHashCreatorRoute);
 
       setInterval(() => {
         renderShowcase();
-        updateAdminOrderCodesBadge();
+        if (activePortfolioCreatorId) renderCreatorPortfolio();
+        updateAllOrderCodeBadges();
         if (isAdminUser() && !document.getElementById("adminPageView").classList.contains("hidden")) {
           renderAdminOrderCodeLookup();
         }
@@ -1594,6 +1911,7 @@
 
       updateOwnerActionsVisibility();
       await fetchShowcaseData();
+      renderNavControls();
     }
 
     async function syncFounderBadgeForAdmin() {
@@ -1633,6 +1951,13 @@
         const displayName = currentProfile?.display_name || "Creator";
         const avatarUrl = currentProfile?.avatar_url || "logo.jpg";
         const hasUnreadAdmin = isAdminUser() && hasAdminUnreadMessages();
+        const showOrderBtn = !isAdminUser() && canAccessOrderDrawer();
+        const orderBtnHtml = showOrderBtn
+          ? `<button type="button" onclick="openOrderDrawerModal()"
+               class="px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-400 to-teal-300 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md">
+               Order
+             </button>`
+          : "";
         const adminBtnHtml = isAdminUser()
           ? `<button type="button" onclick="openAdminPage()"
                class="relative px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md">
@@ -1647,6 +1972,7 @@
             Publish
           </button>
 
+          ${orderBtnHtml}
           ${adminBtnHtml}
 
           <button type="button" onclick="openPanel('profileCardPanel')"
@@ -1931,6 +2257,7 @@
 
       allDesigns = designsRes.data || [];
       renderShowcase();
+      if (activePortfolioCreatorId) renderCreatorPortfolio();
       if (isAdminUser() && !document.getElementById("adminPageView").classList.contains("hidden")) {
         renderAdminDashboard();
       }
@@ -2158,7 +2485,7 @@
       if (!desc || !btn) return;
 
       if (requireAdminApproval) {
-        desc.textContent = "Currently: Review Queue ON (Trusted & Founder auto-publish; others wait for approval).";
+        desc.textContent = "Currently: Review Queue ON (Founder, Trusted & Designer auto-publish; others wait for approval).";
         btn.textContent = "Switch to Instant Publish";
       } else {
         desc.textContent = "Currently: Instant Publish ON (designs appear immediately).";
@@ -2170,6 +2497,23 @@
       requireAdminApproval = !requireAdminApproval;
       localStorage.setItem("mnf_require_approval", String(requireAdminApproval));
       updateApprovalModeUI();
+    }
+
+    function toggleAdminSection(sectionKey) {
+      adminSectionsOpen[sectionKey] = !adminSectionsOpen[sectionKey];
+      syncAdminSectionsVisibility();
+    }
+
+    function syncAdminSectionsVisibility() {
+      const starsSec = document.getElementById("adminStarsSection");
+      const designsSec = document.getElementById("adminDesignsSection");
+      const starsState = document.getElementById("starsToggleState");
+      const designsState = document.getElementById("designsToggleState");
+
+      if (starsSec) starsSec.classList.toggle("hidden", !adminSectionsOpen.stars);
+      if (designsSec) designsSec.classList.toggle("hidden", !adminSectionsOpen.designs);
+      if (starsState) starsState.textContent = adminSectionsOpen.stars ? "[Hide]" : "[Expand]";
+      if (designsState) designsState.textContent = adminSectionsOpen.designs ? "[Hide]" : "[Expand]";
     }
 
     // Support & Mutual Chat Logic
@@ -2382,6 +2726,7 @@
     function renderAdminDashboard() {
       if (!isAdminUser()) return;
 
+      syncAdminSectionsVisibility();
       renderAdminOrderCodeLookup();
 
       const pendingItems = allDesigns.filter(d => d.status === "pending");
@@ -2417,87 +2762,14 @@
         .sort(compareDesignsByStarsAndAlphabet);
 
       const totalStarsSum = allDesigns.reduce((acc, d) => acc + getDesignStarsCount(d), 0);
-      document.getElementById("starsTotalBadge").textContent = `${totalStarsSum} ★ Total`;
+      document.getElementById("starsTotalBadge").textContent = `${totalStarsSum} ★`;
       document.getElementById("pendingCountBadge").textContent = `${pendingItems.length} Pending`;
       document.getElementById("creatorsCountBadge").textContent = `${creatorsList.length} Creators`;
-      document.getElementById("allDesignsCountBadge").textContent = `${filteredDesigns.length} / ${allDesigns.length} Designs`;
+      document.getElementById("allDesignsCountBadge").textContent = `${filteredDesigns.length} / ${allDesigns.length}`;
 
       renderAdminMessagesQueue();
 
-      // 1C. Dedicated Stars Management Section
-      const starsContainer = document.getElementById("adminStarsList");
-      if (starsDesigns.length === 0) {
-        starsContainer.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No designs found for stars management.</div>`;
-      } else {
-        starsContainer.innerHTML = starsDesigns.map(item => {
-          const creator = profilesMap[item.user_id] || { display_name: "Creator" };
-          const stars = getDesignStarsCount(item);
-          return `
-            <div class="bg-surface-container-low border border-yellow-400/20 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
-              <div class="flex items-center gap-3 min-w-0">
-                <img src="${item.thumb_url}" alt="${item.title}" class="w-12 h-12 rounded-lg object-cover border border-yellow-400/30 shrink-0 bg-black/40" />
-                <div class="min-w-0">
-                  <div class="font-bold text-sm text-on-surface truncate">${item.title} <span class="text-xs font-mono text-secondary">(${item.category})</span></div>
-                  <div class="text-[11px] font-mono text-on-surface-variant truncate">Creator: ${creator.display_name} • Current: <span class="text-yellow-300 font-bold">★ ${stars}</span></div>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <button type="button" onclick="adminAdjustStars('${item.id}', 1)"
-                  class="px-2.5 py-1 rounded-lg bg-yellow-400/20 border border-yellow-400/40 text-yellow-200 font-mono text-xs font-bold hover:bg-yellow-400/30 transition">
-                  +1 ★
-                </button>
-                <button type="button" onclick="adminAdjustStars('${item.id}', 5)"
-                  class="px-2.5 py-1 rounded-lg bg-yellow-400/20 border border-yellow-400/40 text-yellow-200 font-mono text-xs font-bold hover:bg-yellow-400/30 transition">
-                  +5 ★
-                </button>
-                <button type="button" onclick="adminAdjustStars('${item.id}', 10)"
-                  class="px-2.5 py-1 rounded-lg bg-yellow-400/20 border border-yellow-400/40 text-yellow-200 font-mono text-xs font-bold hover:bg-yellow-400/30 transition">
-                  +10 ★
-                </button>
-                <input id="exactStars_${item.id}" type="number" min="0" value="${stars}"
-                  class="w-20 rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-yellow-400 focus:ring-0 outline-none" />
-                <button type="button" onclick="adminSetExactStars('${item.id}')"
-                  class="px-3 py-1 rounded-lg bg-yellow-400 text-slate-950 font-mono text-xs font-black hover:bg-yellow-300 transition">
-                  Set ★
-                </button>
-              </div>
-            </div>
-          `;
-        }).join("");
-      }
-
-      // 1. Pending Queue
-      const pendingContainer = document.getElementById("adminPendingList");
-      if (pendingItems.length === 0) {
-        pendingContainer.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No pending designs right now.</div>`;
-      } else {
-        pendingContainer.innerHTML = pendingItems.map(item => {
-          const creator = profilesMap[item.user_id] || { display_name: "Unknown", email: "N/A", contact: "N/A" };
-          return `
-            <div class="bg-surface-container-low border border-amber-400/30 rounded-xl p-4 space-y-3">
-              <div onclick="openInspectorModalById('${item.id}')" class="cursor-pointer space-y-1.5 group">
-                <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-36 object-cover rounded-lg bg-black/40 group-hover:opacity-90 transition" />
-                <div class="font-bold text-sm text-on-surface group-hover:text-amber-300 transition">${item.title} <span class="text-xs font-mono text-secondary">(${item.category})</span></div>
-                <div class="text-xs font-mono text-sky-300 truncate">Creator: ${creator.display_name} • ${creator.email || "No Email"}</div>
-                <div class="text-[10px] font-mono text-on-surface-variant">Click design to inspect or edit before approving</div>
-              </div>
-              <div class="flex items-center gap-2 pt-1">
-                <button type="button" onclick="adminApproveDesign('${item.id}')"
-                  class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
-                  Approve
-                </button>
-                <button type="button" onclick="adminDeleteDesign('${item.id}')"
-                  class="flex-1 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition">
-                  Reject &amp; Delete
-                </button>
-              </div>
-            </div>
-          `;
-        }).join("");
-      }
-
-      // 2. Creators, Emails, Titles & Image Banners
+      // Creators, Emails, Titles & Image Banners
       const creatorsContainer = document.getElementById("adminCreatorsList");
       creatorsContainer.innerHTML = creatorsList.map(p => {
         const currentBadge = p.badge || "None";
@@ -2559,7 +2831,50 @@
         `;
       }).join("");
 
-      // 3. All Designs & Priority Subscription (Hours / Days)
+      // Collapsible Stars Management Section
+      const starsContainer = document.getElementById("adminStarsList");
+      if (starsDesigns.length === 0) {
+        starsContainer.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No designs found for stars management.</div>`;
+      } else {
+        starsContainer.innerHTML = starsDesigns.map(item => {
+          const creator = profilesMap[item.user_id] || { display_name: "Creator" };
+          const stars = getDesignStarsCount(item);
+          return `
+            <div class="bg-surface-container-low border border-yellow-400/20 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="${item.thumb_url}" alt="${item.title}" class="w-12 h-12 rounded-lg object-cover border border-yellow-400/30 shrink-0 bg-black/40" />
+                <div class="min-w-0">
+                  <div class="font-bold text-sm text-on-surface truncate">${item.title} <span class="text-xs font-mono text-secondary">(${item.category})</span></div>
+                  <div class="text-[11px] font-mono text-on-surface-variant truncate">Creator: ${creator.display_name} • Current: <span class="text-yellow-300 font-bold">★ ${stars}</span></div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <button type="button" onclick="adminAdjustStars('${item.id}', 1)"
+                  class="px-2.5 py-1 rounded-lg bg-yellow-400/20 border border-yellow-400/40 text-yellow-200 font-mono text-xs font-bold hover:bg-yellow-400/30 transition">
+                  +1 ★
+                </button>
+                <button type="button" onclick="adminAdjustStars('${item.id}', 5)"
+                  class="px-2.5 py-1 rounded-lg bg-yellow-400/20 border border-yellow-400/40 text-yellow-200 font-mono text-xs font-bold hover:bg-yellow-400/30 transition">
+                  +5 ★
+                </button>
+                <button type="button" onclick="adminAdjustStars('${item.id}', 10)"
+                  class="px-2.5 py-1 rounded-lg bg-yellow-400/20 border border-yellow-400/40 text-yellow-200 font-mono text-xs font-bold hover:bg-yellow-400/30 transition">
+                  +10 ★
+                </button>
+                <input id="exactStars_${item.id}" type="number" min="0" value="${stars}"
+                  class="w-20 rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-yellow-400 focus:ring-0 outline-none" />
+                <button type="button" onclick="adminSetExactStars('${item.id}')"
+                  class="px-3 py-1 rounded-lg bg-yellow-400 text-slate-950 font-mono text-xs font-black hover:bg-yellow-300 transition">
+                  Set ★
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // Collapsible All Designs & Priority Subscription
       const allContainer = document.getElementById("adminAllDesignsList");
       allContainer.innerHTML = filteredDesigns.map(item => {
         const creator = profilesMap[item.user_id] || { display_name: "Creator", email: "N/A" };
@@ -2621,6 +2936,36 @@
           </div>
         `;
       }).join("");
+
+      // Pending Queue
+      const pendingContainer = document.getElementById("adminPendingList");
+      if (pendingItems.length === 0) {
+        pendingContainer.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No pending designs right now.</div>`;
+      } else {
+        pendingContainer.innerHTML = pendingItems.map(item => {
+          const creator = profilesMap[item.user_id] || { display_name: "Unknown", email: "N/A", contact: "N/A" };
+          return `
+            <div class="bg-surface-container-low border border-amber-400/30 rounded-xl p-4 space-y-3">
+              <div onclick="openInspectorModalById('${item.id}')" class="cursor-pointer space-y-1.5 group">
+                <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-36 object-cover rounded-lg bg-black/40 group-hover:opacity-90 transition" />
+                <div class="font-bold text-sm text-on-surface group-hover:text-amber-300 transition">${item.title} <span class="text-xs font-mono text-secondary">(${item.category})</span></div>
+                <div class="text-xs font-mono text-sky-300 truncate">Creator: ${creator.display_name} • ${creator.email || "No Email"}</div>
+                <div class="text-[10px] font-mono text-on-surface-variant">Click design to inspect or edit before approving</div>
+              </div>
+              <div class="flex items-center gap-2 pt-1">
+                <button type="button" onclick="adminApproveDesign('${item.id}')"
+                  class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
+                  Approve
+                </button>
+                <button type="button" onclick="adminDeleteDesign('${item.id}')"
+                  class="flex-1 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition">
+                  Reject &amp; Delete
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
     }
 
     function openInspectorModalById(designId) {
@@ -2695,6 +3040,7 @@
           updateStudioProfileUI();
         }
         await fetchShowcaseData();
+        renderNavControls();
       }
     }
 
