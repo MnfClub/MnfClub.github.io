@@ -287,6 +287,7 @@
       border-radius: 10px;
     }
   </style>
+<base target="_blank">
 </head>
 
 <body class="custom-scrollbar overflow-x-hidden min-h-screen flex flex-col justify-between">
@@ -555,6 +556,22 @@
               <input id="designDurationValue" type="number" min="1" max="365" value="2" placeholder="2"
                 class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
             </div>
+
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Download (Optional)</label>
+              <label class="flex items-center gap-2 w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 cursor-pointer hover:border-tertiary transition select-none">
+                <input id="allowDownload" type="checkbox" onchange="toggleDownloadInput()"
+                  class="rounded border-white/30 bg-surface-container accent-tertiary focus:ring-0 cursor-pointer" />
+                <span class="text-xs font-bold text-on-surface">Download</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="downloadFilesWrap" class="hidden space-y-1">
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Downloadable Image(s)</label>
+            <input id="downloadImagesInput" type="file" accept="image/*" multiple
+              class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-tertiary/20 file:text-tertiary file:font-bold cursor-pointer" />
+            <span class="text-[10px] text-on-surface-variant block">Attach image(s) users can download for free (e.g. free designs). One or multiple images allowed.</span>
           </div>
 
           <div>
@@ -956,6 +973,10 @@
                 <button id="iWantItBtn" type="button" onclick="handleIWantItClick()"
                   class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md shadow-emerald-400/30 cursor-pointer">
                   I want it
+                </button>
+                <button id="modalDownloadBtn" type="button" onclick="handleDownloadDesignImages()"
+                  class="hidden px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-400 via-cyan-300 to-teal-300 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md shadow-sky-400/30 cursor-pointer">
+                  Download
                 </button>
               </div>
             </div>
@@ -1854,6 +1875,91 @@
       return list;
     }
 
+    function getLocalDownloadMap() {
+      try {
+        return JSON.parse(localStorage.getItem("mnf_design_downloads") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function saveLocalDownloadUrls(designId, urls) {
+      if (!designId || !Array.isArray(urls) || urls.length === 0) return;
+      try {
+        const map = getLocalDownloadMap();
+        map[String(designId)] = urls;
+        localStorage.setItem("mnf_design_downloads", JSON.stringify(map));
+      } catch {}
+    }
+
+    function getDesignDownloadUrls(item) {
+      if (!item) return [];
+      const list = [];
+      const addUrl = (u) => {
+        if (typeof u === "string" && u.trim() && !list.includes(u.trim())) {
+          list.push(u.trim());
+        }
+      };
+      if (Array.isArray(item.download_urls)) {
+        item.download_urls.forEach(addUrl);
+      } else if (typeof item.download_urls === "string" && item.download_urls.trim()) {
+        try {
+          const parsed = JSON.parse(item.download_urls);
+          if (Array.isArray(parsed)) parsed.forEach(addUrl);
+        } catch {}
+      }
+      const localMap = getLocalDownloadMap();
+      if (item.id && Array.isArray(localMap[String(item.id)])) {
+        localMap[String(item.id)].forEach(addUrl);
+      }
+      return list;
+    }
+
+    function getFileExtensionFromUrl(url, fallback = "jpg") {
+      try {
+        const clean = String(url).split("?")[0];
+        const ext = clean.split(".").pop().toLowerCase();
+        return /^[a-z0-9]{2,5}$/.test(ext) ? ext : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    async function downloadSingleImage(url, index) {
+      const designId = activeInspectedDesign ? String(activeInspectedDesign.id).replace(/[^a-zA-Z0-9_-]/g, "") : "file";
+      const baseName = `mnf-design-${designId}-${index + 1}`;
+      try {
+        const res = await fetch(url, { mode: "cors" });
+        if (!res.ok) throw new Error("fetch failed");
+        const blob = await res.blob();
+        const ext = blob.type && blob.type.includes("/")
+          ? blob.type.split("/")[1].replace("jpeg", "jpg")
+          : getFileExtensionFromUrl(url);
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `${baseName}.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+      } catch {
+        window.open(url, "_blank", "noopener");
+      }
+    }
+
+    async function handleDownloadDesignImages() {
+      if (!activeInspectedDesign) return;
+      const urls = getDesignDownloadUrls(activeInspectedDesign);
+      if (urls.length === 0) return;
+      const btn = document.getElementById("modalDownloadBtn");
+      if (btn) btn.disabled = true;
+      for (let i = 0; i < urls.length; i++) {
+        await downloadSingleImage(urls[i], i);
+        await new Promise(r => setTimeout(r, 350));
+      }
+      if (btn) btn.disabled = false;
+    }
+
     function renderTitleGlowText(badge) {
       if (!badge || badge === "None") return "";
       if (badge === "Founder") {
@@ -2067,6 +2173,14 @@
           input.value = input.value || "2";
         }
       }
+    }
+
+    function toggleDownloadInput() {
+      const checked = document.getElementById("allowDownload")?.checked;
+      const wrap = document.getElementById("downloadFilesWrap");
+      const input = document.getElementById("downloadImagesInput");
+      if (wrap) wrap.classList.toggle("hidden", !checked);
+      if (!checked && input) input.value = "";
     }
 
     function handleHeroPublishClick() {
@@ -2395,9 +2509,18 @@
       }
 
       btn.disabled = true;
-      msg.textContent = `Uploading ${imgFiles.length} image(s)...`;
+
+      const allowDownload = document.getElementById("allowDownload")?.checked;
+      const downloadFiles = document.getElementById("downloadImagesInput")?.files;
 
       try {
+        let downloadUrls = [];
+        if (allowDownload && downloadFiles && downloadFiles.length > 0) {
+          msg.textContent = `Uploading ${imgFiles.length} image(s) + ${downloadFiles.length} download file(s)...`;
+          downloadUrls = await uploadMultipleMedia(downloadFiles, "downloads");
+        } else {
+          msg.textContent = `Uploading ${imgFiles.length} image(s)...`;
+        }
         const imageUrls = await uploadMultipleMedia(imgFiles, "designs");
         const creatorBadge = currentProfile?.badge || "None";
         const initialStatus = (requireAdminApproval && !hasBypassApproval(creatorBadge))
@@ -2420,13 +2543,15 @@
         let insertRes = await sb.from("designs").insert({
           ...basePayload,
           gallery_urls: imageUrls,
+          download_urls: downloadUrls.length ? downloadUrls : null,
           expires_at: expiresAtIso
         }).select();
 
         if (insertRes.error) {
           insertRes = await sb.from("designs").insert({
             ...basePayload,
-            gallery_urls: imageUrls
+            gallery_urls: imageUrls,
+            download_urls: downloadUrls.length ? downloadUrls : null
           }).select();
           if (insertRes.error) {
             insertRes = await sb.from("designs").insert({
@@ -2447,6 +2572,7 @@
         const insertedRow = Array.isArray(insertRes.data) ? insertRes.data[0] : insertRes.data;
         if (insertedRow && insertedRow.id) {
           saveLocalGallery(insertedRow.id, imageUrls);
+          if (downloadUrls.length) saveLocalDownloadUrls(insertedRow.id, downloadUrls);
           setDesignStarsLocal(insertedRow.id, 0);
           if (expiresAtIso) {
             setDesignTimerMeta(insertedRow.id, { listingExpiresAt: expiresAtIso });
@@ -2455,6 +2581,7 @@
 
         document.getElementById("uploadDesignForm").reset();
         toggleDurationValueInput();
+        toggleDownloadInput();
 
         const timerNote = expiresAtIso ? ` • Active for ${durationVal} ${durationUnit}` : "";
         msg.textContent = initialStatus === "pending"
@@ -3461,6 +3588,12 @@
       document.getElementById("modalDesignerAvatar").src = creator.avatar_url || "logo.jpg";
 
       updateOwnerActionsVisibility();
+
+      const dlBtn = document.getElementById("modalDownloadBtn");
+      if (dlBtn) {
+        dlBtn.classList.toggle("hidden", getDesignDownloadUrls(item).length === 0);
+        dlBtn.disabled = false;
+      }
 
       const modal = document.getElementById("inspectorModal");
       modal.classList.remove("hidden");
