@@ -555,6 +555,22 @@
               <input id="designDurationValue" type="number" min="1" max="365" value="2" placeholder="2"
                 class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
             </div>
+
+            <div>
+              <label class="block font-mono text-xs text-on-surface-variant mb-1">Download (Optional)</label>
+              <label class="flex items-center gap-2 w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 cursor-pointer hover:border-tertiary transition select-none">
+                <input id="allowDownload" type="checkbox" onchange="toggleDownloadInput()"
+                  class="rounded border-white/30 bg-surface-container accent-tertiary focus:ring-0 cursor-pointer" />
+                <span class="text-xs font-bold text-on-surface">Download</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="downloadFilesWrap" class="hidden space-y-1">
+            <label class="block font-mono text-xs text-on-surface-variant mb-1">Downloadable Image(s)</label>
+            <input id="downloadImagesInput" type="file" accept="image/*" multiple
+              class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-tertiary/20 file:text-tertiary file:font-bold cursor-pointer" />
+            <span class="text-[10px] text-on-surface-variant block">Attach image(s) users can download for free (e.g. free designs). One or multiple images allowed.</span>
           </div>
 
           <div>
@@ -630,30 +646,6 @@
         <span class="material-symbols-outlined text-sm">arrow_back</span>
         Back to Showcase
       </button>
-    </div>
-
-    <!-- 1. Buyer Order Code Lookup Bar (Top Position) -->
-    <div class="glass-card rounded-2xl p-5 border border-emerald-400/40 space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h3 class="text-base font-bold text-emerald-300">Buyer Order Code Lookup</h3>
-          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Shows guest (not signed-in) buyer order codes — enter any 24h code to inspect &amp; clear after sale.</p>
-        </div>
-        <span id="adminActiveOrderCodesBadge" class="font-mono text-xs text-emerald-300 bg-emerald-500/10 border border-emerald-400/25 px-3 py-1 rounded-full">
-          0 Active Codes
-        </span>
-      </div>
-
-      <div class="flex items-center gap-2.5 flex-wrap">
-        <input id="adminOrderCodeInput" type="text" oninput="renderAdminOrderCodeLookup()" placeholder="Enter code e.g. MNF-8K4P2..."
-          class="flex-1 min-w-[220px] rounded-xl bg-surface-container-low border border-white/15 px-4 py-2.5 text-xs font-mono uppercase text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
-        <button type="button" onclick="clearAdminOrderCodeInput()"
-          class="px-4 py-2.5 rounded-xl bg-surface-container-high border border-white/15 text-xs font-mono font-bold text-on-surface hover:border-emerald-400 transition">
-          Clear
-        </button>
-      </div>
-
-      <div id="adminOrderCodeResult" class="space-y-2.5"></div>
     </div>
 
     <!-- 2. Creators, Emails, Titles & Image Banners Management (Directly Below Order Code Lookup) -->
