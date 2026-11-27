@@ -1352,14 +1352,22 @@
     const ORDER_CODE_TTL_MS = 24 * 3600 * 1000;
     let supabaseOrderCodesCache = [];
 
-    async function fetchOrderCodesFromSupabase() {
-      try {
-        const { data, error } = await sb.from("order_codes").select("*");
-        if (!error && Array.isArray(data)) {
-          supabaseOrderCodesCache = data;
-        }
-      } catch {}
-    }
+    async function fetchOrderCodeFromSupabase(inputCode) {
+  const cleanCode = String(inputCode || "").trim().toUpperCase();
+  if (!cleanCode) return null;
+
+  const { data, error } = await sb
+    .from("order_codes")
+    .select("*")
+    .eq("code", cleanCode)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Error fetching order code:", error);
+    return null;
+  }
+  return data;
+}
 
     async function persistOrderCodeToSupabase(entry) {
   try {
