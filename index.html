@@ -1851,10 +1851,6 @@
       setInterval(() => {
         renderShowcase();
         if (activePortfolioCreatorId) renderCreatorPortfolio();
-        updateAllOrderCodeBadges();
-        if (isAdminUser() && !document.getElementById("adminPageView").classList.contains("hidden")) {
-          renderAdminOrderCodeLookup();
-        }
       }, 60000);
 
       const { data: { session } } = await sb.auth.getSession();
