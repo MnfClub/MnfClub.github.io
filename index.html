@@ -1362,30 +1362,51 @@
     }
 
     async function persistOrderCodeToSupabase(entry) {
-      try {
-        await sb.from("order_codes").insert({
-          code: entry.code,
-          buyer_label: entry.buyerLabel || "Buyer",
-          design_id: entry.designId,
-          design_title: entry.designTitle,
-          design_price: entry.designPrice,
-          design_category: entry.designCategory,
-          creator_id: entry.creatorId,
-          creator_name: entry.creatorName,
-          creator_discord: entry.creatorDiscord,
-          creator_badge: entry.creatorBadge,
-          created_at: new Date(entry.createdAt || Date.now()).toISOString(),
-          expires_at: new Date(entry.expiresAt || Date.now()).toISOString()
-        });
-        await fetchOrderCodesFromSupabase();
-      } catch {}
+  try {
+    const payload = {
+      code: entry.code,
+      design_id: String(entry.designId),
+      design_title: String(entry.designTitle || ""),
+      design_price: String(entry.designPrice ?? 0),
+      creator_id: entry.creatorId ? String(entry.creatorId) : null,
+      creator_name: String(entry.creatorName || "MNF Creator"),
+      creator_discord: String(entry.creatorDiscord || "N/A"),
+      created_at: new Date(entry.createdAt || Date.now()).toISOString(),
+      expires_at: new Date(entry.expiresAt || Date.now()).toISOString()
+    };
+
+    const { error } = await sb.from("order_codes").insert(payload);
+    if (error) {
+      console.error("Supabase order_codes insert error:", error.message, error);
+      return false;
     }
 
-    async function deleteOrderCodeFromSupabase(code) {
-      try {
-        await sb.from("order_codes").delete().eq("code", String(code).trim().toUpperCase());
-      } catch {}
+    if (typeof fetchOrderCodesFromSupabase === "function") {
+      await fetchOrderCodesFromSupabase();
     }
+    return true;
+  } catch (err) {
+    console.error("Unexpected error saving order code:", err);
+    return false;
+  }
+}
+
+async function deleteOrderCodeFromSupabase(code) {
+  try {
+    const cleanCode = String(code || "").trim().toUpperCase();
+    if (!cleanCode) return false;
+
+    const { error } = await sb.from("order_codes").delete().eq("code", cleanCode);
+    if (error) {
+      console.error("Supabase order_codes delete error:", error.message, error);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error("Unexpected error deleting order code:", err);
+    return false;
+  }
+}
 
     function getOrderCodesMap() {
       try {
