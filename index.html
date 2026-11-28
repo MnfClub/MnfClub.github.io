@@ -2192,13 +2192,13 @@
     function renderTitleGlowText(badge) {
       if (!badge || badge === "None") return "";
       if (badge === "Founder") {
-        return `<span class="text-xs title-text-founder">👑 Founder</span>`;
+        return `<span class="text-xs title-text-founder">👑Founder</span>`;
       }
       if (badge === "Trusted") {
-        return `<span class="text-xs title-text-trusted">✔ Trusted</span>`;
+        return `<span class="text-xs title-text-trusted">✔Trusted</span>`;
       }
       if (badge === "Designer") {
-        return `<span class="text-xs title-text-designer">✦ Designer</span>`;
+        return `<span class="text-xs title-text-designer">✦Designer</span>`;
       }
       return "";
     }
@@ -2914,7 +2914,7 @@
 
       const priorityTagHtml = isPriority
         ? `<div class="absolute top-2 left-2 z-10 px-2.5 py-0.5 rounded bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-mono text-[10px] font-black shadow-md">
-             👑 PRIORITY${priorityUntil !== Infinity ? ` • ${formatRemainingTime(priorityUntil)}` : ""}
+             Promoted${priorityUntil !== Infinity ? ` • ${formatRemainingTime(priorityUntil)}` : ""}
            </div>`
         : "";
 
