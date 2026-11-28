@@ -78,6 +78,8 @@
 
     /* Gold Priority Showcase & Cards */
     .priority-gold-banner {
+      position: relative;
+      z-index: 0;
       background: linear-gradient(145deg, rgba(42, 27, 4, 0.92), rgba(18, 22, 34, 0.92));
       border: 1.5px solid rgba(250, 204, 21, 0.65);
       box-shadow: 0 0 36px rgba(250, 204, 21, 0.18), inset 0 0 24px rgba(245, 158, 11, 0.08);
@@ -334,7 +336,7 @@
   <!-- Top Navigation Bar -->
   <nav class="bg-[#051424]/95 backdrop-blur-md sticky top-0 z-40 border-b border-white/10 shadow-sm">
     <div class="flex justify-between items-center px-4 md:px-8 py-3.5 max-w-7xl mx-auto w-full gap-3">
-      <a href="https://mnfclub.github.io" class="flex items-center gap-3 group shrink-0">
+      <a href="#" onclick="resetToAgeGate(event)" title="Refresh & re-verify age" class="flex items-center gap-3 group shrink-0">
         <img src="logo.jpg" alt="MNF DESIGNS" class="w-9 h-9 rounded-lg object-cover border border-secondary/30 shrink-0" onerror="this.style.display='none'" />
         <span class="text-xl font-black tracking-tight bg-gradient-to-r from-secondary to-tertiary bg-clip-text text-transparent group-hover:brightness-110 transition">
           MNF DESIGNS
@@ -438,7 +440,7 @@
           <div class="lg:col-span-8 space-y-8">
             <div id="portfolioPriorityWrap" class="hidden priority-gold-banner rounded-2xl p-5 space-y-4">
               <div class="flex items-center justify-between border-b border-amber-400/25 pb-2.5">
-                <h3 class="text-lg font-black text-amber-300">Promoted</h3>
+                <h3 class="text-lg font-black text-amber-300">👑 Creator Priority</h3>
                 <span id="portfolioPriorityCount" class="font-mono text-xs text-amber-200">0</span>
               </div>
               <div id="portfolioPriorityGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-5"></div>
@@ -556,22 +558,6 @@
               <input id="designDurationValue" type="number" min="1" max="365" value="2" placeholder="2"
                 class="w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 text-sm text-on-surface focus:border-tertiary focus:ring-0 outline-none" />
             </div>
-
-            <div>
-              <label class="block font-mono text-xs text-on-surface-variant mb-1">Download (Optional)</label>
-              <label class="flex items-center gap-2 w-full rounded-lg bg-surface-container-low border border-white/15 px-3 py-2 cursor-pointer hover:border-tertiary transition select-none">
-                <input id="allowDownload" type="checkbox" onchange="toggleDownloadInput()"
-                  class="rounded border-white/30 bg-surface-container accent-tertiary focus:ring-0 cursor-pointer" />
-                <span class="text-xs font-bold text-on-surface">Download</span>
-              </label>
-            </div>
-          </div>
-
-          <div id="downloadFilesWrap" class="hidden space-y-1">
-            <label class="block font-mono text-xs text-on-surface-variant mb-1">Downloadable Image(s)</label>
-            <input id="downloadImagesInput" type="file" accept="image/*" multiple
-              class="w-full text-xs text-on-surface-variant file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-tertiary/20 file:text-tertiary file:font-bold cursor-pointer" />
-            <span class="text-[10px] text-on-surface-variant block">Attach image(s) users can download for free (e.g. free designs). One or multiple images allowed.</span>
           </div>
 
           <div>
@@ -601,10 +587,10 @@
           <div class="space-y-1">
             <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-amber-400/15 border border-amber-300/40 text-amber-300 font-mono text-[11px] font-bold">
               <span>👑</span>
-              <span>Highlighted TOP PICKS</span>
+              <span>PROMOTED SPOTLIGHT • TOP PICKS</span>
             </div>
             <h2 class="text-2xl md:text-3xl font-black bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-500 bg-clip-text text-transparent">
-              Featured Designs
+              Promoted Designs
             </h2>
           </div>
           <span id="priorityCountLabel" class="font-mono text-xs text-amber-200/90 bg-amber-400/10 border border-amber-400/25 px-3 py-1 rounded-full">
@@ -649,32 +635,8 @@
       </button>
     </div>
 
-    <!-- 1. Buyer Order Code Lookup Bar (Top Position) -->
-    <div class="glass-card rounded-2xl p-5 border border-emerald-400/40 space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h3 class="text-base font-bold text-emerald-300">Buyer Order Code Lookup(NOT WORK)</h3>
-          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Enter any active 24h order code to inspect &amp; clear after sale.</p>
-        </div>
-        <span id="adminActiveOrderCodesBadge" class="font-mono text-xs text-emerald-300 bg-emerald-500/10 border border-emerald-400/25 px-3 py-1 rounded-full">
-          0 Active Codes
-        </span>
-      </div>
-
-      <div class="flex items-center gap-2.5 flex-wrap">
-        <input id="adminOrderCodeInput" type="text" oninput="renderAdminOrderCodeLookup()" placeholder="Enter code e.g. MNF-8K4P2..."
-          class="flex-1 min-w-[220px] rounded-xl bg-surface-container-low border border-white/15 px-4 py-2.5 text-xs font-mono uppercase text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
-        <button type="button" onclick="clearAdminOrderCodeInput()"
-          class="px-4 py-2.5 rounded-xl bg-surface-container-high border border-white/15 text-xs font-mono font-bold text-on-surface hover:border-emerald-400 transition">
-          Clear
-        </button>
-      </div>
-
-      <div id="adminOrderCodeResult" class="space-y-2.5"></div>
-    </div>
-
-    <!-- 2. Creators, Emails, Titles & Image Banners Management (Collapsible) -->
-    <div id="adminCreatorsSection" class="glass-card rounded-2xl p-6 border border-sky-400/30 space-y-4">
+    <!-- 2. Creators, Emails, Titles & Image Banners Management (Directly Below Order Code Lookup) -->
+    <div class="glass-card rounded-2xl p-6 border border-sky-400/30 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
         <h3 class="text-lg font-bold text-sky-300">Creators, Emails, Titles &amp; Image Banners</h3>
         <div class="flex items-center gap-3 flex-wrap">
@@ -708,12 +670,6 @@
         <span id="discountActiveBadge" class="px-2 py-0.5 rounded bg-black/40 text-[11px]">0 Active</span>
         <span id="discountToggleState" class="text-[11px] text-emerald-200/80">[Expand]</span>
       </button>
-
-      <button type="button" onclick="toggleAdminSection('creators')"
-        class="px-4 py-2.5 rounded-xl bg-sky-400/15 border border-sky-400/45 text-sky-300 font-mono text-xs font-black hover:bg-sky-400/25 transition flex items-center gap-2 cursor-pointer">
-        <span>Creators &amp; Banners</span>
-        <span id="creatorsToggleState" class="text-[11px] text-sky-200/80">[Hide]</span>
-      </button>
     </div>
 
     <!-- Collapsible Discount Section (1% to 100%) -->
@@ -746,8 +702,8 @@
     <div id="adminDesignsSection" class="hidden glass-card rounded-2xl p-6 border border-white/10 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
         <div>
-          <h3 class="text-lg font-bold text-secondary">All Designs &amp; Promoted Subscription</h3>
-          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Set Promoted duration in Hours or Days for paid/featured subscriptions.</p>
+          <h3 class="text-lg font-bold text-secondary">All Designs &amp; Priority Subscription</h3>
+          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Set Priority duration in Hours or Days for paid/featured subscriptions.</p>
         </div>
         <input id="adminDesignsSearchInput" type="text" oninput="renderAdminDashboard()" placeholder="Search design, category or creator..."
           class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-secondary focus:ring-0 outline-none" />
@@ -790,98 +746,6 @@
       <div id="adminMessagesQueueList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
   </section>
-
-  <!-- Dedicated Designer Mode View (Upgraded creators: Designer / Trusted / Founder) -->
-  <section id="designerModeView" class="hidden flex-1 max-w-7xl w-full mx-auto px-4 md:px-8 py-8 space-y-8">
-    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
-      <div>
-        <span class="font-mono text-xs uppercase tracking-wider text-tertiary">Creator Workspace</span>
-        <h2 class="text-2xl md:text-3xl font-black text-on-surface mt-1">Designer Mode</h2>
-      </div>
-      <button type="button" onclick="showShowcaseView()"
-        class="px-4 py-2 rounded-lg bg-surface-container-high border border-white/15 text-xs font-bold text-on-surface hover:border-secondary transition flex items-center gap-1.5">
-        <span class="material-symbols-outlined text-sm">arrow_back</span>
-        Back to Showcase
-      </button>
-    </div>
-
-    <!-- Buyer Order Code Lookup (designer's own designs only) -->
-    <div class="glass-card rounded-2xl p-5 border border-emerald-400/40 space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h3 class="text-base font-bold text-emerald-300">Buyer Order Code Lookup</h3>
-          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Order codes generated for your designs — enter any active 24h code to inspect &amp; clear after sale.</p>
-        </div>
-        <span id="designerActiveOrderCodesBadge" class="font-mono text-xs text-emerald-300 bg-emerald-500/10 border border-emerald-400/25 px-3 py-1 rounded-full">
-          0 Active
-        </span>
-      </div>
-
-      <div class="flex items-center gap-2.5 flex-wrap">
-        <input id="designerOrderCodeInput" type="text" oninput="renderDesignerOrderLookup()" placeholder="Enter code e.g. MNF-8K4P2..."
-          class="flex-1 min-w-[220px] rounded-xl bg-surface-container-low border border-white/15 px-4 py-2.5 text-xs font-mono uppercase text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
-        <button type="button" onclick="clearDesignerOrderCodeInput()"
-          class="px-4 py-2.5 rounded-xl bg-surface-container-high border border-white/15 text-xs font-mono font-bold text-on-surface hover:border-emerald-400 transition">
-          Clear
-        </button>
-      </div>
-
-      <div id="designerOrderCodeResult" class="space-y-2.5"></div>
-    </div>
-
-    <!-- Discount (1% - 100%) — own designs only -->
-    <div class="glass-card rounded-2xl p-6 border border-emerald-400/40 space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
-        <div>
-          <h3 class="text-lg font-bold text-emerald-300">Discount (1% - 100%)</h3>
-          <p class="text-xs text-on-surface-variant font-mono mt-0.5">Apply or remove discounts strictly on your own published designs.</p>
-        </div>
-        <input id="designerDiscountSearchInput" type="text" oninput="renderDesignerDiscountList()" placeholder="Search your design or category..."
-          class="rounded-lg bg-surface-container-low border border-white/15 px-3 py-1.5 text-xs font-mono text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
-      </div>
-      <div id="designerDiscountList" class="space-y-3"></div>
-    </div>
-  </section>
-
-  <!-- Order Lookup Side Drawer / Modal (For Designer / Trusted / Founder / Admin) -->
-  <div id="orderDrawerModal" onclick="closeOrderDrawerModal(event)"
-    class="fixed inset-0 z-50 hidden justify-end bg-black/75 backdrop-blur-sm">
-    <div onclick="event.stopPropagation()"
-      class="w-full max-w-md h-full bg-surface-container border-l border-emerald-400/40 p-6 overflow-y-auto custom-scrollbar flex flex-col justify-between gap-6 shadow-2xl">
-      <div class="space-y-5">
-        <div class="flex items-center justify-between border-b border-white/10 pb-3">
-          <div>
-            <div class="font-mono text-xs uppercase tracking-wider text-emerald-300 font-bold">Order Code Lookup</div>
-            <div class="text-[11px] font-mono text-on-surface-variant">Check buyer code &amp; clear after sale</div>
-          </div>
-          <button type="button" onclick="closeOrderDrawerModal()"
-            class="px-3 py-1 rounded-lg bg-surface-container-high text-xs text-on-surface hover:bg-white/10">
-            ✕ Close
-          </button>
-        </div>
-
-        <div class="flex items-center justify-between text-xs font-mono text-emerald-300">
-          <span>Active 24h Order Codes</span>
-          <span id="drawerActiveOrderCodesBadge">0 Active</span>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <input id="drawerOrderCodeInput" type="text" oninput="renderDrawerOrderCodeLookup()" placeholder="Enter code e.g. MNF-8K4P2..."
-            class="flex-1 rounded-xl bg-surface-container-low border border-white/15 px-3.5 py-2.5 text-xs font-mono uppercase text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
-          <button type="button" onclick="clearDrawerOrderCodeInput()"
-            class="px-3 py-2.5 rounded-xl bg-surface-container-high border border-white/15 text-xs font-mono font-bold text-on-surface hover:border-emerald-400 transition">
-            Clear
-          </button>
-        </div>
-
-        <div id="drawerOrderCodeResult" class="space-y-2.5"></div>
-      </div>
-
-      <div class="p-3 rounded-xl bg-surface-container-low border border-white/10 text-[11px] font-mono text-on-surface-variant">
-        Delete order codes after completing a sale to keep your list clean.
-      </div>
-    </div>
-  </div>
 
   <!-- Glowing Gold Bottom Button for Signed-In Users -->
   <button id="chatToAdminFab" type="button" onclick="openUserSupportChat()"
@@ -971,8 +835,9 @@
                 Pending
               </span>
               <span id="modalFeaturedBadge" class="hidden px-2.5 py-1 rounded-full bg-amber-400/20 border border-amber-400/50 text-amber-300 font-mono text-[11px] font-bold">
-                Promoted
-              
+                ★ Promoted
+              </span>
+            </div>
             <div class="flex items-center gap-1.5 flex-wrap">
               <button id="modalApproveBtn" type="button" onclick="adminApproveInspectedDesign()"
                 class="hidden px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
@@ -1006,10 +871,10 @@
 
           <p id="modalDesignDesc" class="text-sm text-on-surface-variant leading-relaxed"></p>
 
-          <!-- Tier-Glowing Creator Card + Profile & I want it Buttons -->
+          <!-- Tier-Glowing Creator Card + Profile Button -->
           <div id="modalCreatorCardBox" class="blue-neon-card rounded-xl p-4 space-y-2.5">
             <span class="font-mono text-[10px] text-sky-300 uppercase tracking-wider font-bold block">Creator Card</span>
-            <div class="flex items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center justify-between gap-3">
               <div class="flex items-center gap-3 min-w-0">
                 <img id="modalDesignerAvatar" src="logo.jpg" alt="Designer Avatar" class="w-12 h-12 rounded-xl object-cover border border-sky-400/70 shrink-0 bg-black/40" />
                 <div class="overflow-hidden space-y-1">
@@ -1021,19 +886,13 @@
                 </div>
               </div>
 
-              <div class="flex flex-col gap-1.5 shrink-0">
+              <div class="flex flex-row flex-wrap sm:flex-col gap-1.5 shrink-0">
                 <button id="creatorProfileBtn" type="button" onclick="openCreatorProfileFromInspector()"
                   class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md shadow-purple-400/30 cursor-pointer">
                   Profile
                 </button>
-                <button id="modalDownloadBtn" type="button" onclick="handleDownloadDesignImages()"
-                  class="hidden px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-400 via-cyan-300 to-teal-300 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md shadow-sky-400/30 cursor-pointer">
-                  Download
-                </button>
               </div>
             </div>
-
-            <div id="iWantItCopyNotice" class="hidden text-[11px] font-mono text-emerald-300 bg-black/40 border border-emerald-400/35 rounded-lg px-3 py-2 leading-relaxed"></div>
           </div>
         </div>
 
@@ -1111,7 +970,7 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-[#051424] text-on-surface border-t border-white/5 py-10 mt-14">
+  <footer id="siteFooter" class="bg-[#051424] text-on-surface border-t border-white/5 py-10 mt-14">
     <div class="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
       <div class="flex items-center gap-3">
         <img src="logo.jpg" alt="Logo" class="w-8 h-8 rounded-lg object-cover border border-secondary/30" onerror="this.style.display='none'" />
@@ -1236,17 +1095,8 @@
       return (dbPct >= 1 && dbPct <= 100) ? Math.round(dbPct) : 0;
     }
 
-    function canManageDesignDiscount(designId) {
-      if (isAdminUser()) return true;
-      if (!currentSessionUser) return false;
-      const badge = currentProfile?.badge || "None";
-      if (badge !== "Designer" && badge !== "Trusted" && badge !== "Founder") return false;
-      const item = allDesigns.find(d => String(d.id) === String(designId));
-      return Boolean(item && String(item.user_id) === String(currentSessionUser.id));
-    }
-
     async function applyDesignDiscount(designId, pct) {
-      if (!canManageDesignDiscount(designId)) return;
+      if (!isAdminUser()) return;
       const cleanPct = Math.min(100, Math.max(1, Math.round(Number(pct) || 0)));
       try {
         const map = getDiscountsMap();
@@ -1265,13 +1115,10 @@
         activeInspectedDesign.discount_percent = cleanPct;
         renderModalPriceBlock(activeInspectedDesign);
       }
-      if (!document.getElementById("designerModeView").classList.contains("hidden")) {
-        renderDesignerMode();
-      }
     }
 
     async function clearDesignDiscount(designId) {
-      if (!canManageDesignDiscount(designId)) return;
+      if (!isAdminUser()) return;
       try {
         const map = getDiscountsMap();
         delete map[String(designId)];
@@ -1288,9 +1135,6 @@
       if (activeInspectedDesign && String(activeInspectedDesign.id) === String(designId)) {
         activeInspectedDesign.discount_percent = 0;
         renderModalPriceBlock(activeInspectedDesign);
-      }
-      if (!document.getElementById("designerModeView").classList.contains("hidden")) {
-        renderDesignerMode();
       }
     }
 
@@ -1342,398 +1186,29 @@
       }
     }
 
-    // 24h Buyer Order Codes (Universal system: guests & signed-in users)
-    const ORDER_CODE_TTL_MS = 24 * 3600 * 1000;
-    let supabaseOrderCodesCache = [];
+    // ---------- Null-safe DOM helpers (never throw on missing elements) ----------
+    function elById(id) { return document.getElementById(id); }
+    function setText(id, value) { const n = elById(id); if (n) n.textContent = (value ?? ""); }
+    function setHtml(id, value) { const n = elById(id); if (n) n.innerHTML = (value ?? ""); }
+    function setSrc(id, value) { const n = elById(id); if (n && value) n.src = value; }
+    function setClass(id, className) { const n = elById(id); if (n) n.className = className; }
+    function showEl(id, visible) { const n = elById(id); if (n) n.classList.toggle("hidden", !visible); }
 
-    async function fetchOrderCodesFromSupabase() {
-      try {
-        const { data, error } = await sb.from("order_codes").select("*");
-        if (!error && Array.isArray(data)) {
-          supabaseOrderCodesCache = data;
-        }
-      } catch {}
+    function setSiteFooterVisible(visible) {
+      const footer = elById("siteFooter");
+      if (footer) footer.classList.toggle("hidden", !visible);
     }
 
-    async function persistOrderCodeToSupabase(entry) {
-      try {
-        await sb.from("order_codes").insert({
-          code: entry.code,
-          buyer_label: entry.buyerLabel || "Buyer",
-          design_id: entry.designId,
-          design_title: entry.designTitle,
-          design_price: entry.designPrice,
-          design_category: entry.designCategory,
-          creator_id: entry.creatorId,
-          creator_name: entry.creatorName,
-          creator_discord: entry.creatorDiscord,
-          creator_badge: entry.creatorBadge,
-          created_at: new Date(entry.createdAt || Date.now()).toISOString(),
-          expires_at: new Date(entry.expiresAt || Date.now()).toISOString()
-        });
-        await fetchOrderCodesFromSupabase();
-      } catch {}
-    }
-
-    async function deleteOrderCodeFromSupabase(code) {
-      try {
-        await sb.from("order_codes").delete().eq("code", String(code).trim().toUpperCase());
-      } catch {}
-    }
-
-    function getOrderCodesMap() {
-      try {
-        const raw = JSON.parse(localStorage.getItem("mnf_order_codes") || "{}");
-        const now = Date.now();
-        const cleaned = {};
-        let changed = false;
-        Object.entries(raw).forEach(([code, entry]) => {
-          if (entry && entry.expiresAt && entry.expiresAt > now) {
-            cleaned[code] = entry;
-          } else {
-            changed = true;
-          }
-        });
-        if (changed) {
-          localStorage.setItem("mnf_order_codes", JSON.stringify(cleaned));
-        }
-        return cleaned;
-      } catch {
-        return {};
-      }
-    }
-
-    function saveOrderCodesMap(map) {
-      try {
-        localStorage.setItem("mnf_order_codes", JSON.stringify(map));
-      } catch {}
-    }
-
-    function generateRandomOrderCode() {
-      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-      let token = "";
-      for (let i = 0; i < 6; i++) {
-        token += chars[Math.floor(Math.random() * chars.length)];
-      }
-      return `MNF-${token}`;
-    }
-
-    function createOrderCodeForDesign(design, creator) {
-      const map = getOrderCodesMap();
-      let code = generateRandomOrderCode();
-      while (map[code]) {
-        code = generateRandomOrderCode();
-      }
-
-      const now = Date.now();
-      const isSignedIn = Boolean(currentSessionUser);
-      const entry = {
-        code,
-        buyerSignedIn: isSignedIn,
-        buyerLabel: isSignedIn ? (currentProfile?.display_name || currentSessionUser.email || "Signed-In User") : "Buyer",
-        designId: design.id,
-        designTitle: design.title,
-        designPrice: design.price,
-        designCategory: design.category,
-        creatorId: design.user_id,
-        creatorName: creator?.display_name || "MNF Creator",
-        creatorDiscord: creator?.contact || "N/A",
-        creatorBadge: creator?.badge || "None",
-        createdAt: now,
-        expiresAt: now + ORDER_CODE_TTL_MS
-      };
-
-      map[code] = entry;
-      saveOrderCodesMap(map);
-      updateAllOrderCodeBadges();
-      persistOrderCodeToSupabase(entry);
-      return entry;
-    }
-
-    function deleteOrderCode(code) {
-      if (!code) return;
-      const key = String(code).trim().toUpperCase();
-      const map = getOrderCodesMap();
-      if (map[key]) {
-        delete map[key];
-        saveOrderCodesMap(map);
-      }
-      supabaseOrderCodesCache = (supabaseOrderCodesCache || []).filter(r => String(r.code).toUpperCase() !== key);
-      deleteOrderCodeFromSupabase(key);
-      updateAllOrderCodeBadges();
-      renderAdminOrderCodeLookup();
-      renderDrawerOrderCodeLookup();
-      renderDesignerOrderLookup();
-    }
-
-    function normalizeSupabaseOrderRow(row) {
-      return {
-        code: row.code,
-        buyerSignedIn: true,
-        buyerLabel: row.buyer_label || "Buyer",
-        designId: row.design_id,
-        designTitle: row.design_title || "",
-        designPrice: Number(row.design_price ?? 0),
-        designCategory: row.design_category || "",
-        creatorId: row.creator_id,
-        creatorName: row.creator_name || "",
-        creatorDiscord: row.creator_discord || "",
-        creatorBadge: row.creator_badge || "None",
-        createdAt: row.created_at ? new Date(row.created_at).getTime() : Date.now(),
-        expiresAt: row.expires_at ? new Date(row.expires_at).getTime() : 0,
-        fromSupabase: true
-      };
-    }
-
-    function getAllOrderEntriesMap() {
-      const map = { ...getOrderCodesMap() };
-      (supabaseOrderCodesCache || []).forEach(row => {
-        if (!row || !row.code || map[row.code]) return;
-        const exp = row.expires_at ? new Date(row.expires_at).getTime() : 0;
-        if (exp && exp <= Date.now()) return;
-        map[row.code] = normalizeSupabaseOrderRow(row);
-      });
-      return map;
-    }
-
-    function getOrderEntriesList(creatorId = null) {
-      return Object.values(getAllOrderEntriesMap())
-        .filter(e => !creatorId || String(e.creatorId) === String(creatorId))
-        .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-    }
-
-    function updateAllOrderCodeBadges() {
-      const activeCount = getOrderEntriesList().length;
-      const adminBadge = document.getElementById("adminActiveOrderCodesBadge");
-      const drawerBadge = document.getElementById("drawerActiveOrderCodesBadge");
-      const designerBadge = document.getElementById("designerActiveOrderCodesBadge");
-      if (adminBadge) adminBadge.textContent = `${activeCount} Active Codes`;
-      if (drawerBadge) drawerBadge.textContent = `${activeCount} Active`;
-      if (designerBadge && currentSessionUser) {
-        designerBadge.textContent = `${getOrderEntriesList(currentSessionUser.id).length} Active`;
-      }
-    }
-
-    function clearAdminOrderCodeInput() {
-      const input = document.getElementById("adminOrderCodeInput");
-      if (input) input.value = "";
-      renderAdminOrderCodeLookup();
-    }
-
-    function clearDrawerOrderCodeInput() {
-      const input = document.getElementById("drawerOrderCodeInput");
-      if (input) input.value = "";
-      renderDrawerOrderCodeLookup();
-    }
-
-    function buildSingleOrderCodeCardHtml(entry) {
-      const liveDesign = allDesigns.find(d => String(d.id) === String(entry.designId));
-      const liveCreator = profilesMap[entry.creatorId] || {};
-      const titleText = liveDesign?.title || entry.designTitle;
-      const creatorName = liveCreator.display_name || entry.creatorName;
-      const creatorDiscord = liveCreator.contact || entry.creatorDiscord;
-      const priceVal = Number(liveDesign?.price ?? entry.designPrice ?? 0).toLocaleString();
-      const thumbSrc = liveDesign?.thumb_url || liveCreator.avatar_url || "logo.jpg";
-
-      return `
-        <div class="bg-surface-container-low border border-emerald-400/50 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
-          <div class="flex items-center gap-3.5 min-w-0">
-            <img src="${thumbSrc}" alt="${escapeHtml(titleText)}" class="w-14 h-14 rounded-xl object-cover border border-emerald-400/40 shrink-0 bg-black/40" />
-            <div class="space-y-1 min-w-0">
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="px-2.5 py-0.5 rounded bg-emerald-400/20 border border-emerald-400/40 text-emerald-300 font-mono text-xs font-black">${escapeHtml(entry.code)}</span>
-                <span class="font-bold text-sm text-on-surface truncate">${toStylishDesignTitle(titleText)}</span>
-                <span class="text-xs font-mono text-secondary">${priceVal} cash mnfclub</span>
-              </div>
-              <div class="text-xs font-mono text-sky-300 truncate">
-                Creator: ${escapeHtml(creatorName)} • Discord: ${escapeHtml(creatorDiscord)}
-              </div>
-              <div class="text-[11px] font-mono text-on-surface-variant">
-                Expires in: ${formatRemainingTime(entry.expiresAt)}
-              </div>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2">
-            ${liveDesign ? `<button type="button" onclick="openInspectorModalById('${liveDesign.id}')" class="px-3 py-2 rounded-xl bg-surface-container-high border border-white/15 text-xs font-mono font-bold text-on-surface hover:border-emerald-400 transition">View Design</button>` : ""}
-            <button type="button" onclick="deleteOrderCode('${escapeHtml(entry.code)}')"
-              class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-mono text-xs font-black transition">
-              Delete After Sale
-            </button>
-          </div>
-        </div>
-      `;
-    }
-
-    function buildOrderLookupHtml(rawQuery, options = {}) {
-      const creatorId = options.creatorId || null;
-      const query = String(rawQuery || "").trim().toUpperCase();
-      const map = getAllOrderEntriesMap();
-
-      if (query) {
-        const entry = map[query];
-        if (!entry || (creatorId && String(entry.creatorId) !== String(creatorId))) {
-          return `
-            <div class="bg-surface-container-low border border-red-500/30 rounded-xl p-4 text-xs font-mono text-red-300">
-              No active 24h order code found for "${escapeHtml(query)}".
-            </div>
-          `;
-        }
-        return buildSingleOrderCodeCardHtml(entry);
-      }
-
-      const entries = getOrderEntriesList(creatorId);
-      if (entries.length === 0) {
-        return `
-          <div class="bg-surface-container-low border border-white/10 rounded-xl p-3.5 text-xs font-mono text-on-surface-variant">
-            No active order codes right now.
-          </div>
-        `;
-      }
-
-      return entries.map(buildSingleOrderCodeCardHtml).join("");
-    }
-
-    function renderAdminOrderCodeLookup() {
-      const resultBox = document.getElementById("adminOrderCodeResult");
-      const input = document.getElementById("adminOrderCodeInput");
-      if (!resultBox || !input) return;
-
-      updateAllOrderCodeBadges();
-      resultBox.innerHTML = buildOrderLookupHtml(input.value);
-    }
-
-    function renderDrawerOrderCodeLookup() {
-      const resultBox = document.getElementById("drawerOrderCodeResult");
-      const input = document.getElementById("drawerOrderCodeInput");
-      if (!resultBox || !input) return;
-
-      updateAllOrderCodeBadges();
-      resultBox.innerHTML = buildOrderLookupHtml(input.value);
-    }
-
-    function openOrderDrawerModal() {
-      if (!canAccessOrderDrawer()) return;
-      updateAllOrderCodeBadges();
-      renderDrawerOrderCodeLookup();
-      const modal = document.getElementById("orderDrawerModal");
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-    }
-
-    function closeOrderDrawerModal(e) {
-      if (!e || e.target.id === "orderDrawerModal") {
-        const modal = document.getElementById("orderDrawerModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      }
-    }
-
-    function canAccessDesignerMode() {
-      if (!currentSessionUser || isAdminUser()) return false;
-      const badge = currentProfile?.badge || "None";
-      return badge === "Designer" || badge === "Trusted" || badge === "Founder";
-    }
-
-    async function openDesignerMode() {
-      if (!canAccessDesignerMode()) return;
+    // Logo click: clean refresh back into the +18 age gate (same tab)
+    function resetToAgeGate(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      try { sessionStorage.removeItem("mnf_age_18_ok"); } catch {}
+      closeInspectorModal();
       closePanels();
-      document.getElementById("mainShowcaseWrapper").classList.add("hidden");
-      document.getElementById("adminPageView").classList.add("hidden");
-      const view = document.getElementById("designerModeView");
-      view.classList.remove("hidden");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      await fetchOrderCodesFromSupabase();
-      updateAllOrderCodeBadges();
-      renderDesignerMode();
-    }
-
-    function renderDesignerMode() {
-      renderDesignerOrderLookup();
-      renderDesignerDiscountList();
-    }
-
-    function clearDesignerOrderCodeInput() {
-      const input = document.getElementById("designerOrderCodeInput");
-      if (input) input.value = "";
-      renderDesignerOrderLookup();
-    }
-
-    function renderDesignerOrderLookup() {
-      const resultBox = document.getElementById("designerOrderCodeResult");
-      const input = document.getElementById("designerOrderCodeInput");
-      if (!resultBox || !input || !currentSessionUser) return;
-      updateAllOrderCodeBadges();
-      resultBox.innerHTML = buildOrderLookupHtml(input.value, { creatorId: currentSessionUser.id });
-    }
-
-    function renderDesignerDiscountList() {
-      const container = document.getElementById("designerDiscountList");
-      if (!container || !currentSessionUser) return;
-      const query = (document.getElementById("designerDiscountSearchInput")?.value || "").trim().toLowerCase();
-
-      const myDesigns = allDesigns
-        .filter(d => String(d.user_id) === String(currentSessionUser.id))
-        .filter(d => !query || (d.title || "").toLowerCase().includes(query) || (d.category || "").toLowerCase().includes(query))
-        .sort((a, b) => {
-          const discA = getDesignDiscountPercent(a) > 0 ? 1 : 0;
-          const discB = getDesignDiscountPercent(b) > 0 ? 1 : 0;
-          if (discB !== discA) return discB - discA;
-          return compareDesignsByStarsAndAlphabet(a, b);
-        });
-
-      if (myDesigns.length === 0) {
-        container.innerHTML = `<div class="text-xs text-on-surface-variant font-mono p-4 bg-surface-container-low rounded-xl">No published designs found for your account yet.</div>`;
-        return;
-      }
-
-      container.innerHTML = myDesigns.map(item => {
-        const orig = Math.max(0, Number(item.price) || 0);
-        const pct = getDesignDiscountPercent(item);
-        const finalPrice = computeDiscountedPrice(orig, pct);
-        return `
-          <div class="bg-surface-container-low border ${pct > 0 ? "border-emerald-400/60" : "border-emerald-400/20"} rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-              <img src="${item.thumb_url}" alt="${escapeHtml(item.title)}" class="w-12 h-12 rounded-lg object-cover border border-emerald-400/30 shrink-0 bg-black/40" />
-              <div class="min-w-0 space-y-0.5">
-                <div class="font-bold text-sm text-on-surface truncate">${toStylishDesignTitle(item.title)} <span class="text-xs font-mono text-secondary">(${item.category})</span></div>
-                <div class="text-[11px] font-mono text-on-surface-variant truncate">Original: ${orig.toLocaleString()} cash mnfclub</div>
-                ${pct > 0 ? `<div class="text-xs font-mono flex items-center gap-1.5"><span class="font-black text-white">${finalPrice.toLocaleString()}</span><span class="line-through text-on-surface-variant">${orig.toLocaleString()}</span><span class="font-black text-emerald-400">${pct}%</span></div>` : `<div class="text-[11px] font-mono text-on-surface-variant">No discount</div>`}
-              </div>
-            </div>
-
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <input id="designerDiscountPct_${item.id}" type="number" min="1" max="100" value="${pct || 50}" placeholder="1-100"
-                class="w-20 rounded-lg bg-surface-container border border-white/15 px-2.5 py-1 text-xs font-mono text-on-surface focus:border-emerald-400 focus:ring-0 outline-none" />
-              <span class="font-mono text-xs text-emerald-300 font-bold">%</span>
-              <button type="button" onclick="applyDesignDiscount('${item.id}', document.getElementById('designerDiscountPct_${item.id}').value)"
-                class="px-3 py-1 rounded-lg bg-emerald-400 text-slate-950 font-mono text-xs font-black hover:bg-emerald-300 transition">
-                Apply
-              </button>
-              ${pct > 0 ? `<button type="button" onclick="clearDesignDiscount('${item.id}')" class="px-2.5 py-1 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 font-mono text-xs font-bold">Remove</button>` : ""}
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    async function handleIWantItClick() {
-      if (!activeInspectedDesign) return;
-      const noticeEl = document.getElementById("iWantItCopyNotice");
-      const entry = createOrderCodeForDesign(activeInspectedDesign, activeInspectedCreator);
-
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(entry.code);
-        }
-      } catch {}
-
-      if (noticeEl) {
-        noticeEl.classList.remove("hidden");
-        noticeEl.innerHTML = `
-          Code <span class="text-amber-300 font-black">${entry.code}</span> copied! Send this code on <span class="text-sky-300 font-bold">Discord</span> to claim this design (24h).
-        `;
-      }
+      if (activePortfolioCreatorId) closeCreatorPortfolioView();
+      showShowcaseView();
+      window.scrollTo({ top: 0, behavior: "auto" });
+      initAgeGate();
     }
 
     // Creator Profile Showcase & Short Link
@@ -2102,101 +1577,16 @@
       return list;
     }
 
-    function getLocalDownloadMap() {
-      try {
-        return JSON.parse(localStorage.getItem("mnf_design_downloads") || "{}");
-      } catch {
-        return {};
-      }
-    }
-
-    function saveLocalDownloadUrls(designId, urls) {
-      if (!designId || !Array.isArray(urls) || urls.length === 0) return;
-      try {
-        const map = getLocalDownloadMap();
-        map[String(designId)] = urls;
-        localStorage.setItem("mnf_design_downloads", JSON.stringify(map));
-      } catch {}
-    }
-
-    function getDesignDownloadUrls(item) {
-      if (!item) return [];
-      const list = [];
-      const addUrl = (u) => {
-        if (typeof u === "string" && u.trim() && !list.includes(u.trim())) {
-          list.push(u.trim());
-        }
-      };
-      if (Array.isArray(item.download_urls)) {
-        item.download_urls.forEach(addUrl);
-      } else if (typeof item.download_urls === "string" && item.download_urls.trim()) {
-        try {
-          const parsed = JSON.parse(item.download_urls);
-          if (Array.isArray(parsed)) parsed.forEach(addUrl);
-        } catch {}
-      }
-      const localMap = getLocalDownloadMap();
-      if (item.id && Array.isArray(localMap[String(item.id)])) {
-        localMap[String(item.id)].forEach(addUrl);
-      }
-      return list;
-    }
-
-    function getFileExtensionFromUrl(url, fallback = "jpg") {
-      try {
-        const clean = String(url).split("?")[0];
-        const ext = clean.split(".").pop().toLowerCase();
-        return /^[a-z0-9]{2,5}$/.test(ext) ? ext : fallback;
-      } catch {
-        return fallback;
-      }
-    }
-
-    async function downloadSingleImage(url, index) {
-      const designId = activeInspectedDesign ? String(activeInspectedDesign.id).replace(/[^a-zA-Z0-9_-]/g, "") : "file";
-      const baseName = `mnf-design-${designId}-${index + 1}`;
-      try {
-        const res = await fetch(url, { mode: "cors" });
-        if (!res.ok) throw new Error("fetch failed");
-        const blob = await res.blob();
-        const ext = blob.type && blob.type.includes("/")
-          ? blob.type.split("/")[1].replace("jpeg", "jpg")
-          : getFileExtensionFromUrl(url);
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = `${baseName}.${ext}`;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-      } catch {
-        window.open(url, "_blank", "noopener");
-      }
-    }
-
-    async function handleDownloadDesignImages() {
-      if (!activeInspectedDesign) return;
-      const urls = getDesignDownloadUrls(activeInspectedDesign);
-      if (urls.length === 0) return;
-      const btn = document.getElementById("modalDownloadBtn");
-      if (btn) btn.disabled = true;
-      for (let i = 0; i < urls.length; i++) {
-        await downloadSingleImage(urls[i], i);
-        await new Promise(r => setTimeout(r, 350));
-      }
-      if (btn) btn.disabled = false;
-    }
-
     function renderTitleGlowText(badge) {
       if (!badge || badge === "None") return "";
       if (badge === "Founder") {
-        return `<span class="text-xs title-text-founder">Founder</span>`;
+        return `<span class="text-xs title-text-founder">👑 Founder</span>`;
       }
       if (badge === "Trusted") {
-        return `<span class="text-xs title-text-trusted">Trusted</span>`;
+        return `<span class="text-xs title-text-trusted">✔ Trusted</span>`;
       }
       if (badge === "Designer") {
-        return `<span class="text-xs title-text-designer">Designer</span>`;
+        return `<span class="text-xs title-text-designer">✦ Designer</span>`;
       }
       return "";
     }
@@ -2320,7 +1710,7 @@
     let modalSlideIndex = 0;
     let activeChatThreadUserId = null;
     let requireAdminApproval = localStorage.getItem("mnf_require_approval") === "true";
-    let adminSectionsOpen = { stars: false, designs: false, discount: false, creators: true };
+    let adminSectionsOpen = { stars: false, designs: false, discount: false };
 
     function isAdminUser() {
       return Boolean(
@@ -2331,13 +1721,6 @@
 
     function hasBypassApproval(badge) {
       return isAdminUser() || badge === "Founder" || badge === "Trusted" || badge === "Designer";
-    }
-
-    function canAccessOrderDrawer() {
-      if (!currentSessionUser) return false;
-      if (isAdminUser()) return true;
-      const badge = currentProfile?.badge || "None";
-      return badge === "Designer" || badge === "Trusted" || badge === "Founder";
     }
 
     function hasPendingApprovals() {
@@ -2402,14 +1785,6 @@
       }
     }
 
-    function toggleDownloadInput() {
-      const checked = document.getElementById("allowDownload")?.checked;
-      const wrap = document.getElementById("downloadFilesWrap");
-      const input = document.getElementById("downloadImagesInput");
-      if (wrap) wrap.classList.toggle("hidden", !checked);
-      if (!checked && input) input.value = "";
-    }
-
     function handleHeroPublishClick() {
       if (!currentSessionUser) {
         signInWithGoogle();
@@ -2423,9 +1798,7 @@
       setupCategorySelects();
       renderCategoryFilters();
       updateApprovalModeUI();
-      updateAllOrderCodeBadges();
       await fetchShowcaseData();
-      await fetchOrderCodesFromSupabase();
       checkHashCreatorRoute();
 
       window.addEventListener("hashchange", checkHashCreatorRoute);
@@ -2433,11 +1806,6 @@
       setInterval(() => {
         renderShowcase();
         if (activePortfolioCreatorId) renderCreatorPortfolio();
-        fetchOrderCodesFromSupabase();
-        updateAllOrderCodeBadges();
-        if (isAdminUser() && !document.getElementById("adminPageView").classList.contains("hidden")) {
-          renderAdminOrderCodeLookup();
-        }
       }, 60000);
 
       const { data: { session } } = await sb.auth.getSession();
@@ -2518,13 +1886,6 @@
         const displayName = currentProfile?.display_name || "Creator";
         const avatarUrl = currentProfile?.avatar_url || "logo.jpg";
         const hasUnreadAdmin = isAdminUser() && hasAdminRedDotAlert();
-        const showModeBtn = canAccessDesignerMode();
-        const modeBtnHtml = showModeBtn
-          ? `<button type="button" onclick="openDesignerMode()"
-               class="px-4 py-1.5 rounded-full bg-gradient-to-r from-tertiary to-sky-300 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md">
-               Mode
-             </button>`
-          : "";
         const adminBtnHtml = isAdminUser()
           ? `<button type="button" onclick="openAdminPage()"
                class="relative px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition shadow-md">
@@ -2539,7 +1900,6 @@
             Publish
           </button>
 
-          ${modeBtnHtml}
           ${adminBtnHtml}
 
           <button type="button" onclick="openPanel('profileCardPanel')"
@@ -2568,7 +1928,6 @@
       if (!isAdminUser()) return;
       closePanels();
       document.getElementById("mainShowcaseWrapper").classList.add("hidden");
-      document.getElementById("designerModeView").classList.add("hidden");
       document.getElementById("adminPageView").classList.remove("hidden");
       window.scrollTo({ top: 0, behavior: "smooth" });
       renderAdminDashboard();
@@ -2577,7 +1936,6 @@
 
     function showShowcaseView() {
       document.getElementById("adminPageView").classList.add("hidden");
-      document.getElementById("designerModeView").classList.add("hidden");
       document.getElementById("mainShowcaseWrapper").classList.remove("hidden");
     }
 
@@ -2740,18 +2098,9 @@
       }
 
       btn.disabled = true;
-
-      const allowDownload = document.getElementById("allowDownload")?.checked;
-      const downloadFiles = document.getElementById("downloadImagesInput")?.files;
+      msg.textContent = `Uploading ${imgFiles.length} image(s)...`;
 
       try {
-        let downloadUrls = [];
-        if (allowDownload && downloadFiles && downloadFiles.length > 0) {
-          msg.textContent = `Uploading ${imgFiles.length} image(s) + ${downloadFiles.length} download file(s)...`;
-          downloadUrls = await uploadMultipleMedia(downloadFiles, "downloads");
-        } else {
-          msg.textContent = `Uploading ${imgFiles.length} image(s)...`;
-        }
         const imageUrls = await uploadMultipleMedia(imgFiles, "designs");
         const creatorBadge = currentProfile?.badge || "None";
         const initialStatus = (requireAdminApproval && !hasBypassApproval(creatorBadge))
@@ -2774,15 +2123,13 @@
         let insertRes = await sb.from("designs").insert({
           ...basePayload,
           gallery_urls: imageUrls,
-          download_urls: downloadUrls.length ? downloadUrls : null,
           expires_at: expiresAtIso
         }).select();
 
         if (insertRes.error) {
           insertRes = await sb.from("designs").insert({
             ...basePayload,
-            gallery_urls: imageUrls,
-            download_urls: downloadUrls.length ? downloadUrls : null
+            gallery_urls: imageUrls
           }).select();
           if (insertRes.error) {
             insertRes = await sb.from("designs").insert({
@@ -2803,7 +2150,6 @@
         const insertedRow = Array.isArray(insertRes.data) ? insertRes.data[0] : insertRes.data;
         if (insertedRow && insertedRow.id) {
           saveLocalGallery(insertedRow.id, imageUrls);
-          if (downloadUrls.length) saveLocalDownloadUrls(insertedRow.id, downloadUrls);
           setDesignStarsLocal(insertedRow.id, 0);
           if (expiresAtIso) {
             setDesignTimerMeta(insertedRow.id, { listingExpiresAt: expiresAtIso });
@@ -2812,7 +2158,6 @@
 
         document.getElementById("uploadDesignForm").reset();
         toggleDurationValueInput();
-        toggleDownloadInput();
 
         const timerNote = expiresAtIso ? ` • Active for ${durationVal} ${durationUnit}` : "";
         msg.textContent = initialStatus === "pending"
@@ -2899,7 +2244,6 @@
       const styledDesc = toSansBold(item.description);
       const isPriority = isDesignPriorityActive(item);
       const priorityUntil = getEffectivePriorityUntil(item);
-      const expiresAt = getEffectiveListingExpiresAt(item);
       const starsCount = getDesignStarsCount(item);
       const isStarred = hasUserStarredDesign(item.id);
       const imgs = getDesignImages(item);
@@ -2912,13 +2256,10 @@
 
       const priorityTagHtml = isPriority
         ? `<div class="absolute top-2 left-2 z-10 px-2.5 py-0.5 rounded bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 text-slate-950 font-mono text-[10px] font-black shadow-md">
-             Promoted${priorityUntil !== Infinity ? ` • ${formatRemainingTime(priorityUntil)}` : ""}
+             👑 PROMOTED${priorityUntil !== Infinity ? ` • ${formatRemainingTime(priorityUntil)}` : ""}
            </div>`
         : "";
 
-      const expiryTagHtml = (showExpiryBadge && expiresAt > 0)
-  ? `<div class="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-sky-400/15 border border-sky-400/35 text-sky-300 font-mono text-[10px] font-bold">⏳ ${formatRemainingTime(expiresAt)}</div>`
-  : "";
       const galleryControlsHtml = imgs.length > 1
         ? `
           <button type="button" onclick="flipCardPhoto(event, '${item.id}', -1)" title="Previous photo"
@@ -2962,7 +2303,6 @@
               </button>
             </div>
             <div class="text-xs text-on-surface-variant line-clamp-2">${styledDesc}</div>
-            ${expiryTagHtml}
           </div>
         </div>
 
@@ -3086,20 +2426,16 @@
       const starsSec = document.getElementById("adminStarsSection");
       const designsSec = document.getElementById("adminDesignsSection");
       const discountSec = document.getElementById("adminDiscountSection");
-      const creatorsSec = document.getElementById("adminCreatorsSection");
       const starsState = document.getElementById("starsToggleState");
       const designsState = document.getElementById("designsToggleState");
       const discountState = document.getElementById("discountToggleState");
-      const creatorsState = document.getElementById("creatorsToggleState");
 
       if (starsSec) starsSec.classList.toggle("hidden", !adminSectionsOpen.stars);
       if (designsSec) designsSec.classList.toggle("hidden", !adminSectionsOpen.designs);
       if (discountSec) discountSec.classList.toggle("hidden", !adminSectionsOpen.discount);
-      if (creatorsSec) creatorsSec.classList.toggle("hidden", !adminSectionsOpen.creators);
       if (starsState) starsState.textContent = adminSectionsOpen.stars ? "[Hide]" : "[Expand]";
       if (designsState) designsState.textContent = adminSectionsOpen.designs ? "[Hide]" : "[Expand]";
       if (discountState) discountState.textContent = adminSectionsOpen.discount ? "[Hide]" : "[Expand]";
-      if (creatorsState) creatorsState.textContent = adminSectionsOpen.creators ? "[Hide]" : "[Expand]";
     }
 
     // Support & Mutual Chat Logic
@@ -3313,7 +2649,6 @@
       if (!isAdminUser()) return;
 
       syncAdminSectionsVisibility();
-      renderAdminOrderCodeLookup();
 
       const pendingItems = allDesigns.filter(d => d.status === "pending");
       const starsQuery = (document.getElementById("adminStarsSearchInput")?.value || "").trim().toLowerCase();
@@ -3522,58 +2857,59 @@
         const extras = getCreatorExtras(item.user_id);
         const isFeat = isDesignPriorityActive(item);
         const priorityUntil = getEffectivePriorityUntil(item);
-        const expiresAt = getEffectiveListingExpiresAt(item);
         const stars = getDesignStarsCount(item);
 
         return `
           <div class="bg-surface-container-low border ${isFeat ? "border-amber-400/70" : "border-white/10"} rounded-xl p-4 flex flex-col justify-between gap-3">
-  <div class="space-y-2">
-    <div class="relative rounded-lg overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
-      <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-32 object-cover bg-black/40" />
-      ${renderLuxuryBannerTag(extras.banner)}
-    </div>
-    <div class="flex items-center justify-between gap-2">
-      <span class="font-bold text-sm text-on-surface truncate">${item.title}</span>
-      <span class="font-mono text-xs text-yellow-300 font-bold shrink-0">★ ${stars}</span>
-    </div>
-    <div class="text-xs font-mono text-secondary">${Number(item.price).toLocaleString()} cash mnfclub • ${item.category}</div>
-    <div class="text-[11px] font-mono text-on-surface-variant truncate">${creator.display_name} (${creator.email || "N/A"})</div>
-    ${isFeat ? `<div class="text-[11px] font-mono text-amber-300">Promoted Active${priorityUntil !== Infinity ? ` (${formatRemainingTime(priorityUntil)})` : " (Permanent)"}</div>` : ""}
-  </div>
+            <div class="space-y-2">
+              <div class="relative rounded-lg overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
+                <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-32 object-cover bg-black/40" />
+                ${renderLuxuryBannerTag(extras.banner)}
+              </div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-bold text-sm text-on-surface truncate">${item.title}</span>
+                <span class="font-mono text-xs text-yellow-300 font-bold shrink-0">★ ${stars}</span>
+              </div>
+              <div class="text-xs font-mono text-secondary">${Number(item.price).toLocaleString()} cash mnfclub • ${item.category}</div>
+              <div class="text-[11px] font-mono text-on-surface-variant truncate">${creator.display_name} (${creator.email || "N/A"})</div>
+              ${isFeat ? `<div class="text-[11px] font-mono text-amber-300">👑 Promoted${priorityUntil !== Infinity ? ` (${formatRemainingTime(priorityUntil)})` : " (Permanent)"}</div>` : ""}
+            </div>
 
-  <div class="space-y-2 pt-2 border-t border-white/5">
-    <div class="flex items-center gap-1.5">
-      <input id="prioVal_${item.id}" type="number" min="1" max="365" value="24"
-        class="w-16 rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-amber-400 focus:ring-0 outline-none" />
-      <select id="prioUnit_${item.id}"
-        class="rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-amber-400 focus:ring-0 outline-none">
-        <option value="hours">Hours</option>
-        <option value="days" selected>Days</option>
-      </select>
-      <button type="button" onclick="adminGrantPrioritySubscription('${item.id}')"
-        class="flex-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-300 to-amber-500 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition">
-        Promoted
-      </button>
-    </div>
+            <div class="space-y-2 pt-2 border-t border-white/5">
+              <div class="flex items-center gap-1.5">
+                <input id="prioVal_${item.id}" type="number" min="1" max="365" value="24"
+                  class="w-16 rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-amber-400 focus:ring-0 outline-none" />
+                <select id="prioUnit_${item.id}"
+                  class="rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-amber-400 focus:ring-0 outline-none">
+                  <option value="hours">Hours</option>
+                  <option value="days" selected>Days</option>
+                </select>
+                <button type="button" onclick="adminGrantPrioritySubscription('${item.id}')"
+                  class="flex-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-300 to-amber-500 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition">
+                  👑 Set Priority
+                </button>
+              </div>
 
-    <div class="flex items-center gap-1.5 flex-wrap">
-      ${isFeat ? `
-        <button type="button" onclick="adminClearPriority('${item.id}')"
-          class="px-2.5 py-1 rounded-lg bg-surface-container-high border border-amber-400/35 text-amber-300 font-mono text-xs font-bold">
-          Stop Promoted
-        </button>
-      ` : ""}
-      <button type="button" onclick="openInspectorModalById('${item.id}')"
-        class="px-2.5 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-tertiary text-xs font-bold">
-        Inspect / Edit
-      </button>
-      <button type="button" onclick="adminDeleteDesign('${item.id}')"
-        class="px-2.5 py-1 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 text-xs font-bold">
-        Remove
-      </button>
-    </div>
-  </div>
-</div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                ${isFeat ? `
+                  <button type="button" onclick="adminClearPriority('${item.id}')"
+                    class="px-2.5 py-1 rounded-lg bg-surface-container-high border border-amber-400/35 text-amber-300 font-mono text-xs font-bold">
+                    Stop Priority
+                  </button>
+                ` : ""}
+                <button type="button" onclick="openInspectorModalById('${item.id}')"
+                  class="px-2.5 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-tertiary text-xs font-bold">
+                  Inspect / Edit
+                </button>
+                <button type="button" onclick="adminDeleteDesign('${item.id}')"
+                  class="px-2.5 py-1 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 text-xs font-bold">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
 
       // Pending Queue
       const pendingContainer = document.getElementById("adminPendingList");
@@ -3607,13 +2943,12 @@
     }
 
     function openInspectorModalById(designId) {
-  const item = allDesigns.find(d => String(d.id) === String(designId));
-  if (!item) return;
-  const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
-  showShowcaseView();
-  document.getElementById("siteFooter")?.classList.add("hidden");
-  openInspectorModal(item, creator, cardSlideIndexes[item.id] || 0);
-}
+      const item = allDesigns.find(d => String(d.id) === String(designId));
+      if (!item) return;
+      const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
+      showShowcaseView();
+      openInspectorModal(item, creator, cardSlideIndexes[item.id] || 0);
+    }
 
     async function adminApproveDesign(designId) {
       if (!isAdminUser()) return;
@@ -3723,27 +3058,36 @@
     }
 
     function renderModalGallery() {
-      const fullImgEl = document.getElementById("modalFullImage");
-      const prevBtn = document.getElementById("modalPrevSlideBtn");
-      const nextBtn = document.getElementById("modalNextSlideBtn");
-      const dotsEl = document.getElementById("modalGalleryDots");
-      const counterEl = document.getElementById("modalPhotoCounter");
+      const fullImgEl = elById("modalFullImage");
+      const prevBtn = elById("modalPrevSlideBtn");
+      const nextBtn = elById("modalNextSlideBtn");
+      const dotsEl = elById("modalGalleryDots");
+      const counterEl = elById("modalPhotoCounter");
 
-      if (!modalImages.length) return;
+      if (!modalImages.length) {
+        if (fullImgEl) fullImgEl.removeAttribute("src");
+        if (counterEl) counterEl.textContent = "0 / 0";
+        if (prevBtn) prevBtn.classList.add("hidden");
+        if (nextBtn) nextBtn.classList.add("hidden");
+        if (dotsEl) { dotsEl.classList.add("hidden"); dotsEl.classList.remove("flex"); dotsEl.innerHTML = ""; }
+        return;
+      }
+
       modalSlideIndex = Math.min(Math.max(modalSlideIndex, 0), modalImages.length - 1);
-      fullImgEl.src = modalImages[modalSlideIndex];
+      if (fullImgEl) fullImgEl.src = modalImages[modalSlideIndex];
 
       const hasMulti = modalImages.length > 1;
-      prevBtn.classList.toggle("hidden", !hasMulti);
-      nextBtn.classList.toggle("hidden", !hasMulti);
-      dotsEl.classList.toggle("hidden", !hasMulti);
-      dotsEl.classList.toggle("flex", hasMulti);
-      counterEl.textContent = `${modalSlideIndex + 1} / ${modalImages.length}`;
-
-      dotsEl.innerHTML = modalImages.map((_, idx) => `
-        <button type="button" onclick="selectModalSlide(${idx})"
-          class="w-2.5 h-2.5 rounded-full transition ${idx === modalSlideIndex ? "bg-secondary scale-110" : "bg-white/35 hover:bg-white/75"}"></button>
-      `).join("");
+      if (prevBtn) prevBtn.classList.toggle("hidden", !hasMulti);
+      if (nextBtn) nextBtn.classList.toggle("hidden", !hasMulti);
+      if (dotsEl) {
+        dotsEl.classList.toggle("hidden", !hasMulti);
+        dotsEl.classList.toggle("flex", hasMulti);
+        dotsEl.innerHTML = modalImages.map((_, idx) => `
+          <button type="button" onclick="selectModalSlide(${idx})"
+            class="w-2.5 h-2.5 rounded-full transition ${idx === modalSlideIndex ? "bg-secondary scale-110" : "bg-white/35 hover:bg-white/75"}"></button>
+        `).join("");
+      }
+      if (counterEl) counterEl.textContent = `${modalSlideIndex + 1} / ${modalImages.length}`;
     }
 
     function stepModalSlide(delta) {
@@ -3761,72 +3105,57 @@
     }
 
     function openInspectorModal(item, creator, startIndex = 0) {
+      if (!item) return;
+      creator = creator || profilesMap[item.user_id] || { display_name: "MNF Creator", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
+
       activeInspectedDesign = item;
       activeInspectedCreator = creator;
       modalImages = getDesignImages(item);
-      modalSlideIndex = Math.min(Math.max(startIndex, 0), Math.max(modalImages.length - 1, 0));
+      modalSlideIndex = Math.min(Math.max(startIndex || 0, 0), Math.max(modalImages.length - 1, 0));
 
       resetZoom();
       resetSubModes();
-
-      const noticeEl = document.getElementById("iWantItCopyNotice");
-      if (noticeEl) {
-        noticeEl.classList.add("hidden");
-        noticeEl.innerHTML = "";
-      }
 
       const badge = creator.badge || "None";
       const extras = getCreatorExtras(item.user_id);
       const isPriority = isDesignPriorityActive(item);
 
-      const fullImgEl = document.getElementById("modalFullImage");
-      fullImgEl.className = `max-w-full max-h-[58vh] object-contain rounded-lg transition-transform duration-200 select-none ${getImgBannerFrameClass(extras.banner)}`;
+      setClass("modalFullImage", `max-w-full max-h-[58vh] object-contain rounded-lg transition-transform duration-200 select-none ${getImgBannerFrameClass(extras.banner)}`);
       renderModalGallery();
 
-      document.getElementById("modalCategoryBadge").textContent = item.category;
-      const modalTitleEl = document.getElementById("modalDesignTitle");
-      modalTitleEl.textContent = toStylishDesignTitle(item.title);
-      modalTitleEl.className = `text-2xl font-bold tracking-wide ${getDesignTitleRankClass(badge, item.user_id)}`;
+      setText("modalCategoryBadge", item.category || "");
+      setText("modalDesignTitle", toStylishDesignTitle(item.title || ""));
+      setClass("modalDesignTitle", `text-2xl font-bold tracking-wide ${getDesignTitleRankClass(badge, item.user_id)}`);
 
       renderModalPriceBlock(item);
-      document.getElementById("modalDesignDesc").textContent = toSansBold(item.description);
+      setText("modalDesignDesc", toSansBold(item.description || ""));
       updateModalStarUI(item);
 
-      document.getElementById("modalPendingBadge").classList.toggle("hidden", item.status !== "pending");
-      document.getElementById("modalFeaturedBadge").classList.toggle("hidden", !isPriority);
+      showEl("modalPendingBadge", item.status === "pending");
+      showEl("modalFeaturedBadge", isPriority);
 
-      const creatorBox = document.getElementById("modalCreatorCardBox");
-      if (creatorBox) {
-        creatorBox.className = `${getCreatorCardGlowClass(badge, item.user_id)} rounded-xl p-4 space-y-2.5`;
-      }
-
-      const nameEl = document.getElementById("modalDesignerName");
-      nameEl.textContent = creator.display_name || "MNF Creator";
-      nameEl.className = `font-bold text-sm ${getEffectiveNeonClass(badge, item.user_id)} truncate`;
-
-      document.getElementById("modalDesignerBadgeText").innerHTML = renderTitleGlowText(badge);
-      document.getElementById("modalDesignerDiscord").textContent = creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed";
-      document.getElementById("modalDesignerAvatar").src = creator.avatar_url || "logo.jpg";
+      setClass("modalCreatorCardBox", `${getCreatorCardGlowClass(badge, item.user_id)} rounded-xl p-4 space-y-2.5`);
+      setText("modalDesignerName", creator.display_name || "MNF Creator");
+      setClass("modalDesignerName", `font-bold text-sm ${getEffectiveNeonClass(badge, item.user_id)} truncate`);
+      setHtml("modalDesignerBadgeText", renderTitleGlowText(badge));
+      setText("modalDesignerDiscord", creator.contact ? `Discord: ${creator.contact}` : "Discord: Not Listed");
+      setSrc("modalDesignerAvatar", creator.avatar_url || "logo.jpg");
 
       updateOwnerActionsVisibility();
 
-      const dlBtn = document.getElementById("modalDownloadBtn");
-      if (dlBtn) {
-        dlBtn.classList.toggle("hidden", getDesignDownloadUrls(item).length === 0);
-        dlBtn.disabled = false;
-      }
-
-      const modal = document.getElementById("inspectorModal");
+      const modal = elById("inspectorModal");
+      if (!modal) return;
       modal.classList.remove("hidden");
       modal.classList.add("flex");
+      setSiteFooterVisible(false);
     }
 
     function resetSubModes() {
-      document.getElementById("modalEditForm").classList.add("hidden");
-      document.getElementById("modalDeleteConfirm").classList.add("hidden");
-      document.getElementById("modalViewMode").classList.remove("hidden");
-      document.getElementById("editStatusMsg").textContent = "";
-      document.getElementById("deleteStatusMsg").textContent = "";
+      showEl("modalEditForm", false);
+      showEl("modalDeleteConfirm", false);
+      showEl("modalViewMode", true);
+      setText("editStatusMsg", "");
+      setText("deleteStatusMsg", "");
     }
 
     function openEditDesignMode() {
@@ -3953,22 +3282,27 @@
         activeInspectedDesign = null;
         modalImages = [];
         modalSlideIndex = 0;
-        const modal = document.getElementById("inspectorModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
+        const modal = elById("inspectorModal");
+        if (modal) {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+        }
+        setSiteFooterVisible(true);
       }
     }
 
     function changeZoom(delta) {
       zoomLevel = Math.min(2.5, Math.max(0.75, +(zoomLevel + delta).toFixed(2)));
-      document.getElementById("modalFullImage").style.transform = `scale(${zoomLevel})`;
-      document.getElementById("zoomLevelDisplay").textContent = `${Math.round(zoomLevel * 100)}%`;
+      const img = elById("modalFullImage");
+      if (img) img.style.transform = `scale(${zoomLevel})`;
+      setText("zoomLevelDisplay", `${Math.round(zoomLevel * 100)}%`);
     }
 
     function resetZoom() {
       zoomLevel = 1;
-      document.getElementById("modalFullImage").style.transform = "scale(1)";
-      document.getElementById("zoomLevelDisplay").textContent = "100%";
+      const img = elById("modalFullImage");
+      if (img) img.style.transform = "scale(1)";
+      setText("zoomLevelDisplay", "100%");
     }
 
     init();
