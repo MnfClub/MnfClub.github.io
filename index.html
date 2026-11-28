@@ -2190,13 +2190,13 @@
     function renderTitleGlowText(badge) {
       if (!badge || badge === "None") return "";
       if (badge === "Founder") {
-        return `<span class="text-xs title-text-founder">👑Founder</span>`;
+        return `<span class="text-xs title-text-founder">Founder</span>`;
       }
       if (badge === "Trusted") {
-        return `<span class="text-xs title-text-trusted">✔Trusted</span>`;
+        return `<span class="text-xs title-text-trusted">Trusted</span>`;
       }
       if (badge === "Designer") {
-        return `<span class="text-xs title-text-designer">✦Designer</span>`;
+        return `<span class="text-xs title-text-designer">Designer</span>`;
       }
       return "";
     }
@@ -2916,11 +2916,7 @@
            </div>`
         : "";
 
-      const expiryTagHtml = (showExpiryBadge && expiresAt > 0)
-        ? `<div class="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-sky-400/15 border border-sky-400/35 text-sky-300 font-mono text-[10px] font-bold">
-             ⏳ ${formatRemainingTime(expiresAt)}
-           </div>`
-        : "";
+      const expiryTagHtml = "";
 
       const galleryControlsHtml = imgs.length > 1
         ? `
