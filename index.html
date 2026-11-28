@@ -2916,8 +2916,9 @@
            </div>`
         : "";
 
-      const expiryTagHtml = "";
-
+      const expiryTagHtml = (showExpiryBadge && expiresAt > 0)
+  ? `<div class="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-sky-400/15 border border-sky-400/35 text-sky-300 font-mono text-[10px] font-bold">⏳ ${formatRemainingTime(expiresAt)}</div>`
+  : "";
       const galleryControlsHtml = imgs.length > 1
         ? `
           <button type="button" onclick="flipCardPhoto(event, '${item.id}', -1)" title="Previous photo"
