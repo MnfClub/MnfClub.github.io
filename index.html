@@ -3527,56 +3527,53 @@
 
         return `
           <div class="bg-surface-container-low border ${isFeat ? "border-amber-400/70" : "border-white/10"} rounded-xl p-4 flex flex-col justify-between gap-3">
-            <div class="space-y-2">
-              <div class="relative rounded-lg overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
-                <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-32 object-cover bg-black/40" />
-                ${renderLuxuryBannerTag(extras.banner)}
-              </div>
-              <div class="flex items-center justify-between gap-2">
-                <span class="font-bold text-sm text-on-surface truncate">${item.title}</span>
-                <span class="font-mono text-xs text-yellow-300 font-bold shrink-0">★ ${stars}</span>
-              </div>
-              <div class="text-xs font-mono text-secondary">${Number(item.price).toLocaleString()} cash mnfclub • ${item.category}</div>
-              <div class="text-[11px] font-mono text-on-surface-variant truncate">${creator.display_name} (${creator.email || "N/A"})</div>
-              ${isFeat ? `<div class="text-[11px] font-mono text-amber-300">Promoted Active${priorityUntil !== Infinity ? ` (${formatRemainingTime(priorityUntil)})` : " (Permanent)"}</div>` : ""}
-              ${expiresAt > 0 ? `<div class="text-[11px] font-mono text-sky-300">⏳ Listing: ${formatRemainingTime(expiresAt)}</div>` : ""}
-            </div>
+  <div class="space-y-2">
+    <div class="relative rounded-lg overflow-hidden ${getImgBannerFrameClass(extras.banner)}">
+      <img src="${item.thumb_url}" alt="${item.title}" class="w-full h-32 object-cover bg-black/40" />
+      ${renderLuxuryBannerTag(extras.banner)}
+    </div>
+    <div class="flex items-center justify-between gap-2">
+      <span class="font-bold text-sm text-on-surface truncate">${item.title}</span>
+      <span class="font-mono text-xs text-yellow-300 font-bold shrink-0">★ ${stars}</span>
+    </div>
+    <div class="text-xs font-mono text-secondary">${Number(item.price).toLocaleString()} cash mnfclub • ${item.category}</div>
+    <div class="text-[11px] font-mono text-on-surface-variant truncate">${creator.display_name} (${creator.email || "N/A"})</div>
+    ${isFeat ? `<div class="text-[11px] font-mono text-amber-300">Promoted Active${priorityUntil !== Infinity ? ` (${formatRemainingTime(priorityUntil)})` : " (Permanent)"}</div>` : ""}
+  </div>
 
-            <div class="space-y-2 pt-2 border-t border-white/5">
-              <div class="flex items-center gap-1.5">
-                <input id="prioVal_${item.id}" type="number" min="1" max="365" value="24"
-                  class="w-16 rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-amber-400 focus:ring-0 outline-none" />
-                <select id="prioUnit_${item.id}"
-                  class="rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-amber-400 focus:ring-0 outline-none">
-                  <option value="hours">Hours</option>
-                  <option value="days" selected>Days</option>
-                </select>
-                <button type="button" onclick="adminGrantPrioritySubscription('${item.id}')"
-                  class="flex-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-300 to-amber-500 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition">
-                  Promoted
-                </button>
-              </div>
+  <div class="space-y-2 pt-2 border-t border-white/5">
+    <div class="flex items-center gap-1.5">
+      <input id="prioVal_${item.id}" type="number" min="1" max="365" value="24"
+        class="w-16 rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-amber-400 focus:ring-0 outline-none" />
+      <select id="prioUnit_${item.id}"
+        class="rounded-lg bg-surface-container border border-white/15 px-2 py-1 text-xs font-mono text-on-surface focus:border-amber-400 focus:ring-0 outline-none">
+        <option value="hours">Hours</option>
+        <option value="days" selected>Days</option>
+      </select>
+      <button type="button" onclick="adminGrantPrioritySubscription('${item.id}')"
+        class="flex-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-300 to-amber-500 text-slate-950 font-mono text-xs font-black hover:brightness-110 transition">
+        Promoted
+      </button>
+    </div>
 
-              <div class="flex items-center gap-1.5 flex-wrap">
-                ${isFeat ? `
-                  <button type="button" onclick="adminClearPriority('${item.id}')"
-                    class="px-2.5 py-1 rounded-lg bg-surface-container-high border border-amber-400/35 text-amber-300 font-mono text-xs font-bold">
-                    Stop Promoted
-                  </button>
-                ` : ""}
-                <button type="button" onclick="openInspectorModalById('${item.id}')"
-                  class="px-2.5 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-tertiary text-xs font-bold">
-                  Inspect / Edit
-                </button>
-                <button type="button" onclick="adminDeleteDesign('${item.id}')"
-                  class="px-2.5 py-1 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 text-xs font-bold">
-                  Remove
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join("");
+    <div class="flex items-center gap-1.5 flex-wrap">
+      ${isFeat ? `
+        <button type="button" onclick="adminClearPriority('${item.id}')"
+          class="px-2.5 py-1 rounded-lg bg-surface-container-high border border-amber-400/35 text-amber-300 font-mono text-xs font-bold">
+          Stop Promoted
+        </button>
+      ` : ""}
+      <button type="button" onclick="openInspectorModalById('${item.id}')"
+        class="px-2.5 py-1 rounded-lg bg-tertiary/20 border border-tertiary/40 text-tertiary text-xs font-bold">
+        Inspect / Edit
+      </button>
+      <button type="button" onclick="adminDeleteDesign('${item.id}')"
+        class="px-2.5 py-1 rounded-lg bg-red-950/60 border border-red-500/40 text-red-300 text-xs font-bold">
+        Remove
+      </button>
+    </div>
+  </div>
+</div>
 
       // Pending Queue
       const pendingContainer = document.getElementById("adminPendingList");
@@ -3610,12 +3607,13 @@
     }
 
     function openInspectorModalById(designId) {
-      const item = allDesigns.find(d => String(d.id) === String(designId));
-      if (!item) return;
-      const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
-      showShowcaseView();
-      openInspectorModal(item, creator, cardSlideIndexes[item.id] || 0);
-    }
+  const item = allDesigns.find(d => String(d.id) === String(designId));
+  if (!item) return;
+  const creator = profilesMap[item.user_id] || { display_name: "MNF Designer", contact: "N/A", avatar_url: "logo.jpg", badge: "None" };
+  showShowcaseView();
+  document.getElementById("siteFooter")?.classList.add("hidden");
+  openInspectorModal(item, creator, cardSlideIndexes[item.id] || 0);
+}
 
     async function adminApproveDesign(designId) {
       if (!isAdminUser()) return;
